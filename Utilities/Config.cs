@@ -25,8 +25,7 @@ public static class Config
 	{
 		PlayerPrefs.SetInt("bgn++_FPE", ShowInFirstPerson ? 1 : 0);
 		PlayerPrefs.SetInt("bgn++_TPE", ShowInThirdPerson ? 1 : 0);
-		
-		PlayerPrefs.SetInt("bgn++_Nametags", ShowingNametags ? 1 : 0);
+
 		PlayerPrefs.SetInt("bgn++_NameEnabled", ShowingName ? 1 : 0);
 		PlayerPrefs.SetInt("bgn++_PlatformEnabled", ShowingPlatform ? 1 : 0);
 		
@@ -38,8 +37,7 @@ public static class Config
 	{
 		ShowInFirstPerson = PlayerPrefs.GetInt("bgn++_FPE", 1) == 1;
 		ShowInThirdPerson = PlayerPrefs.GetInt("bgn++_TPE", 1) == 1;
-		
-		ShowingNametags = PlayerPrefs.GetInt("bgn++_Nametags", 1) == 1;
+
 		ShowingName = PlayerPrefs.GetInt("bgn++_NameEnabled", 1) == 1;
 		ShowingPlatform = PlayerPrefs.GetInt("bgn++_PlatformEnabled", 1) == 1;
 		
@@ -52,6 +50,5 @@ public static class Config
 		
 		if (!fontFile.IsNullOrWhiteSpace())
 			CustomFont = TMP_FontAsset.CreateFontAsset(new Font(fontFile));
-		
 	}
 }
