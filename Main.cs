@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using BepInEx;
@@ -83,5 +84,17 @@ public class Main : BaseUnityPlugin
 			return "oculus";
 
 		return "meta";
+	}
+	
+	public static string AssemblyDirectory
+	{
+		get
+		{
+			var codeBase = Assembly.GetExecutingAssembly().CodeBase;
+			var uri = new UriBuilder(codeBase);
+			var path = Uri.UnescapeDataString(uri.Path);
+            
+			return Path.GetDirectoryName(path);
+		}
 	}
 }

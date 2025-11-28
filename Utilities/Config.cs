@@ -1,3 +1,6 @@
+using System.IO;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace BingusNametagsPlusPlus.Utilities;
@@ -11,6 +14,8 @@ public static class Config
 
 	public static bool ShowInFirstPerson = true;
 	public static bool ShowInThirdPerson = true;
+
+	public static TMP_FontAsset? CustomFont;
 
 	public static float NametagScale = 5f;
 
@@ -40,5 +45,13 @@ public static class Config
 		
 		NametagScale = PlayerPrefs.GetFloat("bgn++_NametagScale", NametagScale);
 		NametagYOffset = PlayerPrefs.GetFloat("bgn++_NametagY", NametagYOffset);
+		
+		var fontFile = 
+			Directory.EnumerateFiles(Main.AssemblyDirectory, "*.ttf", SearchOption.TopDirectoryOnly).FirstOrDefault() 
+		?? Directory.EnumerateFiles(Main.AssemblyDirectory, "*.otf", SearchOption.TopDirectoryOnly).FirstOrDefault();
+		
+		if (!fontFile.IsNullOrWhiteSpace())
+			CustomFont = TMP_FontAsset.CreateFontAsset(new Font(fontFile));
+		
 	}
 }

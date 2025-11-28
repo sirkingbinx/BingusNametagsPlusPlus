@@ -1,4 +1,5 @@
 using BingusNametagsPlusPlus.Components;
+using GorillaExtensions;
 using TMPro;
 using UnityEngine;
 
@@ -48,6 +49,9 @@ public static class Nametags
 		
 		var tmPro = tagObject.GetComponent<TextMeshPro>();
 		tmPro.text = $"<sprite name=\"{platformSpriteName}\">{name}";
+		
+		if (!Config.CustomFont.IsNull())
+			tmPro.font = Config.CustomFont;
 		
 		// Fixed shaders because URP is love URP is life
 		tmPro.fontMaterial.shader = Shader.Find("TextMeshPro/Mobile/Distance Field");
