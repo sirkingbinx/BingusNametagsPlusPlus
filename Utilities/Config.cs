@@ -15,6 +15,8 @@ public static class Config
 	public static bool ShowInFirstPerson = true;
 	public static bool ShowInThirdPerson = true;
 
+	public static bool UserCustomIcons = true;
+
 	public static TMP_FontAsset? CustomFont;
 
 	public static float NametagScale = 5f;
@@ -29,6 +31,8 @@ public static class Config
 		PlayerPrefs.SetInt("bgn++_NameEnabled", ShowingName ? 1 : 0);
 		PlayerPrefs.SetInt("bgn++_PlatformEnabled", ShowingPlatform ? 1 : 0);
 		
+		PlayerPrefs.SetInt("bgn++_ShowPlayerIcons", UserCustomIcons ? 1 : 0);
+		
 		PlayerPrefs.SetFloat("bgn++_NametagScale", NametagScale);
 		PlayerPrefs.SetFloat("bgn++_NametagY", NametagYOffset);
 	}
@@ -40,6 +44,8 @@ public static class Config
 
 		ShowingName = PlayerPrefs.GetInt("bgn++_NameEnabled", 1) == 1;
 		ShowingPlatform = PlayerPrefs.GetInt("bgn++_PlatformEnabled", 1) == 1;
+		
+		UserCustomIcons = PlayerPrefs.GetInt("bgn++_ShowPlayerIcons", 1) == 1;
 		
 		NametagScale = PlayerPrefs.GetFloat("bgn++_NametagScale", NametagScale);
 		NametagYOffset = PlayerPrefs.GetFloat("bgn++_NametagY", NametagYOffset);

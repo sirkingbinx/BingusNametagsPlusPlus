@@ -6,14 +6,14 @@ using System.Reflection;
 using BepInEx;
 using BingusNametagsPlusPlus.Components;
 using BingusNametagsPlusPlus.Utilities;
-using GorillaExtensions;
 using UnityEngine;
+
 using NConfig = BingusNametagsPlusPlus.Utilities.Config;
 using Object = UnityEngine.Object;
 
 namespace BingusNametagsPlusPlus;
 
-[BepInPlugin("bingus.nametagspp", "BingusNametags++", "1.0.0")]
+[BepInPlugin("bingus.nametagspp", "BingusNametags++", "1.1.0")]
 public class Main : BaseUnityPlugin
 {
 	public static Main Instance;
@@ -53,25 +53,23 @@ public class Main : BaseUnityPlugin
 			if (!Nametags.ContainsKey(rig))
 				Nametags.Add(rig, Utilities.Nametags.CreateNametagIR(rig));
 
+			var prefix = "";
+			
+			if (NConfig.UserCustomIcons)
+			{
+				if (rig.OwningNetPlayer.UserId == "DEFC9810769F1F55")
+					prefix += "<sprite name=\"admin\"> ";
+			}
+
+			if (NConfig.ShowingPlatform)
+				prefix += $"<sprite name=\"{GetPlatformString(rig)}\">";
+
 			var ir = Nametags[rig];
-			ir.SetText($"{(NConfig.ShowingPlatform ? $"<sprite name=\"{GetPlatformString(rig)}\">" : "")}{(NConfig.ShowingName ? rig.OwningNetPlayer.NickName : "")}");
+			ir.SetText($"{prefix}{(NConfig.ShowingName ? rig.OwningNetPlayer.NickName : "")}");
 		}
 	}
 
 	private void OnGUI() => UIManager.OnGUI();
-
-	private static T Load<T>(string path, string name) where T : Object
-	{
-		var ab = AssetBundle.LoadFromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream(path));
-		T? obj = ab.LoadAsset<T>(name);
-		
-		if (obj.IsNull())
-			Debug.LogError($"Cannot load assetbundle \"{path}\" object \"{name}\" to type \"{typeof(T).FullName}.\nValid streams: \n\t{Assembly.GetExecutingAssembly().GetManifestResourceNames().Join("\n\t")}");
-			
-		ab.Unload(false);
-
-		return obj;
-	}
 
 	private static string GetPlatformString(VRRig player)
 	{
@@ -84,6 +82,19 @@ public class Main : BaseUnityPlugin
 			return "oculus";
 
 		return "meta";
+	}
+	
+	public static T Load<T>(string path, string name) where T : Object
+	{
+		var ab = AssetBundle.LoadFromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream(path));
+		var obj = ab.LoadAsset<T>(name);
+		
+		if (obj.Uninitialized())
+			Debug.LogError($"Cannot load assetbundle \"{path}\" object \"{name}\" to type \"{typeof(T).FullName}.\nValid streams: \n\t{Assembly.GetExecutingAssembly().GetManifestResourceNames().Join("\n\t")}");
+			
+		ab.Unload(false);
+
+		return obj;
 	}
 	
 	public static string AssemblyDirectory

@@ -64,9 +64,7 @@ public static class Nametags
 		return tagObject;
 	}
 
-	public static NametagIR CreateNametagIR(VRRig owner) =>
-		new NametagIR(
+	public static NametagIR CreateNametagIR(VRRig owner) => new(
 			CreateNametag(owner, "Loading", "FirstPersonOnly", "meta"),
-			CreateNametag(owner, "Loading", "MirrorOnly", "meta")
-		);
+			CreateNametag(owner, "Loading", "MirrorOnly", "meta"));
 }
