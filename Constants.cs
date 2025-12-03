@@ -1,0 +1,34 @@
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+
+namespace BingusNametagsPlusPlus;
+
+public static class Constants
+{
+	public const string Name = "BingusNametags++";
+	public const string Guid = "bingus.nametagsplusplus";
+	public const string Version = "1.1.0";
+
+	public const ReleaseChannel Channel = ReleaseChannel.Beta;
+
+	public static readonly Dictionary<string, string> SpecialBadgeIds = new()
+	{
+		["defc9810769f1f55"] = "dev,beta1,beta2",
+		["846e7dd5aceac0d4"] = "beta1",
+		["68ccddc115fdc9fb"] = "med,beta1",
+		["706572060708c655"] = "golden,beta2",
+		["7adb8b7e8f60e767"] = "beta2",
+		["21f6d8f675c9234"] = "beta2"
+	};
+
+	public static string AssemblyDirectory =>
+		Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? @"C:\Users\Public";
+}
+
+public enum ReleaseChannel
+{
+	Stable = 0,
+	Beta = 1,
+	Development = 2
+}

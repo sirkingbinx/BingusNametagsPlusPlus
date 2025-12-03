@@ -7,9 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Remove="Resources\meta.png" />
-      <None Remove="Resources\oculus.png" />
-      <None Remove="Resources\steam.png" />
+        <None Remove="Resources\meta.png"/>
+        <None Remove="Resources\oculus.png"/>
+        <None Remove="Resources\steam.png"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -17,6 +17,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Octokit" Version="14.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -320,9 +321,6 @@
         <Reference Include="Unity.XR.Management">
             <HintPath>$(GameAssemblyPath)\Unity.XR.Management.dll</HintPath>
         </Reference>
-        <Reference Include="Unity.XR.OpenVR">
-            <HintPath>$(GameAssemblyPath)\Unity.XR.OpenVR.dll</HintPath>
-        </Reference>
         <Reference Include="UnityEngine">
             <HintPath>$(GameAssemblyPath)\UnityEngine.dll</HintPath>
         </Reference>
@@ -554,23 +552,23 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Resources\bgnametags++" />
+        <None Remove="Resources\bgnametags++"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Resources\nametag.assetbundle" />
+        <None Remove="Resources\nametag.assetbundle"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Resources\nametags.bundle" />
+        <None Remove="Resources\nametags.bundle"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Resources\nametags" />
+        <None Remove="Resources\nametags"/>
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="Resources\nametags" />
+        <EmbeddedResource Include="Resources\nametags"/>
     </ItemGroup>
 
 </Project>
