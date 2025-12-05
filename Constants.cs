@@ -10,7 +10,7 @@ public static class Constants
 	public const string Guid = "bingus.nametagsplusplus";
 	public const string Version = "1.1.0";
 
-	public const ReleaseChannel Channel = ReleaseChannel.Beta;
+	public const ReleaseChannel Channel = ReleaseChannel.Stable;
 
 	public static readonly Dictionary<string, string> SpecialBadgeIds = new()
 	{
