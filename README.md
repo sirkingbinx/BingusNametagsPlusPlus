@@ -7,7 +7,7 @@ BingusNametags++ is a simple, clean, but customizable nametag mod for Gorilla Ta
 - change offset, scale, and visibility of nametags
 - change where the nametag is visible (for example, show in VR but not on the PC monitor)
 
-It's also open-source, free, and not intrusive on your game. [Crazy?](https://raw.githubusercontent.com/aquabytz/aquabytz/refs/heads/master/hell/crazy%3F.txt)
+It's also open-source, free, and doesn't take up half of your screen.
 
 ## Installation
 [Download the latest release (`BingusNametags++.dll`) here](https://github.com/sirkingbinx/BingusNametagsPlusPlus/releases/latest) and copy it into `(Your Gorilla Tag Install Directory)\BepInEx\plugins`.
@@ -19,7 +19,4 @@ Press the `Right Shift` key to open the GUI. You can change every setting from t
 - **Text**: Text display settings
 - **Icons**: Change how icons behave
 - **Network**: Change how your nametag looks to other people
-- **About**: Mod version information, you'll probably never have to touch this tab.
-
-## Why'd this repo move for a bit?
-Had problems signing into GitHub so moved the repository to my alt account until I got back in. I'm signed back in so it'll stay here from now on.
+- **About**: Mod version information, you'll probably never have to touch this t
