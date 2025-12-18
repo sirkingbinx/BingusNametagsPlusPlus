@@ -80,10 +80,10 @@ public class Main : BaseUnityPlugin
 
 	private static string GetPlatformString(VRRig player)
 	{
-		var cosmetics = player.concatStringOfCosmeticsAllowed;
+		var cosmetics = player.concatStringOfCosmeticsAllowed.ToLower();
 		var properties = player.OwningNetPlayer.GetPlayerRef().CustomProperties.Count;
 
-		return cosmetics.Contains("S. FIRST LOGIN") ? "steam" : (cosmetics.Contains("FIRST LOGIN") || properties > 1) ? "oculus" : "meta";
+		return cosmetics.Contains("s. first login") ? "steam" : (cosmetics.Contains("first login") || cosmetics.Contains("game-purchase") || properties > 1) ? "oculus" : "meta";
 	}
 
 	private static T Load<T>(string path, string name) where T : Object
