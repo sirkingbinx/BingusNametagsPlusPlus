@@ -61,7 +61,7 @@ public static class UIManager
 		GUI.Box(new Rect(WindowX, WindowY, WindowSizeX, WindowSizeY), "");
 		GUI.Label(
 			new Rect(WindowX + 125, WindowY + 5, 120, 20),
-			"BingusNametagsPlusPlus"
+			"BingusNametags++"
 		);
 
 		_pageSelected = GUI.Toolbar(new Rect(WindowX + 5, WindowY + 30, WindowSizeX - WindowPadding, 20), _pageSelected,
@@ -97,7 +97,7 @@ public static class UIManager
 
                     Config.ShowPersonalTag = GUI.Toggle(
                         new Rect(WindowStartX, WindowStartY + 50, 150, 20),
-                        Config.ShowInThirdPerson,
+                        Config.ShowPersonalTag,
                         new GUIContent("Show Personal Nametag", "Display your own nametag")
                     );
                 }
