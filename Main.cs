@@ -38,7 +38,7 @@ public class Main : BaseUnityPlugin
 			Nametags.Remove(pair.Key);
 		}
 
-		foreach (var rig in GorillaParent.instance.vrrigs.Where(rig => rig != GorillaTagger.Instance.offlineVRRig))
+		foreach (var rig in GorillaParent.instance.vrrigs.Where(rig => !NConfig.ShowPersonalTag || rig != GorillaTagger.Instance.offlineVRRig))
 		{
 			if (!Nametags.ContainsKey(rig))
 				Nametags.Add(rig, Utilities.Nametags.CreateNametagObject(rig));

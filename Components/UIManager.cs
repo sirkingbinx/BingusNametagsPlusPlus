@@ -81,18 +81,26 @@ public static class UIManager
 					Config.ShowInFirstPerson = GUI.Toggle(
 						new Rect(WindowStartX + 70, WindowStartY + 25, 100, 20),
 						Config.ShowInFirstPerson,
-						new GUIContent("First Person", "Display the nametag in VR (first person)"));
+						new GUIContent("First Person", "Display the nametag in VR (first person)")
+                     );
 
-					Config.ShowInThirdPerson = GUI.Toggle(
-						new Rect(WindowStartX + 175, WindowStartY + 25, 100, 20),
-						Config.ShowInThirdPerson,
-						new GUIContent("Third Person", "Display the nametag on your PC (third person)"));
+                    Config.ShowInThirdPerson = GUI.Toggle(
+                        new Rect(WindowStartX + 175, WindowStartY + 25, 100, 20),
+                        Config.ShowInThirdPerson,
+                        new GUIContent("Third Person", "Display the nametag on your PC (third person)")
+                    );
 
 					GUI.Label(
 						new Rect(WindowStartX, WindowStartY + 25, 70, 20),
 						new GUIContent("Display", "Change how nametags are displayed")
 					);
-				}
+
+                    Config.ShowPersonalTag = GUI.Toggle(
+                        new Rect(WindowStartX, WindowStartY + 50, 150, 20),
+                        Config.ShowInThirdPerson,
+                        new GUIContent("Show Personal Nametag", "Display your own nametag")
+                    );
+                }
 
 				break;
 			case 1:

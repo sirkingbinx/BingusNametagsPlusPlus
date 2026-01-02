@@ -6,11 +6,11 @@ namespace BingusNametagsPlusPlus;
 
 public static class Constants
 {
-	public const string Name = "BingusNametagsPlusPlus";
+	public const string Name = "BingusNametags++";
 	public const string Guid = "bingus.nametagsplusplus";
-	public const string Version = "1.2.1";
+	public const string Version = "1.2.2";
 
-	public const ReleaseChannel Channel = ReleaseChannel.Stable;
+	public const ReleaseChannel Channel = ReleaseChannel.Development;
 
 	public static readonly Dictionary<string, string> SpecialBadgeIds = new()
 	{
