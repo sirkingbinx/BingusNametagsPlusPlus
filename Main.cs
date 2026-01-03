@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BepInEx;
+using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Components;
+using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
 using UnityEngine;
 using NConfig = BingusNametagsPlusPlus.Utilities.Config;
@@ -14,77 +17,57 @@ namespace BingusNametagsPlusPlus;
 public class Main : BaseUnityPlugin
 {
 	public static Main? Instance;
-	private static readonly Dictionary<VRRig, NametagObject> Nametags = new();
 
 	internal static GameObject? NametagDefault;
+    internal static Action UpdateNametags = delegate { };
+
+    internal static List<IBaseNametag> Plugins = new();
+    internal static Dictionary<IBaseNametag, Dictionary<VRRig, PlayerNametag>> Nametags = new();
 
 	private void Start()
 	{
 		NametagDefault = Load<GameObject>(@"BingusNametagsPlusPlus.Resources.nametags", "Nametag");
 		Instance = this;
 		NConfig.LoadPrefs();
-	}
+
+		Debug.Log("Loading nametags...");
+
+        var nametagTypes = AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(assembly => assembly.GetTypes())
+            .Where(type => typeof(IBaseNametag).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract);
+
+        foreach (var nametagType in nametagTypes)
+        {
+            if (Activator.CreateInstance(nametagType) is not IBaseNametag nametag)
+                return;
+
+			Debug.Log($"Loaded nametag {nametag.Name}");
+
+			Plugins.Add(nametag);
+
+            UpdateNametags += () =>
+            {
+                Nametags.TryAdd(nametag, new Dictionary<VRRig, PlayerNametag>());
+				nametag.Update(Nametags[nametag], nametag.Offset);
+            };
+        }
+    }
 
 	private void Update()
 	{
 		UIManager.Update();
-
-		if (!GorillaParent.hasInstance || !NConfig.ShowingNametags)
-			return;
-
-		foreach (var pair in Nametags.Where(p => !GorillaParent.instance.vrrigs.Contains(p.Key)))
-		{
-			pair.Value.Destroy();
-			Nametags.Remove(pair.Key);
-		}
-
-		foreach (var rig in GorillaParent.instance.vrrigs.Where(rig => rig != GorillaTagger.Instance.offlineVRRig))
-		{
-			if (!Nametags.ContainsKey(rig))
-				Nametags.Add(rig, Utilities.Nametags.CreateNametagObject(rig));
-
-			var prefix = "";
-
-			if (NConfig.GlobalIconsEnabled)
-			{
-				if (NConfig.UserCustomIcons &&
-				    Constants.SpecialBadgeIds.TryGetValue(rig.OwningNetPlayer.UserId.ToLower(), out var n))
-				{
-					var adding = "";
-					n.Split(",").ForEach(sprite => adding += $"<sprite name=\"{sprite}\"> ");
-					prefix += adding;
-				}
-
-				if (NConfig.ShowingPlatform)
-					prefix += $"<sprite name=\"{GetPlatformString(rig)}\">";
-			}
-
-			var ir = Nametags[rig];
-			ir.SetText($"{prefix}{(NConfig.ShowingName ? rig.OwningNetPlayer.NickName : "")}");
-		}
-	}
+        UpdateNametags();
+    }
 
 	public void OnDisable()
-	{
-		NConfig.ShowingNametags = false;
-
-		Nametags.ForEach(pair => pair.Value.Destroy());
-		Nametags.Clear();
-
+    {
+        NConfig.ShowingNametags = false;
 		NConfig.SavePrefs();
 	}
 
 	private void OnGUI() => UIManager.OnGUI();
 	private void LateUpdate() => Networking.SetNetworkedProperties();
 	public void OnEnable() => NConfig.ShowingNametags = true;
-
-	private static string GetPlatformString(VRRig player)
-	{
-		var cosmetics = player.concatStringOfCosmeticsAllowed.ToLower();
-		var properties = player.OwningNetPlayer.GetPlayerRef().CustomProperties.Count;
-
-		return cosmetics.Contains("s. first login") ? "steam" : (cosmetics.Contains("first login") || cosmetics.Contains("game-purchase") || properties > 1) ? "oculus" : "meta";
-	}
 
 	private static T Load<T>(string path, string name) where T : Object
 	{

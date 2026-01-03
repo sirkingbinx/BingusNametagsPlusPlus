@@ -8,9 +8,9 @@ public static class Constants
 {
 	public const string Name = "BingusNametags++";
 	public const string Guid = "bingus.nametagsplusplus";
-	public const string Version = "1.2.2";
+	public const string Version = "1.3.0";
 
-	public const ReleaseChannel Channel = ReleaseChannel.Development;
+	public const ReleaseChannel Channel = ReleaseChannel.Beta;
 
 	public static readonly Dictionary<string, string> SpecialBadgeIds = new()
 	{
@@ -20,7 +20,7 @@ public static class Constants
 		["68ccddc115fdc9fb"] = "med,beta1",
 		["706572060708c655"] = "golden,beta2",
 		["7adb8b7e8f60e767"] = "beta2",
-		["21f6d8f675c9234"] = "beta2"
+		["21f6d8f675c9234"]  = "beta2"
 	};
 
 	public static string AssemblyDirectory =>

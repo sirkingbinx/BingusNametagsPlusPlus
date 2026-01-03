@@ -1,4 +1,5 @@
 using System;
+using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,7 +11,7 @@ public static class UIManager
 	private const int WindowX = 10;
 	private const int WindowY = 10;
 
-	private const int WindowSizeX = 350;
+	private const int WindowSizeX = 420;
 	private const int WindowSizeY = 400;
 
 	private const int WindowPadding = 10;
@@ -35,7 +36,8 @@ public static class UIManager
 		new("Text", "Text display settings"),
 		new("Icons", "Change how icons behave"),
 		new("Network", "Change how your nametag looks to other people"),
-		new("About", "About BingusNametags++")
+        new("Plugins", "Enable/disable all nametags"),
+        new("About", "About BingusNametags++")
 	];
 
 	private static int _pageSelected;
@@ -60,7 +62,7 @@ public static class UIManager
 		// Window
 		GUI.Box(new Rect(WindowX, WindowY, WindowSizeX, WindowSizeY), "");
 		GUI.Label(
-			new Rect(WindowX + 125, WindowY + 5, 120, 20),
+			new Rect(WindowX + ((WindowSizeX / 2 - (WindowSizeX % 2)) - 60), WindowY + 5, 120, 20),
 			"BingusNametags++"
 		);
 
@@ -187,6 +189,21 @@ public static class UIManager
 
                 break;
 			case 4:
+                var startingIndex = WindowStartY;
+
+                foreach (var plugin in Main.Plugins)
+                {
+                    plugin.Enabled = GUI.Toggle(
+                        new Rect(WindowStartX, startingIndex, 175, 20),
+						plugin.Enabled,
+                        new GUIContent(plugin.Name, plugin.Description)
+                    );
+
+                    startingIndex += 25;
+                }
+
+                break;
+			case 5:
 				GUI.Label(new Rect(WindowStartX, WindowStartY, WindowSizeX - WindowPadding * 2, 20),
 					$"BingusNametags++ v{Constants.Version}-{Constants.Channel.AsString()}");
 				GUI.Label(new Rect(WindowStartX, WindowStartY + 20, WindowSizeX - WindowPadding * 2, 20),

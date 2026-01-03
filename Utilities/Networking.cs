@@ -28,7 +28,7 @@ public static class Networking
 					}
 				}
 			});
-        } else if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("BingusNametags++"))
+        } else
 		{
 			PhotonNetwork.LocalPlayer.CustomProperties.Remove("BingusNametags++");
 		}
