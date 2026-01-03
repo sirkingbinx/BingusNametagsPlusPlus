@@ -7,7 +7,8 @@ namespace BingusNametagsPlusPlus.Tags
     public class DefaultNametag : IBaseNametag
     {
         public string Name => "Default";
-        public string Description => "The default nametag provided by BingusNametags++.";
+        public string Description => "The default nametag provided by BingusNametags++. Includes platform icons and a nametag.";
+        public string Author => "Bingus";
         public float Offset => 0f;
         public bool Enabled { get; set; } = true;
 

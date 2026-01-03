@@ -196,7 +196,7 @@ public static class UIManager
                     plugin.Enabled = GUI.Toggle(
                         new Rect(WindowStartX, startingIndex, 175, 20),
 						plugin.Enabled,
-                        new GUIContent(plugin.Name, plugin.Description)
+                        new GUIContent($"{plugin.Name} [{plugin.Author}]", plugin.Description)
                     );
 
                     startingIndex += 25;
