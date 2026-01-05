@@ -1,6 +1,7 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
 /.vs
-/bin/Debug/netstandard2.1
+/BingusNametagsPlusPlus.sln.DotSettings.user
