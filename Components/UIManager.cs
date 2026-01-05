@@ -222,7 +222,15 @@ public static class UIManager
 
 				break;
 			case 3:
-				var startingIndex = WindowStartY;
+                if (GUI.Button(
+                    new Rect(WindowStartX, WindowStartY, WindowSizeX - 20, 20),
+					new GUIContent("Open Nametags Folder", "You can place .dlls of nametag files here to have them loaded manually by BingusNametags++.")
+                ))
+                {
+					NametagLoader.OpenNametagsFolder();
+                }
+
+				var startingIndex = WindowStartY + 30;
 
 				foreach (var plugin in Main.Plugins)
 				{

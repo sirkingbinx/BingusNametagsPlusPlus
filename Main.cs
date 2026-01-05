@@ -31,7 +31,7 @@ public class Main : BaseUnityPlugin
 		NametagDefault = Load<GameObject>(@"BingusNametagsPlusPlus.Resources.nametags", "Nametag");
         Instance = this;
 
-		Debug.Log("[BG++] Loading nametags..");
+		Debug.Log("[BG++] Loading nametags [1/2 AppDomain]..");
 
         var nametagTypes = AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(assembly => assembly.GetTypes())
@@ -53,7 +53,10 @@ public class Main : BaseUnityPlugin
             };
         }
 
-		Debug.Log("[BG++] Loading configuration...");
+        Debug.Log("[BG++] Loading nametags [2/2 nametags Folder]..");
+        NametagLoader.LoadFromDefaultFolder();
+
+        Debug.Log("[BG++] Loading configuration...");
         NConfig.LoadPrefs();
 
         if (Constants.Channel != ReleaseChannel.Stable)
