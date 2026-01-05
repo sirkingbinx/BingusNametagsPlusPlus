@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using UnityEngine;
 
 namespace BingusNametagsPlusPlus;
 
@@ -10,9 +11,12 @@ public static class Constants
 	public const string Guid = "bingus.nametagsplusplus";
 	public const string Version = "1.3.0";
 
-    public const ReleaseChannel Channel = ReleaseChannel.Beta;
+    public const ReleaseChannel Channel = ReleaseChannel.Stable;
 
-	public static readonly Dictionary<string, string> SpecialBadgeIds = new()
+    public static string BingusNametagsData =>
+        Path.Combine(Application.dataPath[.. Application.dataPath.LastIndexOf("/")], "BingusNametags++");
+
+    public static readonly Dictionary<string, string> SpecialBadgeIds = new()
 	{
 		["a0454e65cad418df"] = "dev,beta1,beta2", // this a me! [steamvr]
 		["defc9810769f1f55"] = "dev,beta1,beta2", // this a me! [oculus rift]

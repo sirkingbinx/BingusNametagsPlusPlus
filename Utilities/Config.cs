@@ -24,7 +24,7 @@ public static class Config
 	public static TMP_FontAsset? CustomFont;
 
 	public static float NametagScale = 5f;
-	public static float NametagYOffset = 1f;
+	public static float NametagYOffset = 0.65f;
 
 	public static bool CustomNametags = true;
 	public static string NametagColor = "ffffff";
@@ -68,7 +68,7 @@ public static class Config
 		ShowingPlatform = PlayerPrefs.GetInt("BG++_PlatformEnabled", 1) == 1;
 		UserCustomIcons = PlayerPrefs.GetInt("BG++_ShowPlayerIcons", 1) == 1;
 
-		Networking.DoNetworking = PlayerPrefs.GetInt("BG++_DoNetworkingSelf", 1) == 1;
+		Networking.DoNetworking = PlayerPrefs.GetInt("BG++_DoNetworkingSelf", 0) == 1;
         CustomNametags = PlayerPrefs.GetInt("BG++_DoNetworking", 1) == 1;
 		NametagColor = PlayerPrefs.GetString("BG++_NetworkNametagColor", NametagColor);
 

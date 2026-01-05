@@ -75,7 +75,7 @@ public static class UIManager
 		Ask(
 			$"The nametag you want to enable is incompatable with the following <i>enabled</i> nametags:\n\n{unsupportedList}\n\nAre you sure you want to enable this nametag?",
 			[ "Yes", "No" ],
-			(string answer) =>
+			answer =>
 			{
 				if (answer == "No")
 					return;
@@ -181,46 +181,60 @@ public static class UIManager
 
 				break;
 			case 2:
-				Config.CustomNametags = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY, 175, 20),
-					Config.CustomNametags,
-					new GUIContent("Custom Nametags", "View custom nametag styles for other users (Networked!)")
-				);
+				var propsToggle = GUI.Toggle(
+                    new Rect(WindowStartX, WindowStartY, 175, 20),
+                    Networking.DoNetworking,
+                    new GUIContent("Custom Nametags", "Customize how nametags look to other people")
+                );
 
-				Config.NametagColor = GUI.TextArea(
-					new Rect(WindowStartX + 75, WindowStartY + 25, 200, 20),
-					Config.NametagColor
-				);
+                if (propsToggle != Networking.DoNetworking && !Networking.DoNetworking)
+                {
+                    Ask("By enabling this feature, your nametag style will be networked with properties.\n\nProperties are commonly used in mod checkers to detect what mods you have installed. Small, very immature children may harass you over your properties.\n\nAre you sure you want to enable Custom Nametags?",
+                        ["Yes", "No"],
+                        result => Networking.DoNetworking = (result == "Yes")
+                    );
+                } else if (propsToggle != Networking.DoNetworking)
+                {
+                    Networking.DoNetworking = false;
+                }
 
-				GUI.Label(new Rect(WindowStartX, WindowStartY + 25, 75, 20),
-					new GUIContent("Hex Code",
-						"Custom hex code for your nametag (use a color picker to determine this.)"));
+				if (Networking.DoNetworking)
+				{
+					Config.NametagColor = GUI.TextArea(
+						new Rect(WindowStartX + 75, WindowStartY + 25, 200, 20),
+						Config.NametagColor
+					);
 
-				Config.NetworkBold = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY + 50, 175, 20),
-					Config.NetworkBold,
-					new GUIContent("Bold", "Nametag text is bolded")
-				);
+					GUI.Label(new Rect(WindowStartX, WindowStartY + 25, 75, 20),
+						new GUIContent("Hex Code",
+							"Custom hex code for your nametag (use a color picker to determine this.)"));
 
-				Config.NetworkItalic = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY + 75, 175, 20),
-					Config.NetworkItalic,
-					new GUIContent("Italics", "Nametag text is italicized")
-				);
+					Config.NetworkBold = GUI.Toggle(
+						new Rect(WindowStartX, WindowStartY + 50, 175, 20),
+						Config.NetworkBold,
+						new GUIContent("Bold", "Nametag text is bolded")
+					);
 
-				Config.NetworkUnderline = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY + 100, 175, 20),
-					Config.NetworkUnderline,
-					new GUIContent("Underlined", "Nametag text is underlined")
-				);
+					Config.NetworkItalic = GUI.Toggle(
+						new Rect(WindowStartX, WindowStartY + 75, 175, 20),
+						Config.NetworkItalic,
+						new GUIContent("Italics", "Nametag text is italicized")
+					);
 
-				Networking.DoNetworking = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY + 130, 175, 20),
-					Networking.DoNetworking,
-					new GUIContent("Properties", "You can disable the property managing custom nametags from being networked so other people can not see that BingusNametags++ is installed. For privacy conscience users, you can use this to get little timmy off your back.")
-				);
+					Config.NetworkUnderline = GUI.Toggle(
+						new Rect(WindowStartX, WindowStartY + 100, 175, 20),
+						Config.NetworkUnderline,
+						new GUIContent("Underlined", "Nametag text is underlined")
+					);
+				}
 
-				break;
+                Config.CustomNametags = GUI.Toggle(
+                    new Rect(WindowStartX, WindowStartY + (Networking.DoNetworking ? 125 : 25), 175, 20),
+                    Config.CustomNametags,
+                    new GUIContent("View Other Nametag Styles", "View custom nametag styles for other users. This doesn't enable custom nametags for yourself.")
+                );
+
+                break;
 			case 3:
                 if (GUI.Button(
                     new Rect(WindowStartX, WindowStartY, WindowSizeX - 20, 20),

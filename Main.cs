@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using BepInEx;
 using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Components;
@@ -27,11 +26,24 @@ public class Main : BaseUnityPlugin
 
 	private void Start()
     {
-        Debug.Log("[BG++] Loading assetbundle.");
+        Debug.Log("Loading assetbundle.");
+
 		NametagDefault = Load<GameObject>(@"BingusNametagsPlusPlus.Resources.nametags", "Nametag");
         Instance = this;
 
-		Debug.Log("[BG++] Loading nametags [1/2 AppDomain]..");
+        GorillaTagger.OnPlayerSpawned(() =>
+        {
+            try { OnPlayerSpawned(); }
+            catch (Exception ex)
+            {
+                Debug.Log(ex.Message);
+            }
+        });
+    }
+
+    private static void OnPlayerSpawned()
+    {
+        Debug.Log("[BG++] Loading nametags [1/2 AppDomain]..");
 
         var nametagTypes = AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(assembly => assembly.GetTypes())
@@ -42,14 +54,14 @@ public class Main : BaseUnityPlugin
             if (Activator.CreateInstance(nametagType) is not IBaseNametag nametag)
                 return;
 
-			Debug.Log($"Loaded nametag {nametag.Name}");
+            Debug.Log($"Loaded nametag {nametag.Name}");
 
-			Plugins.Add(nametag);
+            Plugins.Add(nametag);
 
             UpdateNametags += () =>
             {
                 Nametags.TryAdd(nametag, new Dictionary<VRRig, PlayerNametag>());
-				nametag.Update(Nametags[nametag], nametag.Offset);
+                nametag.Update(Nametags[nametag], nametag.Offset);
             };
         }
 
@@ -59,16 +71,18 @@ public class Main : BaseUnityPlugin
         Debug.Log("[BG++] Loading configuration...");
         NConfig.LoadPrefs();
 
-        if (Constants.Channel != ReleaseChannel.Stable)
+        Debug.Log("[BG++] Nametags have been loaded. yay");
+
+        if (NametagLoader.pluginFailures.Any())
         {
+            Debug.Log("[BG++]: Some errors occured, we have logged them to the console and displayed them");
+
             UIManager.Ask(
-                $"Note:\n\nThis is a {Constants.Channel.AsString()} release, not meant for regular users.\nIf you run into bugs while using this build, please report them to the Discord instead of the GitHub issue tracker.", 
-                ["Okay"],
+                $"There were errors loading some nametags.\n\n{NametagLoader.pluginFailures.Zip("\n- ")}\n\nIf you are a user, please report these messages to the developer(s) of the nametag.",
+                ["OK"],
                 (ans) => { }
             );
         }
-
-        Debug.Log("[BG++] Loaded mod, happy nametagging");
     }
 
 	private void Update()
@@ -93,7 +107,7 @@ public class Main : BaseUnityPlugin
 		var obj = ab.LoadAsset<T>(name);
 
 		if (obj.Uninitialized())
-			Debug.LogError(
+			Debug.Log(
 				$"Cannot load assetbundle \"{path}\" object \"{name}\" to type \"{typeof(T).FullName}.\nValid streams: \n\t{Assembly.GetExecutingAssembly().GetManifestResourceNames().Join("\n\t")}");
 
 		ab.Unload(false);

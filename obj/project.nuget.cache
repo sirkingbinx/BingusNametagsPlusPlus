@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "PzNI6yQnanc=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Ben\\source\\repos\\BingusNametagsPlusPlus\\BingusNametagsPlusPlus\\BingusNametagsPlusPlus.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Ben\\.nuget\\packages\\bepinex.assemblypublicizer.msbuild\\0.4.3\\bepinex.assemblypublicizer.msbuild.0.4.3.nupkg.sha512"
+  ],
+  "logs": []
+}

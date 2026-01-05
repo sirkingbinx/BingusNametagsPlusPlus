@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace BingusNametagsPlusPlus;
 
 public static class Extensions
@@ -20,4 +22,11 @@ public static class Extensions
 				return "dev";
 		}
 	}
+
+    public static string Zip(this IEnumerable<object> enumerable, string seperator = ", ")
+    {
+        var str = "";
+        enumerable.ForEach(e => str += $"{(str != "" ? seperator: "")}{e}");
+        return str;
+    }
 }
