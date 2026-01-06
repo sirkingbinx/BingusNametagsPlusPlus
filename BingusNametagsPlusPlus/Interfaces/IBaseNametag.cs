@@ -59,6 +59,18 @@ namespace BingusNametagsPlusPlus.Interfaces
         /// <param name="nametag">The nametag of the player. Use nametag.Owner to get it's owning VRRig. Use nametag.Text to set the text.</param>
         public void UpdateNametag(PlayerNametag nametag) { }
 
+        /// <summary>
+        /// This calls when a new player joins the lobby.
+        /// </summary>
+        /// <param name="player">The net player object for the new player</param>
+        public void OnPlayerJoin(NetPlayer player) { }
+
+        /// <summary>
+        /// This calls when a player leaves the lobby.
+        /// </summary>
+        /// <param name="player">The net player object for the leaving player</param>
+        public void OnPlayerLeave(NetPlayer player) { }
+
         internal void Update(Dictionary<VRRig, PlayerNametag> nametags, float offset)
         {
             if (!NametagEnabled && nametags.Count != 0)

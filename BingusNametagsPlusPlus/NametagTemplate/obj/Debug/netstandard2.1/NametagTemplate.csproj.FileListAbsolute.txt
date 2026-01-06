@@ -1,0 +1,6 @@
+C:\Users\darwi\Source\Repos\BingusNametagsPlusPlusa\NametagTemplate\obj\Debug\netstandard2.1\NametagTemplate.csproj.AssemblyReference.cache
+C:\Users\darwi\Source\Repos\BingusNametagsPlusPlusa\NametagTemplate\obj\Debug\netstandard2.1\NametagTemplate.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\darwi\Source\Repos\BingusNametagsPlusPlusa\NametagTemplate\obj\Debug\netstandard2.1\NametagTemplate.AssemblyInfoInputs.cache
+C:\Users\darwi\Source\Repos\BingusNametagsPlusPlusa\NametagTemplate\obj\Debug\netstandard2.1\NametagTemplate.AssemblyInfo.cs
+C:\Users\darwi\Source\Repos\BingusNametagsPlusPlusa\NametagTemplate\obj\Debug\netstandard2.1\NametagTemplate.csproj.CoreCompileInputs.cache
+C:\Users\darwi\Source\Repos\BingusNametagsPlusPlusa\NametagTemplate\obj\Debug\netstandard2.1\NametagTemplate.sourcelink.json

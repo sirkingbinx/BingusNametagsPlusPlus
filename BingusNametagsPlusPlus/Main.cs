@@ -7,6 +7,7 @@ using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Components;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
+using GorillaTag.Cosmetics;
 using UnityEngine;
 using NConfig = BingusNametagsPlusPlus.Utilities.Config;
 using Object = UnityEngine.Object;
@@ -40,7 +41,6 @@ public class Main : BaseUnityPlugin
             }
         });
     }
-
     private static void OnPlayerSpawned()
     {
         Debug.Log("[BG++] Loading nametags [1/2 AppDomain]..");
@@ -57,6 +57,15 @@ public class Main : BaseUnityPlugin
             Debug.Log($"Loaded nametag {nametag.Name}");
 
             Plugins.Add(nametag);
+
+            NetworkSystem.Instance.OnPlayerJoined += (NetPlayer player) =>
+            {
+                nametag.OnPlayerJoin(player);
+            };
+            NetworkSystem.Instance.OnPlayerLeft += (NetPlayer player) =>
+            {
+                nametag.OnPlayerLeave(player);
+            };
 
             UpdateNametags += () =>
             {

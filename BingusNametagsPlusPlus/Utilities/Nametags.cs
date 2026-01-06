@@ -15,21 +15,28 @@ public static class Nametags
 		var parent = owner.transform.Find("Body") ?? owner.transform;
 		var tagObject = Object.Instantiate(Main.NametagDefault, parent, false);
 
-		tagObject?.gameObject.layer = LayerMask.NameToLayer(layerName);
-		tagObject?.transform.localPosition = new Vector3(0f, Config.NametagYOffset, 0f);
-		tagObject?.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+		if (tagObject) // Had build errors with null conditionals, not sure why.
+		{
+			tagObject.gameObject.layer = LayerMask.NameToLayer(layerName);
+			tagObject.transform.localPosition = new Vector3(0f, Config.NametagYOffset, 0f);
+			tagObject.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
-		tagObject?.AddComponent<CameraFollower>(); // follow the camera around
+			tagObject.AddComponent<CameraFollower>(); // follow the camera around
 
-        var tmPro = tagObject?.GetComponent<TextMeshPro>();
-		tmPro?.text = $"<sprite name=\"{platformSpriteName}\">{name}";
 
-		if (!Config.CustomFont.IsNull())
-			tmPro?.font = Config.CustomFont;
+			var tmPro = tagObject.GetComponent<TextMeshPro>();
+			if (tmPro)
+			{
+				tmPro.text = $"<sprite name=\"{platformSpriteName}\">{name}";
 
-		// Fixed shaders because URP is love URP is life
-		tmPro?.fontMaterial.shader = Shader.Find("TextMeshPro/Mobile/Distance Field");
-		tmPro?.spriteAsset.material.shader = Shader.Find("UI/Default");
+				if (!Config.CustomFont.IsNull())
+					tmPro.font = Config.CustomFont;
+
+				// Fixed shaders because URP is love URP is life
+				tmPro.fontMaterial.shader = Shader.Find("TextMeshPro/Mobile/Distance Field");
+				tmPro.spriteAsset.material.shader = Shader.Find("UI/Default");
+			}
+		}
 
 		return tagObject ?? throw new Exception("Missing AB");
 	}
