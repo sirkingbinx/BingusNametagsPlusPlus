@@ -5,19 +5,34 @@ using UnityEngine;
 
 namespace BingusNametagsPlusPlus.Classes;
 
+/// <summary>
+/// PlayerNametag represents the nametag of a single player.
+/// </summary>
 public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thirdPerson)
 {
     private readonly List<string> _styles = [];
     private readonly Dictionary<string, string> _valueStyles = [];
 
+    /// <summary>
+    /// The owner of the nametag.
+    /// </summary>
     public VRRig Owner => player;
 
+    /// <summary>
+    /// Adds a rich text style to the nametag.
+    /// </summary>
+    /// <param name="tag">The rich text tag to add.</param>
     public void AddStyle(string tag)
     {
         if (!_styles.Contains(tag))
             _styles.Add(tag);
     }
 
+    /// <summary>
+    /// Adds a rich text style with a value to the nametag.
+    /// </summary>
+    /// <param name="tag">The rich text tag to add.</param>
+    /// /// <param name="value">The value of the tag.</param>
     public void AddStyle(string tag, string value)
     { 
         if (_valueStyles.TryGetValue(tag, out var v) && (v == value))
@@ -27,6 +42,10 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
         _valueStyles.Add(tag, value);
     }
 
+    /// <summary>
+    /// Removes a rich text style from the nametag.
+    /// </summary>
+    /// <param name="tag">The rich text tag to remove.</param>
     public void RemoveStyle(string tag)
     {
         _styles.Remove(tag);
@@ -35,6 +54,9 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
 
     private string _text = "";
 
+    /// <summary>
+    /// The text of the nametag.
+    /// </summary>
     public string Text
     {
         get => _text;
@@ -63,6 +85,15 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
 
             _text = value;
         }
+    }
+
+    /// <summary>
+    /// The size of the nametag.
+    /// </summary>
+    public float Size
+    {
+        get => firstPerson.GetComponent<TextMeshPro>().fontSize;
+        set => firstPerson.GetComponent<TextMeshPro>().fontSize = value;
     }
 
     internal void UpdateSettings(float offset)

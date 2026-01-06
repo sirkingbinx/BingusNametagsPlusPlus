@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -55,42 +53,6 @@ public static class UIManager
 	{
 		if (Keyboard.current.rightShiftKey.wasPressedThisFrame)
 			_showingUI = !_showingUI;
-	}
-
-	private static void EnablePlugin(IBaseNametag plugin)
-	{
-		var allEnabledPlugins = Main.Plugins.Where(a => a.Enabled);
-		var allEnabledNames = allEnabledPlugins.Select(a => a.Name);
-		var unsupported = plugin.Unsupported.Where(unsupportedName => allEnabledNames.Contains(unsupportedName));
-
-		if (!unsupported.Any())
-		{
-			plugin.Enabled = true;
-			return;
-		}
-
-		var unsupportedList = "";
-		unsupported.ForEach(unsupportedPlugin => unsupportedList += (unsupportedList == "" ? unsupportedPlugin : $", {unsupportedPlugin}"));
-
-		Ask(
-			$"The nametag you want to enable is incompatable with the following <i>enabled</i> nametags:\n\n{unsupportedList}\n\nAre you sure you want to enable this nametag?",
-			[ "Yes", "No" ],
-			answer =>
-			{
-				if (answer == "No")
-					return;
-
-				plugin.Enabled = true;
-
-				foreach (var plugin in allEnabledPlugins.Where(a => unsupported.Contains(a.Name)))
-					plugin.Enabled = false;
-			}
-		);
-	}
-
-	private static void DisablePlugin(IBaseNametag plugin)
-	{
-		plugin.Enabled = false;
 	}
 
 	public static void DrawNormal()
@@ -241,12 +203,12 @@ public static class UIManager
 					new GUIContent("Open Nametags Folder", "You can place .dlls of nametag files here to have them loaded manually by BingusNametags++.")
                 ))
                 {
-					NametagLoader.OpenNametagsFolder();
+					PluginManager.OpenNametagsFolder();
                 }
 
 				var startingIndex = WindowStartY + 30;
 
-				foreach (var plugin in Main.Plugins)
+				foreach (var plugin in PluginManager.Plugins)
 				{
 					var currently = GUI.Toggle(
 						new Rect(WindowStartX, startingIndex, WindowSizeX - 20, 20),
@@ -255,9 +217,9 @@ public static class UIManager
 					);
 
 					if (currently != plugin.Enabled && plugin.Enabled)
-						DisablePlugin(plugin);
+                        PluginManager.DisablePlugin(plugin);
 					else if (currently != plugin.Enabled)
-						EnablePlugin(plugin);
+                        PluginManager.EnablePlugin(plugin);
 
 					startingIndex += 25;
 				}

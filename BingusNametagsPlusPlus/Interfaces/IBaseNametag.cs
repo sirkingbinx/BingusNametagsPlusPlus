@@ -1,4 +1,5 @@
-﻿using BingusNametagsPlusPlus.Classes;
+﻿using System;
+using BingusNametagsPlusPlus.Classes;
 using System.Collections.Generic;
 using System.Linq;
 using BingusNametagsPlusPlus.Utilities;
@@ -59,31 +60,42 @@ namespace BingusNametagsPlusPlus.Interfaces
         /// <param name="nametag">The nametag of the player. Use nametag.Owner to get it's owning VRRig. Use nametag.Text to set the text.</param>
         public void UpdateNametag(PlayerNametag nametag) { }
 
-        internal void Update(Dictionary<VRRig, PlayerNametag> nametags, float offset)
+        internal void Update()
         {
-            if (!NametagEnabled && nametags.Count != 0)
-            {
-                nametags.ForEach(rig => rig.Value.Destroy());
-                nametags.Clear();
-            }
+            
+                Main.Nametags.TryAdd(this, []);
+                var nametags = Main.Nametags[this];
 
-            if (!GorillaParent.hasInstance || !NametagEnabled)
-                return;
+                if (!NametagEnabled && nametags.Count != 0)
+                {
+                    nametags.ForEach(rig => rig.Value.Destroy());
+                    nametags.Clear();
+                }
 
-            foreach (var pair in nametags.Where(p => !GorillaParent.instance.vrrigs.Contains(p.Key)))
-            {
-                pair.Value.Destroy();
-                nametags.Remove(pair.Key);
-            }
+                if (!GorillaParent.hasInstance || !NametagEnabled)
+                    return;
 
-            foreach (var rig in GorillaParent.instance.vrrigs.Where(rig => rig != GorillaTagger.Instance.offlineVRRig))
-            {
-                if (!nametags.ContainsKey(rig))
-                    nametags.Add(rig, Nametags.CreateNametagObject(rig));
+                foreach (var pair in nametags.Where(p => !GorillaParent.instance.vrrigs.Contains(p.Key)))
+                {
+                    pair.Value.Destroy();
+                    nametags.Remove(pair.Key);
+                }
 
-                nametags[rig].UpdateSettings(offset);
-                UpdateNametag(nametags[rig]);
-            }
+                foreach (var rig in GorillaParent.instance.vrrigs.Where(rig =>
+                             rig != GorillaTagger.Instance.offlineVRRig))
+                {
+                    if (!nametags.ContainsKey(rig))
+                        nametags.Add(rig, NametagCreator.CreateNametagObject(rig));
+                    try
+                    {
+                        nametags[rig].UpdateSettings(Offset);
+                        UpdateNametag(nametags[rig]);
+                    } catch (Exception ex)
+                    {
+                        // using raw TMP tags here so if the nametag error does not persist the nametag does not keep its nice red color
+                        nametags[rig].Text = $"<color=red>ERR: {ex.Message}</color>";
+                    }
+                }
         }
     }
 }

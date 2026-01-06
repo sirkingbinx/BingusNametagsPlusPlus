@@ -9,7 +9,7 @@ public static class Constants
 {
 	public const string Name = "BingusNametags++";
 	public const string Guid = "bingus.nametagsplusplus";
-	public const string Version = "1.3.0";
+	public const string Version = "1.3.1";
 
     public const ReleaseChannel Channel = ReleaseChannel.Stable;
 

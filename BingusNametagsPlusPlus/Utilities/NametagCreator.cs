@@ -8,9 +8,9 @@ using Object = UnityEngine.Object;
 
 namespace BingusNametagsPlusPlus.Utilities;
 
-public static class Nametags
+public static class NametagCreator
 {
-	private static GameObject CreateNametag(VRRig owner, string name, string layerName, string platformSpriteName)
+	private static GameObject CreateNametag(VRRig owner, string layerName)
 	{
 		var parent = owner.transform.Find("Body") ?? owner.transform;
 		var tagObject = Object.Instantiate(Main.NametagDefault, parent, false);
@@ -22,7 +22,7 @@ public static class Nametags
 		tagObject?.AddComponent<CameraFollower>(); // follow the camera around
 
         var tmPro = tagObject?.GetComponent<TextMeshPro>();
-		tmPro?.text = $"<sprite name=\"{platformSpriteName}\">{name}";
+		tmPro?.text = $"...";
 
 		if (!Config.CustomFont.IsNull())
 			tmPro?.font = Config.CustomFont;
@@ -38,8 +38,8 @@ public static class Nametags
 	{
         return new PlayerNametag(
 			owner,
-			CreateNametag(owner, "Loading", "FirstPersonOnly", "meta"),
-			CreateNametag(owner, "Loading", "MirrorOnly", "meta")
+			CreateNametag(owner, "FirstPersonOnly"),
+			CreateNametag(owner, "MirrorOnly")
         );
 	}
 }

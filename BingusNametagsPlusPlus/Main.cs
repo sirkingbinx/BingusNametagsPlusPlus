@@ -21,7 +21,6 @@ public class Main : BaseUnityPlugin
 	internal static GameObject? NametagDefault;
     internal static Action UpdateNametags = delegate { };
 
-    internal static List<IBaseNametag> Plugins = [ ];
     internal static Dictionary<IBaseNametag, Dictionary<VRRig, PlayerNametag>> Nametags = new();
 
 	private void Start()
@@ -44,45 +43,26 @@ public class Main : BaseUnityPlugin
     private static void OnPlayerSpawned()
     {
         Debug.Log("[BG++] Loading nametags [1/2 AppDomain]..");
-
-        var nametagTypes = AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(assembly => assembly.GetTypes())
-            .Where(type => typeof(IBaseNametag).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract);
-
-        foreach (var nametagType in nametagTypes)
-        {
-            if (Activator.CreateInstance(nametagType) is not IBaseNametag nametag)
-                return;
-
-            Debug.Log($"Loaded nametag {nametag.Name}");
-
-            Plugins.Add(nametag);
-
-            UpdateNametags += () =>
-            {
-                Nametags.TryAdd(nametag, new Dictionary<VRRig, PlayerNametag>());
-                nametag.Update(Nametags[nametag], nametag.Offset);
-            };
-        }
+        PluginManager.LoadNametagsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
         Debug.Log("[BG++] Loading nametags [2/2 nametags Folder]..");
-        NametagLoader.LoadFromDefaultFolder();
+        PluginManager.LoadFromDefaultFolder();
 
         Debug.Log("[BG++] Loading configuration...");
         NConfig.LoadPrefs();
 
         Debug.Log("[BG++] Nametags have been loaded. yay");
 
-        if (NametagLoader.pluginFailures.Any())
-        {
-            Debug.Log("[BG++]: Some errors occured, we have logged them to the console and displayed them");
+        if (!PluginManager.PluginFailures.Any())
+            return;
 
-            UIManager.Ask(
-                $"There were errors loading some nametags.\n\n{NametagLoader.pluginFailures.Zip("\n- ")}\n\nIf you are a user, please report these messages to the developer(s) of the nametag.",
-                ["OK"],
-                (ans) => { }
-            );
-        }
+        Debug.Log("[BG++]: Some errors occured, we have logged them to the console and displayed them");
+
+        UIManager.Ask(
+            $"There were errors loading some nametags.\n\n{PluginManager.PluginFailures.Zip("\n- ")}\n\nIf you are a user, please report these messages to the developer(s) of the nametag.",
+            ["OK"],
+            (ans) => { }
+        );
     }
 
 	private void Update()

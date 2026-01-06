@@ -52,7 +52,7 @@ public static class Config
 		PlayerPrefs.SetFloat("BG++_NametagScale", NametagScale);
 		PlayerPrefs.SetFloat("BG++_NametagY", NametagYOffset);
 
-        var enabledPlugins = Main.Plugins.Where(tag => tag.Enabled).Select(tag => tag.Name);
+        var enabledPlugins = PluginManager.Plugins.Where(tag => tag.Enabled).Select(tag => tag.Name);
 		PlayerPrefs.SetString("BG++_EnabledPlugins", string.Join("&", enabledPlugins));
 	}
 
@@ -78,8 +78,9 @@ public static class Config
         var enabledPluginsString = PlayerPrefs.GetString("BG++_EnabledPlugins", "Default");
         var enabledPlugins = enabledPluginsString.Split("&");
 
-        foreach (var plugin in Main.Plugins)
-            plugin.Enabled = enabledPlugins.Contains(plugin.Name);
+        PluginManager.Plugins
+            .Where(plugin => enabledPlugins.Contains(plugin.Name))
+            .ForEach(PluginManager.EnablePlugin);
 
 		var fontFile =
 			Directory.EnumerateFiles(Constants.AssemblyDirectory, "*.ttf", SearchOption.TopDirectoryOnly)
@@ -91,8 +92,7 @@ public static class Config
 			CustomFont = TMP_FontAsset.CreateFontAsset(new Font(fontFile));
 	}
 
-	public static bool ValidHexCode(string hexCode)
-	{
-		return !hexCode.IsNullOrWhiteSpace() && Regex.IsMatch(hexCode, @"^#?([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$");
-	}
+	public static bool ValidHexCode(string hexCode) =>
+        !hexCode.IsNullOrWhiteSpace() && Regex.IsMatch(hexCode, @"^#?([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$");
+	
 }
