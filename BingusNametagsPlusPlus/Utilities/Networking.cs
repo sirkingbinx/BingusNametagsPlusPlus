@@ -13,7 +13,7 @@ public static class Networking
 	{
 		if (DoNetworking)
 		{
-            var color = Config.NametagColor.First() == '#' ? Config.NametagColor[1..] : Config.NametagColor;
+            var color = ConfigManager.NametagColor.First() == '#' ? ConfigManager.NametagColor[1..] : ConfigManager.NametagColor;
 
             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
 			{
@@ -21,9 +21,9 @@ public static class Networking
 					"BingusNametags++", new Dictionary<string, object>
 					{
 						{ "Color", color },
-						{ "isBold", Config.NetworkBold },
-						{ "isItalic", Config.NetworkItalic },
-						{ "isUnderlined", Config.NetworkUnderline },
+						{ "isBold", ConfigManager.NetworkBold },
+						{ "isItalic", ConfigManager.NetworkItalic },
+						{ "isUnderlined", ConfigManager.NetworkUnderline },
 						{ "version", Main.Instance?.Info.Metadata.Version.ToString() ?? "0.0.0" }
 					}
 				}

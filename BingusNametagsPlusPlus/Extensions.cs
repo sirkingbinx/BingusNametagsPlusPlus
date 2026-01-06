@@ -1,3 +1,4 @@
+using BepInEx.Configuration;
 using System.Collections.Generic;
 
 namespace BingusNametagsPlusPlus;
@@ -28,5 +29,11 @@ public static class Extensions
         var str = "";
         enumerable.ForEach(e => str += $"{(str != "" ? seperator: "")}{e}");
         return str;
+    }
+
+    public static ConfigEntry<T> Get<T>(this ConfigFile file, string section, string name)
+    {
+        file.TryGetEntry(section, name, out ConfigEntry<T> thing);
+        return thing;
     }
 }

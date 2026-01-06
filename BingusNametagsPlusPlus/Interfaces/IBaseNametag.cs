@@ -49,12 +49,6 @@ namespace BingusNametagsPlusPlus.Interfaces
         public bool Enabled { get; set; }
 
         /// <summary>
-        /// Only true if both 1). The nametag is enabled and 2). The nametags are globally enabled.
-        /// Rather than using this, please use Enabled.
-        /// </summary>
-        private bool NametagEnabled => (Config.ShowingNametags && Enabled);
-
-        /// <summary>
         /// <i>UpdateNametag()</i> is called for every user each frame to update their nametag.
         /// </summary>
         /// <param name="nametag">The nametag of the player. Use nametag.Owner to get it's owning VRRig. Use nametag.Text to set the text.</param>
@@ -62,40 +56,39 @@ namespace BingusNametagsPlusPlus.Interfaces
 
         internal void Update()
         {
-            
-                Main.Nametags.TryAdd(this, []);
-                var nametags = Main.Nametags[this];
+            Main.Nametags.TryAdd(this, []);
+            var nametags = Main.Nametags[this];
 
-                if (!NametagEnabled && nametags.Count != 0)
+            if (!ConfigManager.ShowingNametags && nametags.Count != 0)
+            {
+                nametags.ForEach(rig => rig.Value.Destroy());
+                nametags.Clear();
+            }
+
+            if (!GorillaParent.hasInstance || !ConfigManager.ShowingNametags)
+                return;
+
+            foreach (var pair in nametags.Where(p => !GorillaParent.instance.vrrigs.Contains(p.Key)))
+            {
+                pair.Value.Destroy();
+                nametags.Remove(pair.Key);
+            }
+
+            foreach (var rig in GorillaParent.instance.vrrigs.Where(rig =>
+                         rig != GorillaTagger.Instance.offlineVRRig))
+            {
+                if (!nametags.ContainsKey(rig))
+                    nametags.Add(rig, NametagCreator.CreateNametagObject(rig));
+                try
                 {
-                    nametags.ForEach(rig => rig.Value.Destroy());
-                    nametags.Clear();
-                }
-
-                if (!GorillaParent.hasInstance || !NametagEnabled)
-                    return;
-
-                foreach (var pair in nametags.Where(p => !GorillaParent.instance.vrrigs.Contains(p.Key)))
+                    nametags[rig].UpdateSettings(Offset);
+                    UpdateNametag(nametags[rig]);
+                } catch (Exception ex)
                 {
-                    pair.Value.Destroy();
-                    nametags.Remove(pair.Key);
+                    // using raw TMP tags here so if the nametag error does not persist the nametag does not keep its nice red color
+                    nametags[rig].Text = $"<color=red>ERR: {ex.Message}</color>";
                 }
-
-                foreach (var rig in GorillaParent.instance.vrrigs.Where(rig =>
-                             rig != GorillaTagger.Instance.offlineVRRig))
-                {
-                    if (!nametags.ContainsKey(rig))
-                        nametags.Add(rig, NametagCreator.CreateNametagObject(rig));
-                    try
-                    {
-                        nametags[rig].UpdateSettings(Offset);
-                        UpdateNametag(nametags[rig]);
-                    } catch (Exception ex)
-                    {
-                        // using raw TMP tags here so if the nametag error does not persist the nametag does not keep its nice red color
-                        nametags[rig].Text = $"<color=red>ERR: {ex.Message}</color>";
-                    }
-                }
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
@@ -26,20 +27,24 @@ public class DefaultNametag : IBaseNametag
     {
         var prefix = "";
 
-        if (Config.GlobalIconsEnabled)
+        if (ConfigManager.GlobalIconsEnabled)
         {
-            if (Config.UserCustomIcons &&
+            if (ConfigManager.UserCustomIcons &&
                 Constants.SpecialBadgeIds.TryGetValue(nametag.Owner.OwningNetPlayer.UserId.ToLower(), out var n))
             {
                 var adding = "";
                 n.Split(",").ForEach(sprite => adding += $"<sprite name=\"{sprite}\"> ");
+
+                if (n.Split(",").Contains("dev"))
+                    nametag.AddStyle("color", "3dc5d4");
+
                 prefix += adding;
             }
 
-            if (Config.ShowingPlatform)
+            if (ConfigManager.ShowingPlatform)
                 prefix += $"<sprite name=\"{GetPlatformString(nametag.Owner)}\">";
         }
 
-        nametag.Text = ($"{prefix}{(Config.ShowingName ? nametag.Owner.OwningNetPlayer.NickName : "")}");
+        nametag.Text = ($"{prefix}{(ConfigManager.ShowingName ? nametag.Owner.OwningNetPlayer.NickName : "")}");
     }
 }

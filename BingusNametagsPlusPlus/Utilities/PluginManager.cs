@@ -33,33 +33,34 @@ public static class PluginManager
     {
         var allEnabledPlugins = Plugins.Where(a => a.Enabled);
         var allEnabledNames = allEnabledPlugins.Select(a => a.Name);
+
         var unsupported = plugin.Unsupported.Where(unsupportedName => allEnabledNames.Contains(unsupportedName));
 
-        if (!unsupported.Any())
+        var disableStuff = true;
+
+        if (unsupported.Any())
         {
-            plugin.Enabled = true;
-            Main.UpdateNametags += plugin.Update;
-            return;
+            var unsupportedList = "";
+            unsupported.ForEach(unsupportedPlugin => unsupportedList += (unsupportedList == "" ? unsupportedPlugin : $", {unsupportedPlugin}"));
+
+            UIManager.Ask(
+                $"The nametag you want to enable is incompatable with the following <i>enabled</i> nametags:\n\n{unsupportedList}\n\nAre you sure you want to enable this nametag?",
+                ["Yes", "No"],
+                answer =>
+                {
+                    disableStuff = (answer == "Yes");
+                }
+            );
         }
 
-        var unsupportedList = "";
-        unsupported.ForEach(unsupportedPlugin => unsupportedList += (unsupportedList == "" ? unsupportedPlugin : $", {unsupportedPlugin}"));
+        if (!disableStuff)
+            return;
 
-        UIManager.Ask(
-            $"The nametag you want to enable is incompatable with the following <i>enabled</i> nametags:\n\n{unsupportedList}\n\nAre you sure you want to enable this nametag?",
-            ["Yes", "No"],
-            answer =>
-            {
-                if (answer == "No")
-                    return;
+        plugin.Enabled = true;
+        Main.UpdateNametags += plugin.Update;
 
-                plugin.Enabled = true;
-                Main.UpdateNametags += plugin.Update;
-
-                foreach (var plugin in allEnabledPlugins.Where(a => unsupported.Contains(a.Name)))
-                    plugin.Enabled = false;
-            }
-        );
+        foreach (var badPlugin in allEnabledPlugins.Where(a => unsupported.Contains(a.Name)))
+            DisablePlugin(badPlugin);
     }
 
     /// <summary>
@@ -69,11 +70,15 @@ public static class PluginManager
     public static void DisablePlugin(IBaseNametag plugin)
     {
         plugin.Enabled = false;
+
         try { Main.UpdateNametags -= plugin.Update; }
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
         }
+
+        Main.Nametags[plugin].ForEach(rig => rig.Value.Destroy());
+        Main.Nametags[plugin].Clear();
     }
 
     /// <summary>

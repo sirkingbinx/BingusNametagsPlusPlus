@@ -16,7 +16,7 @@ public static class NametagCreator
 		var tagObject = Object.Instantiate(Main.NametagDefault, parent, false);
 
 		tagObject?.gameObject.layer = LayerMask.NameToLayer(layerName);
-		tagObject?.transform.localPosition = new Vector3(0f, Config.NametagYOffset, 0f);
+		tagObject?.transform.localPosition = new Vector3(0f, ConfigManager.NametagYOffset, 0f);
 		tagObject?.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
 		tagObject?.AddComponent<CameraFollower>(); // follow the camera around
@@ -24,8 +24,8 @@ public static class NametagCreator
         var tmPro = tagObject?.GetComponent<TextMeshPro>();
 		tmPro?.text = $"...";
 
-		if (!Config.CustomFont.IsNull())
-			tmPro?.font = Config.CustomFont;
+		if (!ConfigManager.CustomFont.IsNull())
+			tmPro?.font = ConfigManager.CustomFont;
 
 		// Fixed shaders because URP is love URP is life
 		tmPro?.fontMaterial.shader = Shader.Find("TextMeshPro/Mobile/Distance Field");

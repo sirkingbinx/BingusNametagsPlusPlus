@@ -98,16 +98,16 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
 
     internal void UpdateSettings(float offset)
     {
-        firstPerson.GetComponent<TextMeshPro>().fontSize = Config.NametagScale;
-        thirdPerson.GetComponent<TextMeshPro>().fontSize = Config.NametagScale;
+        firstPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.NametagScale;
+        thirdPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.NametagScale;
 
-        firstPerson.transform.localPosition = new Vector3(0f, Config.NametagYOffset + offset, 0f);
-        thirdPerson.transform.localPosition = new Vector3(0f, Config.NametagYOffset + offset, 0f);
+        firstPerson.transform.localPosition = new Vector3(0f, ConfigManager.NametagYOffset + offset, 0f);
+        thirdPerson.transform.localPosition = new Vector3(0f, ConfigManager.NametagYOffset + offset, 0f);
 
-        firstPerson.SetActive(Config.ShowInFirstPerson);
-        thirdPerson.SetActive(Config.ShowInThirdPerson);
+        firstPerson.SetActive(ConfigManager.ShowInFirstPerson);
+        thirdPerson.SetActive(ConfigManager.ShowInThirdPerson);
 
-        if (!(Config.CustomNametags && player.OwningNetPlayer.GetPlayerRef().CustomProperties.TryGetValue("BingusNametags++", out var rawData)))
+        if (!(ConfigManager.CustomNametags && player.OwningNetPlayer.GetPlayerRef().CustomProperties.TryGetValue("BingusNametags++", out var rawData)))
             return;
 
         var data = (Dictionary<string, object>)rawData;
@@ -119,7 +119,7 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
         var italic = (bool)data["isItalic"];
         var underlined = (bool)data["isUnderlined"];
 
-        if (Config.ValidHexCode(color))
+        if (ConfigManager.ValidHexCode(color))
             AddStyle("color", $"#{color}");
 
         if (bold) 

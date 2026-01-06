@@ -8,7 +8,6 @@ using BingusNametagsPlusPlus.Components;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
 using UnityEngine;
-using NConfig = BingusNametagsPlusPlus.Utilities.Config;
 using Object = UnityEngine.Object;
 
 namespace BingusNametagsPlusPlus;
@@ -49,7 +48,7 @@ public class Main : BaseUnityPlugin
         PluginManager.LoadFromDefaultFolder();
 
         Debug.Log("[BG++] Loading configuration...");
-        NConfig.LoadPrefs();
+        ConfigManager.LoadPrefs();
 
         Debug.Log("[BG++] Nametags have been loaded. yay");
 
@@ -73,13 +72,13 @@ public class Main : BaseUnityPlugin
 
 	public void OnDisable()
     {
-        NConfig.ShowingNametags = false;
-		NConfig.SavePrefs();
+        ConfigManager.ShowingNametags = false;
+        ConfigManager.SavePrefs();
 	}
 
 	private void OnGUI() => UIManager.OnGUI();
 	private void LateUpdate() => Networking.SetNetworkedProperties();
-	public void OnEnable() => NConfig.ShowingNametags = true;
+	public void OnEnable() => ConfigManager.ShowingNametags = true;
 
 	private static T Load<T>(string path, string name) where T : Object
 	{
