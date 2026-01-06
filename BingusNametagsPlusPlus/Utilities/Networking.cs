@@ -7,7 +7,7 @@ namespace BingusNametagsPlusPlus.Utilities;
 
 public static class Networking
 {
-	public static bool DoNetworking = true;
+	public static bool DoNetworking = false;
 
 	public static void SetNetworkedProperties()
 	{

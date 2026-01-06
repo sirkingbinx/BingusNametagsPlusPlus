@@ -23,14 +23,14 @@ public static class ConfigManager
 	public static bool UserCustomIcons = true;
 	public static bool GlobalIconsEnabled = true;
 
-    public static bool UseSanitizedNickName = false;
+    public static bool UseSanitizedNickName = true;
 
 	public static TMP_FontAsset? CustomFont;
 
 	public static float NametagScale = 5f;
 	public static float NametagYOffset = 0.65f;
 
-	public static bool CustomNametags = false;
+	public static bool CustomNametags = true;
 	public static string NametagColor = "ffffff";
 
 	public static bool NetworkBold = false;
@@ -48,7 +48,7 @@ public static class ConfigManager
         var config = new ConfigFile(ConfigFilePath, false);
 
         // Nametags
-        config.Bind("Nametags", "Show", ShowingNametags, "Show the nametags in third person");
+        config.Bind("Nametags", "Show", ShowingNametags, "Show nametags");
         config.Bind("Nametags", "FirstPersonEnabled", ShowInFirstPerson, "Show the nametags in first person");
         config.Bind("Nametags", "ThirdPersonEnabled", ShowInThirdPerson, "Show the nametags in third person");
         config.Bind("Nametags", "SanitizeNicknames", UseSanitizedNickName, "\"Clean\" usernames, filtering out any bad usernames");
