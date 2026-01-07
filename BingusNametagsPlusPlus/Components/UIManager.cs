@@ -1,6 +1,8 @@
+using BingusNametagsPlusPlus.Utilities;
 using System;
 using System.Collections.Generic;
-using BingusNametagsPlusPlus.Utilities;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,13 +10,13 @@ namespace BingusNametagsPlusPlus.Components;
 
 public static class UIManager
 {
-	private const int WindowX = 10;
-	private const int WindowY = 10;
+	private static float WindowX = 10;
+	private static float WindowY = 10;
 
 	private const int WindowSizeX = 420;
 	private const int WindowSizeY = 400;
 
-	private const int WindowPadding = 10;
+	private const float WindowPadding = 10;
 
 	private const string Credits =
 		"Beta Testers:\n" +
@@ -44,8 +46,8 @@ public static class UIManager
 	private static float _lastWavingFrameSwitch;
 	private static bool _waving = true;
 
-	private static int WindowStartX => WindowX + WindowPadding;
-	private static int WindowStartY => WindowY + WindowPadding + 50;
+	private static float WindowStartX => WindowX + WindowPadding;
+	private static float WindowStartY => WindowY + WindowPadding + 50f;
 
 	private static BGWindowState WindowState = BGWindowState.Normal;
 
@@ -256,15 +258,25 @@ public static class UIManager
 				break;
 		}
 
-		// Saving / other stuff like that
-		if (GUI.Button(
-			new Rect(WindowStartX, WindowY + WindowSizeY - 25, 100, 20),
-            new GUIContent("Refresh", "Reload all configuration. Any unsaved changes will be lost!")))
-		{
-			ConfigManager.LoadPrefs();
-		}
+        // Saving / other stuff like that
+        if (GUI.Button(
+            new Rect(WindowStartX, WindowY + WindowSizeY - 25, 150, 20),
+            new GUIContent("Data Folder", "Opens the location of the BingusNametags++ data folder"))
+        )
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = Constants.BingusNametagsData,
+                UseShellExecute = true,
+                Verb = "open"
+            });
 
-		if (GUI.Button(new Rect(WindowStartX + 105, WindowY + WindowSizeY - 25, 75, 20),
+        if (GUI.Button(
+			new Rect(WindowStartX + 155, WindowY + WindowSizeY - 25, 100, 20),
+            new GUIContent("Refresh", "Reload all configuration. Any unsaved changes will be lost!"))
+        )
+			ConfigManager.LoadPrefs();
+
+		if (GUI.Button(new Rect(WindowStartX + 260, WindowY + WindowSizeY - 25, 75, 20),
 				new GUIContent("Apply",
 					"Save the current nametags configuration. Auto-saves!")))
 			ConfigManager.SavePrefs();
@@ -303,6 +315,8 @@ public static class UIManager
 		WindowState = BGWindowState.Prompt;
 	}
 
+    private static Vector2 mousePosition;
+	
 	public static void OnGUI()
 	{
 		if (!_showingUI)
@@ -326,17 +340,18 @@ public static class UIManager
 				break;
 		}
 
-		// X button
-		if (GUI.RepeatButton(new Rect(WindowX + WindowSizeX - 25, WindowY + 5, 20, 20),
-				new GUIContent("X", "Close the window (press right shift to reopen)")))
+        mousePosition = Mouse.current.position.ReadValue();
+
+        // X button
+        if (GUI.RepeatButton(new Rect(WindowX + WindowSizeX - 25, WindowY + 5, 20, 20), new GUIContent("X", "Close")))
 			_showingUI = false;
 
-		// Tooltip display
-		if (!string.IsNullOrEmpty(GUI.tooltip))
+        // Tooltip display
+        if (!string.IsNullOrEmpty(GUI.tooltip))
 		{
-			var actualY = Math.Abs(Mouse.current.position.ReadValue().y - Screen.height);
+			var actualY = Math.Abs(mousePosition.y - Screen.height);
 			GUIStyle.none.CalcMinMaxWidth(new GUIContent(GUI.tooltip), out var min, out _);
-			GUI.Box(new Rect(Mouse.current.position.ReadValue().x + 10, actualY, min + 20, 25), GUI.tooltip);
+			GUI.Box(new Rect(mousePosition.x + 10, actualY, min + 20, 25), GUI.tooltip);
 		}
 
 		// Reset it so the tooltip is gone when your mouse leaves an element

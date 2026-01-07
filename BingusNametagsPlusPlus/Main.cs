@@ -20,6 +20,8 @@ public class Main : BaseUnityPlugin
 	internal static GameObject? NametagDefault;
     internal static Action UpdateNametags = delegate { };
 
+    internal static bool PluginEnabled = true;
+
     internal static Dictionary<IBaseNametag, Dictionary<VRRig, PlayerNametag>> Nametags = new();
 
 	private void Start()
@@ -70,15 +72,19 @@ public class Main : BaseUnityPlugin
         UpdateNametags();
     }
 
-	public void OnDisable()
+    public void OnEnable()
     {
-        ConfigManager.ShowingNametags = false;
+        PluginEnabled = true;
+    }
+
+    public void OnDisable()
+    {
+        PluginEnabled = false;
         ConfigManager.SavePrefs();
 	}
 
 	private void OnGUI() => UIManager.OnGUI();
 	private void LateUpdate() => Networking.SetNetworkedProperties();
-	public void OnEnable() => ConfigManager.ShowingNametags = true;
 
 	private static T Load<T>(string path, string name) where T : Object
 	{

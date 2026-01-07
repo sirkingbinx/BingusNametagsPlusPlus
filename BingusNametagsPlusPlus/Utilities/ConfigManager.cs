@@ -45,7 +45,7 @@ public static class ConfigManager
 
     public static ConfigFile GenerateConfig()
     {
-        var config = new ConfigFile(ConfigFilePath, false);
+        var config = new ConfigFile(ConfigFilePath, true);
 
         // Nametags
         config.Bind("Nametags", "Show", ShowingNametags, "Show nametags");
@@ -76,25 +76,25 @@ public static class ConfigManager
         var cfgFile = GenerateConfig();
 
         // Nametags
-        cfgFile.Get<bool>("Nametags", "Show").Value = ShowingNametags;
-        cfgFile.Get<bool>("Nametags", "FirstPersonEnabled").Value = ShowInFirstPerson;
-        cfgFile.Get<bool>("Nametags", "ThirdPersonEnabled").Value = ShowInThirdPerson;
-        cfgFile.Get<bool>("Nametags", "SanitizeNicknames").Value = UseSanitizedNickName;
-        cfgFile.Get<float>("Nametags", "Scale").Value = NametagScale;
-        cfgFile.Get<float>("Nametags", "Offset").Value = NametagYOffset;
+        cfgFile.Get<bool>("Nametags", "Show").BoxedValue = ShowingNametags;
+        cfgFile.Get<bool>("Nametags", "FirstPersonEnabled").BoxedValue = ShowInFirstPerson;
+        cfgFile.Get<bool>("Nametags", "ThirdPersonEnabled").BoxedValue = ShowInThirdPerson;
+        cfgFile.Get<bool>("Nametags", "SanitizeNicknames").BoxedValue = UseSanitizedNickName;
+        cfgFile.Get<float>("Nametags", "Scale").BoxedValue = NametagScale;
+        cfgFile.Get<float>("Nametags", "Offset").BoxedValue = NametagYOffset;
 
         // Icons
-        cfgFile.Get<bool>("Icons", "Show").Value = GlobalIconsEnabled;
-        cfgFile.Get<bool>("Icons", "SpecialUserIcons").Value = UserCustomIcons;
-        cfgFile.Get<bool>("Icons", "PlatformIcons").Value = ShowingPlatform;
+        cfgFile.Get<bool>("Icons", "Show").BoxedValue = GlobalIconsEnabled;
+        cfgFile.Get<bool>("Icons", "SpecialUserIcons").BoxedValue = UserCustomIcons;
+        cfgFile.Get<bool>("Icons", "PlatformIcons").BoxedValue = ShowingPlatform;
 
         // Networking
-        cfgFile.Get<bool>("Networking", "CustomNametags").Value = Networking.DoNetworking;
-        cfgFile.Get<bool>("Networking", "ViewOtherCustomStyles").Value = CustomNametags;
-        cfgFile.Get<string>("Networking", "Color").Value = NametagColor;
-        cfgFile.Get<bool>("Networking", "Bold").Value = NetworkBold;
-        cfgFile.Get<bool>("Networking", "Italics").Value = NetworkItalic;
-        cfgFile.Get<bool>("Networking", "Underlined").Value = NetworkUnderline;
+        cfgFile.Get<bool>("Networking", "CustomNametags").BoxedValue = Networking.DoNetworking;
+        cfgFile.Get<bool>("Networking", "ViewOtherCustomStyles").BoxedValue = CustomNametags;
+        cfgFile.Get<string>("Networking", "Color").BoxedValue = NametagColor;
+        cfgFile.Get<bool>("Networking", "Bold").BoxedValue = NetworkBold;
+        cfgFile.Get<bool>("Networking", "Italics").BoxedValue = NetworkItalic;
+        cfgFile.Get<bool>("Networking", "Underlined").BoxedValue = NetworkUnderline;
 
         cfgFile.Save();
 

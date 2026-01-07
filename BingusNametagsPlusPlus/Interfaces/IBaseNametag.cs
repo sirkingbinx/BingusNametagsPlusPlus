@@ -56,16 +56,18 @@ namespace BingusNametagsPlusPlus.Interfaces
 
         internal void Update()
         {
+            var AllowedToShowNametags = ConfigManager.ShowingNametags && Main.PluginEnabled;
+
             Main.Nametags.TryAdd(this, []);
             var nametags = Main.Nametags[this];
 
-            if (!ConfigManager.ShowingNametags && nametags.Count != 0)
+            if (!AllowedToShowNametags && nametags.Count != 0)
             {
                 nametags.ForEach(rig => rig.Value.Destroy());
                 nametags.Clear();
             }
 
-            if (!GorillaParent.hasInstance || !ConfigManager.ShowingNametags)
+            if (!GorillaParent.hasInstance || !AllowedToShowNametags)
                 return;
 
             foreach (var pair in nametags.Where(p => !GorillaParent.instance.vrrigs.Contains(p.Key)))
