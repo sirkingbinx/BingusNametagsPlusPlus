@@ -18,7 +18,7 @@ public class Main : BaseUnityPlugin
 	public static Main? Instance;
 
 	internal static GameObject? NametagDefault;
-    internal static Action UpdateNametags = delegate { };
+    internal static Action? UpdateNametags;
 
     internal static bool PluginEnabled = true;
 
@@ -57,6 +57,9 @@ public class Main : BaseUnityPlugin
         if (!PluginManager.PluginFailures.Any())
             return;
 
+        if (Constants.Channel != ReleaseChannel.Stable)
+            UIManager.ShowingUI = true;
+
         Debug.Log("[BG++]: Some errors occured, we have logged them to the console and displayed them");
 
         UIManager.Ask(
@@ -69,7 +72,7 @@ public class Main : BaseUnityPlugin
 	private void Update()
 	{
 		UIManager.Update();
-        UpdateNametags();
+        UpdateNametags?.Invoke();
     }
 
     public void OnEnable()

@@ -127,17 +127,6 @@ public static class ConfigManager
         NetworkItalic = cfgFile.Get<bool>("Networking", "Italics").Value;
         NetworkUnderline = cfgFile.Get<bool>("Networking", "Underlined").Value;
 
-        var enabledPluginsString = PlayerPrefs.GetString("BG++_EnabledPlugins", "Default");
-        var enabledPlugins = enabledPluginsString.Split("&");
-
-        PluginManager.Plugins.ForEach(nametag =>
-        {
-            if (enabledPlugins.Contains(nametag.Name))
-                PluginManager.EnablePlugin(nametag);
-            else
-                PluginManager.DisablePlugin(nametag);
-        });
-
 		var fontFile =
 			Directory.EnumerateFiles(Constants.AssemblyDirectory, "*.ttf", SearchOption.TopDirectoryOnly)
 				.FirstOrDefault()
@@ -146,7 +135,12 @@ public static class ConfigManager
 
 		if (!fontFile.IsNullOrWhiteSpace())
 			CustomFont = TMP_FontAsset.CreateFontAsset(new Font(fontFile));
-	}
+
+        var enabledPluginsString = PlayerPrefs.GetString("BG++_EnabledPlugins", "Default");
+        var enabledPlugins = enabledPluginsString.Split("&");
+
+        PluginManager.Plugins.Where(nametag => enabledPlugins.Contains(nametag.Name)).ForEach(PluginManager.EnablePlugin);
+    }
 
 	public static bool ValidHexCode(string hexCode) =>
         !hexCode.IsNullOrWhiteSpace() && Regex.IsMatch(hexCode, @"^#?([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$");

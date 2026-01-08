@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Debug = UnityEngine.Debug;
 
 namespace BingusNametagsPlusPlus.Components;
 
@@ -30,16 +31,17 @@ public static class UIManager
 		"\tAriel (The Mysterious Person)\n" +
 		"\tCrazykid\n";
 
-	private static bool _showingUI;
+	public static bool ShowingUI;
 
-	private static readonly GUIContent[] Pages =
-	[
-		new("Nametag", "Nametag behaviour settings"),
-		new("Icons", "Change how icons behave"),
-		new("Network", "Change how your nametag looks to other people"),
-		new("Plugins", "Enable/disable all nametags"),
-		new("About", "About BingusNametags++")
-	];
+    private static GUIContent[] Pages =
+    [
+        new("Nametag", "Nametag behaviour settings"),
+        new("Icons", "Change how icons behave"),
+        new("Network", "Change how your nametag looks to other people"),
+        new("Plugins", "Enable/disable all nametags"),
+        new("About", "About BingusNametags++")
+    ];
+	
 
 	private static int _pageSelected;
 
@@ -54,13 +56,12 @@ public static class UIManager
 	public static void Update()
 	{
 		if (Keyboard.current.rightShiftKey.wasPressedThisFrame)
-			_showingUI = !_showingUI;
+			ShowingUI = !ShowingUI;
 	}
 
 	public static void DrawNormal()
 	{
-		_pageSelected = GUI.Toolbar(new Rect(WindowX + 5, WindowY + 30, WindowSizeX - WindowPadding, 20), _pageSelected,
-			Pages);
+		_pageSelected = GUI.Toolbar(new Rect(WindowX + 5, WindowY + 30, WindowSizeX - WindowPadding, 20), _pageSelected, Pages.AsArray());
 
 		switch (_pageSelected)
 		{
@@ -280,6 +281,23 @@ public static class UIManager
 				new GUIContent("Apply",
 					"Save the current nametags configuration. Auto-saves!")))
 			ConfigManager.SavePrefs();
+
+		#region Debug Stuff
+		if (Constants.Channel != ReleaseChannel.Stable)
+        {
+            GUI.Label(
+                new Rect(WindowStartX, WindowY + WindowSizeY + WindowPadding, WindowSizeX - WindowPadding * 2, 20),
+                $"Plugin updates polled: {Main.UpdateNametags?.GetInvocationList().Length}"
+            );
+
+            var fps = 1.0f / Time.deltaTime;
+
+            GUI.Label(
+                new Rect(WindowStartX, WindowY + WindowSizeY + WindowPadding + 20, WindowSizeX - WindowPadding * 2, 20),
+                $"FPS: {Mathf.Floor(fps)}"
+            );
+        }
+		#endregion
 	}
 
 	private static string promptQuestion = "";
@@ -316,10 +334,25 @@ public static class UIManager
 	}
 
     private static Vector2 mousePosition;
+
+    public static void SafeDraw(Action drawingThing)
+    {
+        try
+        {
+            drawingThing();
+        }
+        catch (Exception ex)
+        {
+			GUI.Label(
+                new Rect(WindowStartX, WindowStartY, WindowSizeX - WindowPadding * 2, WindowSizeY - WindowPadding * 2),
+                $"An error occured while drawing UI.\n\n\tSource: {drawingThing.Method.Name}\n\tMessage: {ex.Message}\n\tTrace:\n\t{ex.StackTrace}\n\noops"
+            );
+        }
+    }
 	
 	public static void OnGUI()
 	{
-		if (!_showingUI)
+		if (!ShowingUI)
 			return;
 
 		// Window
@@ -333,18 +366,18 @@ public static class UIManager
 		{
 			default:
 			case BGWindowState.Normal:
-				DrawNormal();
+				SafeDraw(DrawNormal);
 				break;
 			case BGWindowState.Prompt:
-				DrawPrompt();
-				break;
+                SafeDraw(DrawPrompt);
+                break;
 		}
 
         mousePosition = Mouse.current.position.ReadValue();
 
         // X button
         if (GUI.RepeatButton(new Rect(WindowX + WindowSizeX - 25, WindowY + 5, 20, 20), new GUIContent("X", "Close")))
-			_showingUI = false;
+			ShowingUI = false;
 
         // Tooltip display
         if (!string.IsNullOrEmpty(GUI.tooltip))

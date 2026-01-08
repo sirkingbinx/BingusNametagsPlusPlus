@@ -34,22 +34,17 @@ public static class PluginManager
         var allEnabledPlugins = Plugins.Where(a => a.Enabled);
         var allEnabledNames = allEnabledPlugins.Select(a => a.Name);
 
-        var unsupported = plugin.Unsupported.Where(unsupportedName => allEnabledNames.Contains(unsupportedName));
+        var unsupportedList = "";
+        var unsupported = plugin.Unsupported.Where(unsupportedName => allEnabledNames.Contains(unsupportedName)).ForEach(unsupportedPlugin => unsupportedList += (unsupportedList == "" ? unsupportedPlugin : $", {unsupportedPlugin}"));
 
         var disableStuff = true;
 
         if (unsupported.Any())
         {
-            var unsupportedList = "";
-            unsupported.ForEach(unsupportedPlugin => unsupportedList += (unsupportedList == "" ? unsupportedPlugin : $", {unsupportedPlugin}"));
-
             UIManager.Ask(
                 $"The nametag you want to enable is incompatable with the following <i>enabled</i> nametags:\n\n{unsupportedList}\n\nAre you sure you want to enable this nametag?",
                 ["Yes", "No"],
-                answer =>
-                {
-                    disableStuff = (answer == "Yes");
-                }
+                answer => { disableStuff = (answer == "Yes"); }
             );
         }
 

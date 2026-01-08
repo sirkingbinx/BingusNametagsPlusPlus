@@ -13,7 +13,7 @@ public class DefaultNametag : IBaseNametag
     public string Author => "Bingus";
     public float Offset => 0f;
     public List<string> Unsupported => [];
-    public bool Enabled { get; set; } = true;
+    public bool Enabled { get; set; } = false;
 
     private static string GetPlatformString(VRRig player)
     {

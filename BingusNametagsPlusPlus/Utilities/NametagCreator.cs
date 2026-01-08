@@ -22,7 +22,7 @@ public static class NametagCreator
 		tagObject?.AddComponent<CameraFollower>(); // follow the camera around
 
         var tmPro = tagObject?.GetComponent<TextMeshPro>();
-		tmPro?.text = $"...";
+		tmPro?.text = "...";
 
 		if (!ConfigManager.CustomFont.IsNull())
 			tmPro?.font = ConfigManager.CustomFont;
