@@ -13,7 +13,7 @@ public static class Constants
 	public const string Guid = "bingus.nametagsplusplus";
 	public const string Version = "1.3.2";
 
-    public const ReleaseChannel Channel = ReleaseChannel.Beta;
+    public const ReleaseChannel Channel = ReleaseChannel.Stable;
 
     public static string BingusNametagsData =>
         Path.Combine(Application.dataPath[.. Application.dataPath.LastIndexOf("/")], "BingusNametags++");
@@ -28,9 +28,6 @@ public static class Constants
 		["7adb8b7e8f60e767"] = "beta2",
 		["21f6d8f675c9234"]  = "beta2"
 	};
-
-	public static string AssemblyDirectory =>
-		Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? @"C:\Users\Public";
 }
 
 public enum ReleaseChannel

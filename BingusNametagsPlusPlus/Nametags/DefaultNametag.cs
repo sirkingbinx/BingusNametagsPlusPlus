@@ -17,7 +17,7 @@ public class DefaultNametag : IBaseNametag
 
     private static string GetPlatformString(VRRig player)
     {
-        var cosmetics = player.concatStringOfCosmeticsAllowed.ToLower();
+        var cosmetics = player.rawCosmeticString;
         var properties = player.OwningNetPlayer.GetPlayerRef().CustomProperties.Count;
 
         return cosmetics.Contains("s. first login") ? "steam" : (cosmetics.Contains("first login") || cosmetics.Contains("game-purchase") || properties > 1) ? "oculus" : "meta";

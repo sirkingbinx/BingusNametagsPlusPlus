@@ -133,9 +133,9 @@ public static class ConfigManager
         NetworkUnderline = cfgFile.Get<bool>("Networking", "Underlined").Value;
 
 		var fontFile =
-			Directory.EnumerateFiles(Constants.AssemblyDirectory, "*.ttf", SearchOption.TopDirectoryOnly)
+			Directory.EnumerateFiles(Constants.BingusNametagsData, "*.ttf", SearchOption.AllDirectories)
 				.FirstOrDefault()
-			?? Directory.EnumerateFiles(Constants.AssemblyDirectory, "*.otf", SearchOption.TopDirectoryOnly)
+			?? Directory.EnumerateFiles(Constants.BingusNametagsData, "*.otf", SearchOption.AllDirectories)
 				.FirstOrDefault();
 
 		if (!fontFile.IsNullOrWhiteSpace())

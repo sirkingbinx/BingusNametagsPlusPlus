@@ -43,22 +43,25 @@ public class Main : BaseUnityPlugin
 
     private static void OnPlayerSpawned()
     {
-        Debug.Log("[BG++] Loading nametags [1/2 AppDomain]..");
-        PluginManager.LoadNametagsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
-
-        Debug.Log("[BG++] Loading nametags [2/2 nametags Folder]..");
-        PluginManager.LoadFromDefaultFolder();
-
-        Debug.Log("[BG++] Loading configuration...");
-        ConfigManager.LoadPrefs();
-
-        Debug.Log("[BG++] Nametags have been loaded. yay");
-
-        if (Constants.Channel != ReleaseChannel.Stable)
-            UIManager.ShowingUI = true;
-
-        if (PluginManager.PluginFailures.Any())
         {
+            Debug.Log("[BG++] Loading nametags [1/2 AppDomain]..");
+            PluginManager.LoadNametagsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+
+            Debug.Log("[BG++] Loading nametags [2/2 nametags Folder]..");
+            PluginManager.LoadFromDefaultFolder();
+
+            Debug.Log("[BG++] Loading configuration...");
+            ConfigManager.LoadPrefs();
+
+            Debug.Log("[BG++] Nametags have been loaded. yay");
+        }
+
+        UIManager.ShowingUI = Constants.Channel != ReleaseChannel.Stable;
+
+        {
+            if (!PluginManager.PluginFailures.Any())
+                return;
+
             Debug.Log("[BG++]: Some errors occured, we have logged them to the console and displayed them");
 
             UIManager.Ask(
