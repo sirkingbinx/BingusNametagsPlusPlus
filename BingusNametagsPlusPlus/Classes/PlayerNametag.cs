@@ -98,14 +98,14 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
 
     internal void UpdateSettings(float offset)
     {
-        firstPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.NametagScale;
-        thirdPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.NametagScale;
+        firstPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.Scale;
+        thirdPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.Scale;
 
-        firstPerson.transform.localPosition = new Vector3(0f, ConfigManager.NametagYOffset + offset, 0f);
-        thirdPerson.transform.localPosition = new Vector3(0f, ConfigManager.NametagYOffset + offset, 0f);
+        firstPerson.transform.localPosition = new Vector3(0f, ConfigManager.Offset + offset, 0f);
+        thirdPerson.transform.localPosition = new Vector3(0f, ConfigManager.Offset + offset, 0f);
 
-        firstPerson.SetActive(ConfigManager.ShowInFirstPerson);
-        thirdPerson.SetActive(ConfigManager.ShowInThirdPerson);
+        firstPerson.SetActive(ConfigManager.FirstPersonEnabled);
+        thirdPerson.SetActive(ConfigManager.ThirdPersonEnabled);
 
         if (!(ConfigManager.CustomNametags && player.OwningNetPlayer.GetPlayerRef().CustomProperties.TryGetValue("BingusNametags++", out var rawData)))
             return;

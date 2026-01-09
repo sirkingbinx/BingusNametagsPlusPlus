@@ -13,7 +13,7 @@ public static class Networking
 	{
 		if (DoNetworking)
 		{
-            var color = ConfigManager.NametagColor.First() == '#' ? ConfigManager.NametagColor[1..] : ConfigManager.NametagColor;
+            var color = ConfigManager.NetworkColor.First() == '#' ? ConfigManager.NetworkColor[1..] : ConfigManager.NetworkColor;
 
             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
 			{

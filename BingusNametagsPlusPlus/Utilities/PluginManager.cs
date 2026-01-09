@@ -21,6 +21,11 @@ public static class PluginManager
     public static List<IBaseNametag> Plugins = [];
 
     /// <summary>
+    /// All currently loaded and enabled IBaseNametags.
+    /// </summary>
+    public static List<IBaseNametag> EnabledPlugins => [.. Plugins.Where(plugin => plugin.Enabled)];
+
+    /// <summary>
     /// Any failures caused while loading plugins.
     /// </summary>
     public static List<string> PluginFailures = [];
@@ -48,7 +53,7 @@ public static class PluginManager
             );
         }
 
-        if (!disableStuff)
+        if (!disableStuff || (Main.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false))
             return;
 
         plugin.Enabled = true;
@@ -66,14 +71,17 @@ public static class PluginManager
     {
         plugin.Enabled = false;
 
-        try { Main.UpdateNametags -= plugin.Update; }
-        catch (Exception ex)
+        if (!Main.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false)
         {
-            Debug.Log(ex.Message);
-        }
+            try { Main.UpdateNametags -= plugin.Update; }
+            catch (Exception ex)
+            {
+                Debug.Log(ex.Message);
+            }
 
-        Main.Nametags[plugin].ForEach(rig => rig.Value.Destroy());
-        Main.Nametags[plugin].Clear();
+            Main.Nametags[plugin].ForEach(rig => rig.Value.Destroy());
+            Main.Nametags[plugin].Clear();
+        }
     }
 
     /// <summary>

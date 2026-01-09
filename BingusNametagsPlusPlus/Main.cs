@@ -54,19 +54,19 @@ public class Main : BaseUnityPlugin
 
         Debug.Log("[BG++] Nametags have been loaded. yay");
 
-        if (!PluginManager.PluginFailures.Any())
-            return;
-
         if (Constants.Channel != ReleaseChannel.Stable)
             UIManager.ShowingUI = true;
 
-        Debug.Log("[BG++]: Some errors occured, we have logged them to the console and displayed them");
+        if (PluginManager.PluginFailures.Any())
+        {
+            Debug.Log("[BG++]: Some errors occured, we have logged them to the console and displayed them");
 
-        UIManager.Ask(
-            $"There were errors loading some nametags.\n\n{PluginManager.PluginFailures.Zip("\n- ")}\n\nIf you are a user, please report these messages to the developer(s) of the nametag.",
-            ["OK"],
-            (ans) => { }
-        );
+            UIManager.Ask(
+                $"There were errors loading some nametags.\n\n{PluginManager.PluginFailures.Zip("\n- ")}\n\nIf you are a user, please report these messages to the developer(s) of the nametag.",
+                ["OK"],
+                (ans) => { }
+            );
+        }
     }
 
 	private void Update()

@@ -56,7 +56,7 @@ namespace BingusNametagsPlusPlus.Interfaces
 
         internal void Update()
         {
-            var AllowedToShowNametags = ConfigManager.ShowingNametags && Main.PluginEnabled;
+            var AllowedToShowNametags = ConfigManager.Nametags && Main.PluginEnabled;
 
             Main.Nametags.TryAdd(this, []);
             var nametags = Main.Nametags[this];

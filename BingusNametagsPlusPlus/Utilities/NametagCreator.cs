@@ -16,7 +16,7 @@ public static class NametagCreator
 		var tagObject = Object.Instantiate(Main.NametagDefault, parent, false);
 
 		tagObject?.gameObject.layer = LayerMask.NameToLayer(layerName);
-		tagObject?.transform.localPosition = new Vector3(0f, ConfigManager.NametagYOffset, 0f);
+		tagObject?.transform.localPosition = new Vector3(0f, ConfigManager.Offset, 0f);
 		tagObject?.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
 		tagObject?.AddComponent<CameraFollower>(); // follow the camera around

@@ -27,9 +27,9 @@ public class DefaultNametag : IBaseNametag
     {
         var prefix = "";
 
-        if (ConfigManager.GlobalIconsEnabled)
+        if (ConfigManager.Icons)
         {
-            if (ConfigManager.UserCustomIcons &&
+            if (ConfigManager.UserIcons &&
                 Constants.SpecialBadgeIds.TryGetValue(nametag.Owner.OwningNetPlayer.UserId.ToLower(), out var n))
             {
                 var adding = "";
@@ -41,10 +41,10 @@ public class DefaultNametag : IBaseNametag
                 prefix += adding;
             }
 
-            if (ConfigManager.ShowingPlatform)
+            if (ConfigManager.PlatformIcons)
                 prefix += $"<sprite name=\"{GetPlatformString(nametag.Owner)}\">";
         }
 
-        nametag.Text = ($"{prefix}{(ConfigManager.ShowingName ? nametag.Owner.OwningNetPlayer.NickName : "")}");
+        nametag.Text = ($"{prefix}{(ConfigManager.Default_ShowingName ? nametag.Owner.OwningNetPlayer.NickName : "")}");
     }
 }

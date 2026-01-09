@@ -13,13 +13,13 @@ public class AdvancedNametag : IBaseNametag
     public string Name => "Advanced";
     public string Description => "Includes some extra details, like FPS and m/s. This is often used for testing the latest features, beware!";
     public string Author => "Bingus";
-    public float Offset => 0.35f;
+    public float Offset => 0.25f;
     public List<string> Unsupported => [];
     public bool Enabled { get; set; } = false;
 
     public void UpdateNametag(PlayerNametag nametag)
     {
-        nametag.Size = ConfigManager.NametagScale * 0.85f;
+        nametag.Size = ConfigManager.Scale * 0.85f;
         nametag.AddStyle("color", "#d6d6d6");
         nametag.Text = $"{nametag.Owner.fps} fps / {nametag.Owner.LatestVelocity().magnitude:F1} m/s";
     }
