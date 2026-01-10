@@ -340,6 +340,7 @@ public static class UIManager
         }
         catch (Exception ex)
         {
+			ex.Report();
 			GUI.Label(
                 new Rect(WindowStartX, WindowStartY, WindowSizeX - WindowPadding * 2, WindowSizeY - WindowPadding * 2),
                 $"An error occured while drawing UI.\n\n\tSource: {drawingThing.Method.Name}\n\tMessage: {ex.Message}\n\tTrace:\n\t{ex.StackTrace}\n\noops"

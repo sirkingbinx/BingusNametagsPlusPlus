@@ -26,7 +26,9 @@ public class Main : BaseUnityPlugin
 
 	private void Start()
     {
-        Debug.Log("Loading assetbundle.");
+        LogManager.CreateLog();
+
+        LogManager.Log("Loading assetbundle [1/4]");
 
 		NametagDefault = Load<GameObject>(@"BingusNametagsPlusPlus.Resources.nametags", "Nametag");
         Instance = this;
@@ -36,7 +38,7 @@ public class Main : BaseUnityPlugin
             try { OnPlayerSpawned(); }
             catch (Exception ex)
             {
-                Debug.Log(ex.Message);
+                ex.Report();
             }
         });
     }
@@ -44,13 +46,13 @@ public class Main : BaseUnityPlugin
     private static void OnPlayerSpawned()
     {
         {
-            Debug.Log("[BG++] Loading nametags .");
+            LogManager.Log("Loading nametags [2/4]");
             Task.Run(PluginManager.LoadNametags).Wait();
 
-            Debug.Log("[BG++] Loading configuration ..");
+            LogManager.Log("Loading configuration [3/4]");
             ConfigManager.LoadPrefs();
 
-            Debug.Log("[BG++] Nametags have been loaded. yay ...");
+            LogManager.Log("Nametags have been loaded. yay [4/4]");
         }
 
         UIManager.ShowingUI = Constants.Channel != ReleaseChannel.Stable;
@@ -59,7 +61,7 @@ public class Main : BaseUnityPlugin
             if (!PluginManager.PluginFailures.Any())
                 return;
 
-            Debug.Log("[BG++]: Some errors occured, we have logged them to the console and displayed them");
+            LogManager.Log("Some errors occured, we have logged them to the console and displayed them");
 
             UIManager.Ask(
                 $"There were errors loading some nametags.\n\n{PluginManager.PluginFailures.Zip("\n- ")}\n\nIf you are a user, please report these messages to the developer(s) of the nametag.",
@@ -95,7 +97,7 @@ public class Main : BaseUnityPlugin
 		var obj = ab.LoadAsset<T>(name);
 
 		if (obj.Uninitialized())
-			Debug.Log(
+			LogManager.Log(
 				$"Cannot load assetbundle \"{path}\" object \"{name}\" to type \"{typeof(T).FullName}.\nValid streams: \n\t{Assembly.GetExecutingAssembly().GetManifestResourceNames().Join("\n\t")}");
 
 		ab.Unload(false);

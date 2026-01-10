@@ -77,7 +77,7 @@ public static class PluginManager
             try { Main.UpdateNametags -= plugin.Update; }
             catch (Exception ex)
             {
-                Debug.Log(ex.Message);
+                ex.Report();
             }
 
             Main.Nametags[plugin].ForEach(rig => rig.Value.Destroy());
@@ -129,7 +129,8 @@ public static class PluginManager
             }
             catch (Exception ex)
             {
-                Debug.Log($"The file {file} could not be loaded correctly: {ex.Message}");
+                ex.Report();
+                LogManager.Log($"The file {file} could not be loaded correctly: {ex.Message}");
                 PluginFailures.Add($"[{file}]: {ex.Message}");
             }
         }
@@ -151,12 +152,13 @@ public static class PluginManager
                 if (Activator.CreateInstance(nametagType) is not IBaseNametag nametag)
                     return;
 
-                Debug.Log($"Loaded nametag {nametag.Name}");
+                LogManager.Log($"Loaded nametag {nametag.Name}");
 
                 Plugins.Add(nametag);
             }
             catch (Exception ex)
             {
+                ex.Report();
                 PluginFailures.Add($"[{nametagType.Name}]: {ex.Message}");
             }
         }
@@ -177,33 +179,34 @@ public static class PluginManager
     {
         var usNametags = Task.Run(() =>
         {
-            Debug.Log("[BG++] Loading nametags from BG++");
+            LogManager.Log("Loading nametags from BG++");
             // bepinex assemblies
             LoadNametagsFromAssembly(Assembly.GetExecutingAssembly());
-            Debug.Log("[BG++] Loaded nametags from BG++");
+            LogManager.Log("Loaded nametags from BG++");
         });
 
         var bepinexNametags = Task.Run(() =>
         {
             try
             {
-                Debug.Log("[BG++] Loading nametags from BepInEx");
+                LogManager.Log("Loading nametags from BepInEx");
                 // bepinex assemblies
                 LoadNametagsFromAssemblies(Chainloader.PluginInfos.Values.Select(info => info.GetType().Assembly)
                     .AsArray());
-                Debug.Log("[BG++] Loaded nametags from BepInEx");
+                LogManager.Log("Loaded nametags from BepInEx");
             }
             catch (Exception ex)
             {
-                Debug.Log($"[BG++] BepInEx nametag loading faile: {ex.Message}");
+                LogManager.Log($"BepInEx nametag loading failed: {ex.Message}");
+                ex.Report();
             }
         });
 
         var managedNametags = Task.Run(() =>
         {
-            Debug.Log("[BG++] Loading nametags from data folder");
+            LogManager.Log("Loading nametags from data folder");
             LoadFromDefaultFolder();
-            Debug.Log("[BG++] Loaded nametags from data folder");
+            LogManager.Log("Loaded nametags from data folder");
         });
 
         await Task.WhenAll(usNametags, bepinexNametags, managedNametags);

@@ -88,6 +88,7 @@ namespace BingusNametagsPlusPlus.Interfaces
                 } catch (Exception ex)
                 {
                     // using raw TMP tags here so if the nametag error does not persist the nametag does not keep its nice red color
+                    ex.Report();
                     nametags[rig].Text = $"<color=red>ERR: {ex.Message}</color>";
                 }
             }

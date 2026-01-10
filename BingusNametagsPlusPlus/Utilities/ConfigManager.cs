@@ -40,12 +40,6 @@ public static class ConfigManager
     public static bool Default_ShowingName = true;
     public static TMP_FontAsset? CustomFont;
 
-    public static ConfigEntry<T> Get<T>(ConfigFile file, string section, string name)
-    {
-        file.TryGetEntry(section, name, out ConfigEntry<T> thing);
-        return thing;
-    }
-
     public static ConfigFile GenerateConfig()
     {
         var config = new ConfigFile(ConfigFilePath, true);
