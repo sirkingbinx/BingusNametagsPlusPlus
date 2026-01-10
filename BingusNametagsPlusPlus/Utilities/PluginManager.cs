@@ -175,12 +175,28 @@ public static class PluginManager
     /// <returns></returns>
     public static async Task LoadNametags()
     {
+        var usNametags = Task.Run(() =>
+        {
+            Debug.Log("[BG++] Loading nametags from BG++");
+            // bepinex assemblies
+            LoadNametagsFromAssembly(Assembly.GetExecutingAssembly());
+            Debug.Log("[BG++] Loaded nametags from BG++");
+        });
+
         var bepinexNametags = Task.Run(() =>
         {
-            Debug.Log("[BG++] Loading nametags from AppDomain");
-            // bepinex assemblies
-            LoadNametagsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
-            Debug.Log("[BG++] Loaded nametags from AppDomain");
+            try
+            {
+                Debug.Log("[BG++] Loading nametags from BepInEx");
+                // bepinex assemblies
+                LoadNametagsFromAssemblies(Chainloader.PluginInfos.Values.Select(info => info.GetType().Assembly)
+                    .AsArray());
+                Debug.Log("[BG++] Loaded nametags from BepInEx");
+            }
+            catch (Exception ex)
+            {
+                Debug.Log($"[BG++] BepInEx nametag loading faile: {ex.Message}");
+            }
         });
 
         var managedNametags = Task.Run(() =>
@@ -190,7 +206,7 @@ public static class PluginManager
             Debug.Log("[BG++] Loaded nametags from data folder");
         });
 
-        await Task.WhenAll(bepinexNametags, managedNametags);
+        await Task.WhenAll(usNametags, bepinexNametags, managedNametags);
 
         bepinexNametags.Dispose();
         managedNametags.Dispose();
