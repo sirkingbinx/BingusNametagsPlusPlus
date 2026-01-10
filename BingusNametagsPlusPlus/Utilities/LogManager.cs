@@ -15,7 +15,7 @@ public static class LogManager
     public static void CreateLog()
     {
         var logFile = Path.Combine(LogFolder,
-            $"bg++_{DateTime.Now.ToShortDateString().Replace("/", "-")}_{DateTime.Now.ToShortTimeString().Replace(" ", "-")}.txt");
+            $"bg++_{DateTime.Now.ToShortDateString().Replace("/", "-")}_{DateTime.Now.ToLongTimeString().Replace(" ", "-")}.txt");
 
         Debug.Log($"[BG++] creating a log file at \"{logFile}\"");
 
