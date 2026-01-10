@@ -15,7 +15,7 @@ public static class LogManager
     public static void CreateLog()
     {
         var logFile = Path.Combine(LogFolder,
-            $"bg++_{DateTime.Now.ToShortDateString().Replace("/", "-")}_{DateTime.Now.ToLongTimeString().Replace(" ", "-")}.txt");
+            $"bg++_{DateTime.Now.ToShortDateString().Replace("/", "-")}_{DateTime.Now.ToLongTimeString().Replace(":", "-").Replace(" ", "-")}.txt");
 
         Debug.Log($"[BG++] creating a log file at \"{logFile}\"");
 
@@ -37,7 +37,7 @@ public static class LogManager
         LogLine();
         Log("BingusNametags++ log file");
         Log($"Unity Version: {Application.unityVersion}");
-        Log($"Gorilla Tag Version: {GorillaComputer.instance.version}");
+        Log($"Gorilla Tag Version: {GorillaComputer.instance?.version ?? "Didn't load yet give me a minute"}");
         LogLine();
     }
 
