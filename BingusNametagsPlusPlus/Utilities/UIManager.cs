@@ -1,13 +1,10 @@
-using BingusNametagsPlusPlus.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Debug = UnityEngine.Debug;
 
-namespace BingusNametagsPlusPlus.Components;
+namespace BingusNametagsPlusPlus.Utilities;
 
 public static class UIManager
 {
@@ -194,7 +191,7 @@ public static class UIManager
 				}
 
                 ConfigManager.ViewOtherCustomStyles = GUI.Toggle(
-                    new Rect(WindowStartX, WindowStartY + (Networking.DoNetworking ? 125 : 25), 175, 20),
+                    new Rect(WindowStartX, WindowStartY + (ConfigManager.CustomNametags ? 125 : 25), 175, 20),
                     ConfigManager.ViewOtherCustomStyles,
                     new GUIContent("View Other Nametag Styles", "View custom nametag styles for other users. This doesn't enable custom nametags for yourself.")
                 );

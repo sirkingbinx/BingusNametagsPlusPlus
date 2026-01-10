@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using BepInEx;
 using BingusNametagsPlusPlus.Classes;
-using BingusNametagsPlusPlus.Components;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
 using UnityEngine;
@@ -44,16 +44,13 @@ public class Main : BaseUnityPlugin
     private static void OnPlayerSpawned()
     {
         {
-            Debug.Log("[BG++] Loading nametags [1/2 AppDomain]..");
-            PluginManager.LoadNametagsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+            Debug.Log("[BG++] Loading nametags .");
+            Task.Run(PluginManager.LoadNametags).Wait();
 
-            Debug.Log("[BG++] Loading nametags [2/2 nametags Folder]..");
-            PluginManager.LoadFromDefaultFolder();
-
-            Debug.Log("[BG++] Loading configuration...");
+            Debug.Log("[BG++] Loading configuration ..");
             ConfigManager.LoadPrefs();
 
-            Debug.Log("[BG++] Nametags have been loaded. yay");
+            Debug.Log("[BG++] Nametags have been loaded. yay ...");
         }
 
         UIManager.ShowingUI = Constants.Channel != ReleaseChannel.Stable;
@@ -90,7 +87,7 @@ public class Main : BaseUnityPlugin
 	}
 
 	private void OnGUI() => UIManager.OnGUI();
-	private void LateUpdate() => Networking.SetNetworkedProperties();
+	private void LateUpdate() => NetworkingManager.SetNetworkedProperties();
 
 	private static T Load<T>(string path, string name) where T : Object
 	{

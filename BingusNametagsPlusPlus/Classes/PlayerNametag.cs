@@ -96,6 +96,25 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
         set => firstPerson.GetComponent<TextMeshPro>().fontSize = value;
     }
 
+    /// <summary>
+    /// The sprite sheet of the nametag. Sprite sheets are used to provide icons to nametags.
+    ///
+    /// By default, the sprite sheet includes three icons: "steam", "oculus", and "meta". You can use them like this:
+    /// <code>
+    /// &lt;sprite name="meta"&gt;
+    /// </code>
+    /// <seealso href="https://docs.unity3d.com/Packages/com.unity.textmeshpro@3.2/manual/Sprites.html"/>
+    /// </summary>
+    public TMP_SpriteAsset SpriteSheet
+    {
+        get => firstPerson.GetComponent<TextMeshPro>().spriteAsset;
+        set
+        {
+            firstPerson.GetComponent<TextMeshPro>().spriteAsset = value;
+            thirdPerson.GetComponent<TextMeshPro>().spriteAsset = value;
+        }
+    }
+
     internal void UpdateSettings(float offset)
     {
         firstPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.Scale;

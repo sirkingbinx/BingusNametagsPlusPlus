@@ -1,8 +1,5 @@
-#define BG_DEBUG
-
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using UnityEngine;
 
 namespace BingusNametagsPlusPlus;
@@ -11,9 +8,9 @@ public static class Constants
 {
 	public const string Name = "BingusNametags++";
 	public const string Guid = "bingus.nametagsplusplus";
-	public const string Version = "1.3.2";
+	public const string Version = "1.3.3";
 
-    public const ReleaseChannel Channel = ReleaseChannel.Stable;
+    public const ReleaseChannel Channel = ReleaseChannel.Beta;
 
     public static string BingusNametagsData =>
         Path.Combine(Application.dataPath[.. Application.dataPath.LastIndexOf("/")], "BingusNametags++");

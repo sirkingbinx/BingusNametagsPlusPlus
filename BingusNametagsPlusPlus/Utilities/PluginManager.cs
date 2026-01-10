@@ -1,11 +1,12 @@
-﻿using BingusNametagsPlusPlus.Components;
-using BingusNametagsPlusPlus.Interfaces;
+﻿using BingusNametagsPlusPlus.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
+using BepInEx.Bootstrap;
 using Debug = UnityEngine.Debug;
 
 namespace BingusNametagsPlusPlus.Utilities;
@@ -138,36 +139,60 @@ public static class PluginManager
     /// Load all detectable nametags from the specified assembly.
     /// </summary>
     /// <param name="assembly">The assembly to load plugins from.</param>
-    public static void LoadNametagsFromAssembly(Assembly assembly) =>
-        LoadNametagsFromAssemblies([assembly]);
+    public static void LoadNametagsFromAssembly(Assembly assembly)
+    {
+        var nametagTypes = assembly.GetTypes()
+            .Where(type => typeof(IBaseNametag).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract);
+
+        foreach (var nametagType in nametagTypes)
+        {
+            try
+            {
+                if (Activator.CreateInstance(nametagType) is not IBaseNametag nametag)
+                    return;
+
+                Debug.Log($"Loaded nametag {nametag.Name}");
+
+                Plugins.Add(nametag);
+            }
+            catch (Exception ex)
+            {
+                PluginFailures.Add($"[{nametagType.Name}]: {ex.Message}");
+            }
+        }
+    }
 
     /// <summary>
     /// Load all detectable nametags from the specified assemblies.
     /// </summary>
     /// <param name="assemblies">List of plugins to load nametags from.</param>
-    public static void LoadNametagsFromAssemblies(Assembly[] assemblies)
+    public static void LoadNametagsFromAssemblies(Assembly[] assemblies) =>
+        assemblies.ForEach(LoadNametagsFromAssembly);
+
+    /// <summary>
+    /// Loads both nametag contexts at the same time, which saves about 0 seconds
+    /// </summary>
+    /// <returns></returns>
+    public static async Task LoadNametags()
     {
-        foreach (var assembly in assemblies)
+        var bepinexNametags = Task.Run(() =>
         {
-            var nametagTypes = assembly.GetTypes()
-                .Where(type => typeof(IBaseNametag).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract);
+            Debug.Log("[BG++] Loading nametags from AppDomain");
+            // bepinex assemblies
+            LoadNametagsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+            Debug.Log("[BG++] Loaded nametags from AppDomain");
+        });
 
-            foreach (var nametagType in nametagTypes)
-            {
-                try
-                {
-                    if (Activator.CreateInstance(nametagType) is not IBaseNametag nametag)
-                        return;
+        var managedNametags = Task.Run(() =>
+        {
+            Debug.Log("[BG++] Loading nametags from data folder");
+            LoadFromDefaultFolder();
+            Debug.Log("[BG++] Loaded nametags from data folder");
+        });
 
-                    Debug.Log($"Loaded nametag {nametag.Name}");
+        await Task.WhenAll(bepinexNametags, managedNametags);
 
-                    Plugins.Add(nametag);
-                }
-                catch (Exception ex)
-                {
-                    PluginFailures.Add($"[{nametagType.Name}]: {ex.Message}");
-                }
-            }
-        }
+        bepinexNametags.Dispose();
+        managedNametags.Dispose();
     }
 }

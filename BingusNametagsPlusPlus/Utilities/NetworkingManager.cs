@@ -5,13 +5,11 @@ using Photon.Pun;
 
 namespace BingusNametagsPlusPlus.Utilities;
 
-public static class Networking
+public static class NetworkingManager
 {
-	public static bool DoNetworking = false;
-
 	public static void SetNetworkedProperties()
 	{
-		if (DoNetworking)
+		if (ConfigManager.CustomNametags)
 		{
             var color = ConfigManager.NetworkColor.First() == '#' ? ConfigManager.NetworkColor[1..] : ConfigManager.NetworkColor;
 
