@@ -19,7 +19,7 @@ public class DefaultNametag : IBaseNametag
 
     private (string platform, bool loaded) GetPlatformString(VRRig player)
     {
-        var cosmetics = player.rawCosmeticString;
+        var cosmetics = player.rawCosmeticString.ToLower();
 
         if (cosmetics == "")
             return ("meta", false);
