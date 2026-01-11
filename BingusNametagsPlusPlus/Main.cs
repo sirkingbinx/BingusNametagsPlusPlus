@@ -26,7 +26,11 @@ public class Main : BaseUnityPlugin
 
 	private void Start()
     {
-        LogManager.CreateLog();
+        try { LogManager.CreateLog(); }
+        catch (Exception ex)
+        {
+            ex.Report();
+        }
 
         LogManager.Log("Loading assetbundle [1/4]");
 
@@ -45,6 +49,7 @@ public class Main : BaseUnityPlugin
 
     private static void OnPlayerSpawned()
     {
+        // load stuff
         {
             LogManager.Log("Loading nametags [2/4]");
             Task.Run(PluginManager.LoadNametags).Wait();
@@ -55,8 +60,20 @@ public class Main : BaseUnityPlugin
             LogManager.Log("Nametags have been loaded. yay [4/4]");
         }
 
-        UIManager.ShowingUI = Constants.Channel != ReleaseChannel.Stable;
+        // summary
+        {
+            LogManager.LogLine();
+            LogManager.Log($"Plugins loaded: {PluginManager.Plugins.Count}");
+            LogManager.LogLine();
 
+            if (Constants.Channel != ReleaseChannel.Stable)
+            {
+                LogManager.Log("WARNING!!! This is a beta build of BingusNametags++.\nBugs are to be expected.");
+                LogManager.LogLine();
+            }
+        }
+
+        // report errors
         {
             if (!PluginManager.PluginFailures.Any())
                 return;

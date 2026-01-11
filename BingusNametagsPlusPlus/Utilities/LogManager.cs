@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using GorillaNetworking;
 using UnityEngine;
 
 namespace BingusNametagsPlusPlus.Utilities;
@@ -8,7 +7,7 @@ namespace BingusNametagsPlusPlus.Utilities;
 public static class LogManager
 {
     public static string LogFolder => Path.Combine(Constants.BingusNametagsData, "logs");
-    public static bool LoggingToUnity = false;
+    public static bool LoggingToUnity = true;
 
     public static StreamWriter LogWriter;
 
@@ -25,11 +24,12 @@ public static class LogManager
                 Directory.CreateDirectory(LogFolder);
 
             LogWriter = File.CreateText(logFile);
+
+            LoggingToUnity = false;
         }
         catch (Exception ex)
         {
-            Debug.Log($"[BG++] could not generate log file: ${ex.Message}");
-            LoggingToUnity = true;
+            Debug.Log($"============================================\n[BG++] could not generate log file. ${ex.Message}\nAll BingusNametags++ related messages are forwarded into the Unity Log. (Ctrl + F - search for [BG++])\n============================================");
         }
 
         LogWriter.AutoFlush = true;
@@ -37,7 +37,7 @@ public static class LogManager
         LogLine();
         Log("BingusNametags++ log file");
         Log($"Unity Version: {Application.unityVersion}");
-        Log($"Gorilla Tag Version: {GorillaComputer.instance?.version ?? "Didn't load yet give me a minute"}");
+        Log($"Gorilla Tag Version: {Application.version}");
         LogLine();
     }
 
