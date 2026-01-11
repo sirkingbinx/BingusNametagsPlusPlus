@@ -21,7 +21,7 @@ public class DefaultNametag : IBaseNametag
     {
         var cosmetics = player.rawCosmeticString.ToLower();
 
-        if (cosmetics == "")
+        if (!player.InitializedCosmetics)
             return ("meta", false);
         if (cosmetics != "" && CachedPlatforms.TryGetValue(player, out var cachedPlatform))
             return (cachedPlatform,true);
@@ -57,7 +57,6 @@ public class DefaultNametag : IBaseNametag
             {
                 var platformData = GetPlatformString(nametag.Owner);
                 prefix += $"<sprite name=\"{platformData.platform}\">{(!platformData.loaded ? "? " : "")}";
-
             }
         }
 
