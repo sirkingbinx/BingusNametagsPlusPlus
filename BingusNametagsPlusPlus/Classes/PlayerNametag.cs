@@ -92,8 +92,8 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
     /// </summary>
     public float Size
     {
-        get => firstPerson.GetComponent<TextMeshPro>().fontSize;
-        set => firstPerson.GetComponent<TextMeshPro>().fontSize = value;
+        get => PluginScale;
+        set => PluginScale = value;
     }
 
     /// <summary>
@@ -115,10 +115,12 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
         }
     }
 
+    internal float PluginScale = 1f;
+
     internal void UpdateSettings(float offset)
     {
-        firstPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.Scale;
-        thirdPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.Scale;
+        firstPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.Scale * PluginScale;
+        thirdPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.Scale * PluginScale;
 
         firstPerson.transform.localPosition = new Vector3(0f, ConfigManager.Offset + offset, 0f);
         thirdPerson.transform.localPosition = new Vector3(0f, ConfigManager.Offset + offset, 0f);

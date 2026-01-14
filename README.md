@@ -35,7 +35,7 @@ public class MyNametag : IBaseNametag
 	public float Offset => 0.5f; // This is the offset from the user's selected nametag offset. The default nametag's offset is 0f.
 	public List<string> Unsupported => [ ]; // Names of any mods that your nametag does not work correctly with, it will disable them when your nametag is enabled
 											// The default nametag is named "Default" if you are overriding it
-	public bool Enabled { get; set; } = true; // Whether your nametag is enabled. This doesn't matter, it just needs an initial value and will be changed in startup
+	public bool Enabled { get; set; } = false; // Whether your nametag is enabled. Please set to false by default.
 
 	// Called every frame to update a nametag.
 	public void UpdateNametag(PlayerNametag nametag)
@@ -52,11 +52,20 @@ public class MyNametag : IBaseNametag
 		nametag.RemoveStyle("color");
 		nametag.RemoveStyle("b");
 
+		// Nametag size relative to the user's set nametag size. To use the default nametag size, set this to 1f.
+		// Internally, this is multiplied by the user's nametag size to properly conform to customization settings.
+		// It's better to think of this as a percentage of the normal nametag scale instead of the font size.
+		nametag.Size = 0.85f;
+
+		// Sprite sheets are used to add icons to a nametag.
+		// https://docs.unity3d.com/Packages/com.unity.textmeshpro@3.2/manual/Sprites.html
+		nametag.SpriteSheet = mySpriteSheet;
+
 		// Set the nametag text like this.
 		nametag.Text = nametag.Owner.OwningNetPlayer.NickName;
 
 		/*
-		Nametag offset, size, and visibility is automatically determined by BingusNametags++.
+		Nametag visibility is automatically determined by BingusNametags++.
 		You can turn certain nametags (including the built-in nametag) on/off with the Plugins tab in settings.
 		*/
 	}
