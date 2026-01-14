@@ -212,13 +212,13 @@ public static class UIManager
 				{
 					var currently = GUI.Toggle(
 						new Rect(WindowStartX, startingIndex, WindowSizeX - 20, 20),
-						plugin.Enabled,
-						new GUIContent($"{plugin.Name} [by {plugin.Author}]", plugin.Description)
+						plugin.Metadata.Enabled,
+						new GUIContent($"{plugin.Metadata.Name} [by {plugin.Metadata.Author}]", plugin.Metadata.Description)
 					);
 
-					if (currently != plugin.Enabled && plugin.Enabled)
+					if (currently != plugin.Metadata.Enabled && plugin.Metadata.Enabled)
                         PluginManager.DisablePlugin(plugin);
-					else if (currently != plugin.Enabled)
+					else if (currently != plugin.Metadata.Enabled)
                         PluginManager.EnablePlugin(plugin);
 
 					startingIndex += 25;

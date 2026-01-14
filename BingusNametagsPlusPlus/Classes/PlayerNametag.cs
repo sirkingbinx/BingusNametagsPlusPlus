@@ -139,7 +139,7 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
         var underlined = (bool)data["isUnderlined"];
 
         if (ConfigManager.ValidHexCode(color))
-            AddStyle("color", $"#{color}");
+            AddStyle("color", $"\"#{color}\"");
 
         if (bold) 
             AddStyle("b");

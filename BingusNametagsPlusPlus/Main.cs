@@ -34,7 +34,7 @@ public class Main : BaseUnityPlugin
 
         LogManager.Log("Loading assetbundle [1/4]");
 
-		NametagDefault = Load<GameObject>(@"BingusNametagsPlusPlus.Resources.nametags", "Nametag");
+		NametagDefault = Load<GameObject>("BingusNametagsPlusPlus.Resources.nametags", "Nametag");
         Instance = this;
 
         GorillaTagger.OnPlayerSpawned(() =>

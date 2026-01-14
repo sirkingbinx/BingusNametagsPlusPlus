@@ -97,7 +97,7 @@ public static class ConfigManager
         cfgFile.Get<bool>("Networking", "Underlined").BoxedValue = NetworkUnderline;
 
         // Plugins
-        cfgFile.Get<string>("Plugins", "EnabledPlugins").BoxedValue = string.Join(", ", PluginManager.EnabledPlugins.Select(plugin => plugin.Name));
+        cfgFile.Get<string>("Plugins", "EnabledPlugins").BoxedValue = string.Join(", ", PluginManager.EnabledPlugins.Select(plugin => plugin.Metadata.Name));
 
         cfgFile.Save();
 	}
@@ -143,7 +143,7 @@ public static class ConfigManager
 
         PluginManager.Plugins.ForEach(plugin =>
         {
-            if (enabledPlugins.Contains(plugin.Name))
+            if (enabledPlugins.Contains(plugin.Metadata.Name))
                 PluginManager.EnablePlugin(plugin);
             else
                 PluginManager.DisablePlugin(plugin);

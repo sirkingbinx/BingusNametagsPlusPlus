@@ -1,20 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using BingusNametagsPlusPlus.Attributes;
 using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
+using System.Collections.Generic;
 
 namespace BingusNametagsPlusPlus.Nametags;
 
+[BingusNametagsPlugin("Default", "Bingus", "The default nametag provided by BingusNametags++. Includes platform icons and a nametag.", 0f)]
 public class DefaultNametag : IBaseNametag
 {
-    public string Name => "Default";
-    public string Description => "The default nametag provided by BingusNametags++. Includes platform icons and a nametag.";
-    public string Author => "Bingus";
-    public float Offset => 0f;
-    public List<string> Unsupported => [];
-    public bool Enabled { get; set; } = false;
-
     public Dictionary<VRRig, string> CachedPlatforms = [ ];
 
     private (string platform, bool loaded) GetPlatformString(VRRig player)
@@ -46,9 +40,6 @@ public class DefaultNametag : IBaseNametag
             {
                 var adding = "";
                 n.Split(",").ForEach(sprite => adding += $"<sprite name=\"{sprite}\"> ");
-
-                if (n.Split(",").Contains("dev"))
-                    nametag.AddStyle("color", "3dc5d4");
 
                 prefix += adding;
             }

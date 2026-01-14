@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using BepInEx.Bootstrap;
-using Debug = UnityEngine.Debug;
+using BingusNametagsPlusPlus.Attributes;
 
 namespace BingusNametagsPlusPlus.Utilities;
 
@@ -24,7 +24,12 @@ public static class PluginManager
     /// <summary>
     /// All currently loaded and enabled IBaseNametags.
     /// </summary>
-    public static List<IBaseNametag> EnabledPlugins => [.. Plugins.Where(plugin => plugin.Enabled)];
+    public static List<IBaseNametag> EnabledPlugins => [.. Plugins.Where(plugin => plugin.Metadata.Enabled)];
+
+    /// <summary>
+    /// The metadata associated with every plugin. This can be accessed directly with IBaseNametag.Metadata.
+    /// </summary>
+    public static Dictionary<IBaseNametag, BingusNametagsPlugin> PluginMetadata = [];
 
     /// <summary>
     /// Any failures caused while loading plugins.
@@ -37,11 +42,11 @@ public static class PluginManager
     /// <param name="plugin">The plugin to enable.</param>
     public static void EnablePlugin(IBaseNametag plugin)
     {
-        var allEnabledPlugins = Plugins.Where(a => a.Enabled);
-        var allEnabledNames = allEnabledPlugins.Select(a => a.Name);
+        var allEnabledPlugins = Plugins.Where(a => a.Metadata.Enabled);
+        var allEnabledNames = allEnabledPlugins.Select(a => a.Metadata.Name);
 
         var unsupportedList = "";
-        var unsupported = plugin.Unsupported.Where(unsupportedName => allEnabledNames.Contains(unsupportedName)).ForEach(unsupportedPlugin => unsupportedList += (unsupportedList == "" ? unsupportedPlugin : $", {unsupportedPlugin}"));
+        var unsupported = plugin.Metadata.Unsupported.Where(unsupportedName => allEnabledNames.Contains(unsupportedName)).ForEach(unsupportedPlugin => unsupportedList += (unsupportedList == "" ? unsupportedPlugin : $", {unsupportedPlugin}"));
 
         var disableStuff = true;
 
@@ -57,10 +62,10 @@ public static class PluginManager
         if (!disableStuff || (Main.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false))
             return;
 
-        plugin.Enabled = true;
+        plugin.Metadata.Enabled = true;
         Main.UpdateNametags += plugin.Update;
 
-        foreach (var badPlugin in allEnabledPlugins.Where(a => unsupported.Contains(a.Name)))
+        foreach (var badPlugin in allEnabledPlugins.Where(a => unsupported.Contains(a.Metadata.Name)))
             DisablePlugin(badPlugin);
     }
 
@@ -70,7 +75,7 @@ public static class PluginManager
     /// <param name="plugin">The plugin to disable.</param>
     public static void DisablePlugin(IBaseNametag plugin)
     {
-        plugin.Enabled = false;
+        plugin.Metadata.Enabled = false;
 
         if (!Main.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false)
         {
@@ -125,7 +130,7 @@ public static class PluginManager
             try
             {
                 var assembly = Assembly.LoadFile(file);
-                LoadNametagsFromAssemblies( [assembly] );
+                LoadNametagsFromAssembly(assembly);
             }
             catch (Exception ex)
             {
@@ -152,7 +157,16 @@ public static class PluginManager
                 if (Activator.CreateInstance(nametagType) is not IBaseNametag nametag)
                     return;
 
-                LogManager.Log($"Loaded nametag {nametag.Name}");
+                var metadata = nametagType.GetCustomAttribute<BingusNametagsPlugin>();
+                PluginMetadata.Add(nametag, metadata);
+
+                if (metadata == null)
+                {
+                    LogManager.Log($"Error: Your plugin {nametagType.Name} is missing a BingusNametagsPlugin attribute, which defines crucial metadata for your nametag.");
+                    return;
+                }
+
+                LogManager.Log($"Loaded nametag {nametag.Metadata.Name}");
 
                 Plugins.Add(nametag);
             }
@@ -191,8 +205,7 @@ public static class PluginManager
             {
                 LogManager.Log("Loading nametags from BepInEx");
                 // bepinex assemblies
-                LoadNametagsFromAssemblies(Chainloader.PluginInfos.Values.Select(info => info.GetType().Assembly)
-                    .AsArray());
+                LoadNametagsFromAssemblies(Chainloader.PluginInfos.Values.Select(info => info.GetType().Assembly).AsArray());
                 LogManager.Log("Loaded nametags from BepInEx");
             }
             catch (Exception ex)
@@ -214,4 +227,11 @@ public static class PluginManager
         bepinexNametags.Dispose();
         managedNametags.Dispose();
     }
+
+    /// <summary>
+    /// Determine the offset of a nametag based on the currently setup nametags. This isn't meant to be used by the nametag developer,
+    /// however, I trust you to do something with it
+    /// </summary>
+    /// <returns>A float representing the suggested nametag offset.</returns>
+    public static float DetermineOffset() => (EnabledPlugins.Count - 1) * 0.5f;
 }

@@ -1,22 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using BingusNametagsPlusPlus.Attributes;
 using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
-using UnityEngine;
 
 namespace BingusNametagsPlusPlus.Nametags;
 
+[BingusNametagsPlugin("Advanced", "Bingus", "Extra nametag fields with FPS and speed in m/s.", 0.5f)]
 public class AdvancedNametag : IBaseNametag
 {
-    public string Name => "Advanced";
-    public string Description => "Includes some extra details, like FPS and m/s. This is often used for testing the latest features, beware!";
-    public string Author => "Bingus";
-    public float Offset => 0.25f;
-    public List<string> Unsupported => [];
-    public bool Enabled { get; set; } = false;
-
     public void UpdateNametag(PlayerNametag nametag)
     {
         nametag.Size = ConfigManager.Scale * 0.85f;
