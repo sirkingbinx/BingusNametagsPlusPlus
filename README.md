@@ -27,16 +27,10 @@ Press the `Right Shift` key to open the GUI. You can change every setting from t
 // As long as your plugin is loaded into the application domain, plugins should be detected and load automatically.
 // If you use BepInEx and you have a BaseUnityPlugin, then you shouldn't have to worry about that.
 
+//                    [   plugin name   ][author][                                         description                                     ][offset][ unsupported ]
+[BingusNametagsPlugin("Your Plugin Name", "Me", "Write a short description of your plugin here. It is shown to the user on the Plugins tab.", 0.5f, [  "Default"  ])]
 public class MyNametag : IBaseNametag
 {
-	public string Name => "Your Plugin Name";
-	public string Description => "Write a short description of your plugin here. It is shown to the user on the Plugins tab.";
-	public string Author => "Me"; // this is you
-	public float Offset => 0.5f; // This is the offset from the user's selected nametag offset. The default nametag's offset is 0f.
-	public List<string> Unsupported => [ ]; // Names of any mods that your nametag does not work correctly with, it will disable them when your nametag is enabled
-											// The default nametag is named "Default" if you are overriding it
-	public bool Enabled { get; set; } = false; // Whether your nametag is enabled. Please set to false by default.
-
 	// Called every frame to update a nametag.
 	public void UpdateNametag(PlayerNametag nametag)
 	{
