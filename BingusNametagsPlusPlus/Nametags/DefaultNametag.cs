@@ -24,7 +24,7 @@ public class DefaultNametag : IBaseNametag
 
         if (cosmetics.Contains("s. first login"))
             return ("steam", true);
-        if (cosmetics.Contains("first login") || cosmetics.Contains("game-purchase") || properties > 1)
+        if (cosmetics.Contains("first login") || properties > 1)
             return ("oculus", true);
 
         return ("meta", true);
@@ -39,7 +39,7 @@ public class DefaultNametag : IBaseNametag
             if (ConfigManager.UserIcons && Constants.SpecialBadgeIds.TryGetValue(nametag.Owner.OwningNetPlayer.UserId.ToLower(), out var n))
             {
                 var adding = "";
-                n.Split(",").ForEach(sprite => adding += $"<sprite name=\"{sprite}\"> ");
+                n.Split(",").ForEach(sprite => adding += $"<sprite name=\"{sprite}\">");
 
                 prefix += adding;
             }

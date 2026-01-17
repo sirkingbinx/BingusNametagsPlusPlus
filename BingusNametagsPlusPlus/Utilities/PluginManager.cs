@@ -36,6 +36,8 @@ public static class PluginManager
     /// </summary>
     public static List<string> PluginFailures = [];
 
+    internal static List<IBaseNametag> AutoOffsetPlugins = [];
+
     /// <summary>
     /// Safely enable the specified IBaseNametag, warning the user about any unsupported nametags. The success of this function depends if there are any unsupported nametags enabled.
     /// </summary>
@@ -67,6 +69,8 @@ public static class PluginManager
 
         foreach (var badPlugin in allEnabledPlugins.Where(a => unsupported.Contains(a.Metadata.Name)))
             DisablePlugin(badPlugin);
+
+        UpdateNametagData();
     }
 
     /// <summary>
@@ -87,6 +91,8 @@ public static class PluginManager
 
             Main.Nametags[plugin].ForEach(rig => rig.Value.Destroy());
             Main.Nametags[plugin].Clear();
+
+            UpdateNametagData();
         }
     }
 
@@ -228,10 +234,34 @@ public static class PluginManager
         managedNametags.Dispose();
     }
 
-    /// <summary>
-    /// Determine the offset of a nametag based on the currently setup nametags. This isn't meant to be used by the nametag developer,
-    /// however, I trust you to do something with it
-    /// </summary>
-    /// <returns>A float representing the suggested nametag offset.</returns>
-    public static float DetermineOffset() => (EnabledPlugins.Count - 1) * 0.5f;
+    internal static void UpdateNametagData()
+    {
+        AutoOffsetPlugins = Plugins
+            .Where(nametag => nametag.Metadata.Enabled && !nametag.Metadata.AutomaticOffsetCalculation)
+            .ToList();
+
+        AutoOffsetPlugins.ForEach(plugin => CalculateOffset(plugin));
+    }
+
+    internal static float HighestManualOffset()
+    {
+        var highest = 0f;
+        Plugins.Select(p => p.Metadata.Offset).ForEach(offset => highest = (offset > highest) ? offset : highest);
+        return highest;
+    }
+
+    internal static float CalculateOffset(IBaseNametag nametag)
+    {
+        var nametagIndex = AutoOffsetPlugins.IndexOf(nametag);
+
+        var highestAuto = nametagIndex * 0.5f;
+        var highestConst = HighestManualOffset();
+
+        var highest = highestConst > highestAuto ? highestConst : highestAuto;
+
+        var offset = highest > 0 ? highest + 0.25f : 0f;
+
+        nametag.Metadata.Offset = offset;
+        return offset;
+    }
 }

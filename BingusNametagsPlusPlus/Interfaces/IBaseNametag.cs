@@ -45,14 +45,14 @@ namespace BingusNametagsPlusPlus.Interfaces
                 nametags.Remove(pair.Key);
             }
 
-            foreach (var rig in GorillaParent.instance.vrrigs.Where(rig =>
-                         rig != GorillaTagger.Instance.offlineVRRig))
+            foreach (var rig in GorillaParent.instance.vrrigs.Where(rig => rig != GorillaTagger.Instance.offlineVRRig))
             {
                 if (!nametags.ContainsKey(rig))
                     nametags.Add(rig, NametagCreator.CreateNametagObject(rig));
+
                 try
                 {
-                    nametags[rig].UpdateSettings(Metadata.Offset);
+                    nametags[rig].UpdateSettings(Metadata.AutomaticOffsetCalculation ? PluginManager.CalculateOffset(this) : Metadata.Offset);
                     UpdateNametag(nametags[rig]);
                 } catch (Exception ex)
                 {

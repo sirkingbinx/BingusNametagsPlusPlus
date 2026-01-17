@@ -1,12 +1,11 @@
 ﻿using System;
-using BingusNametagsPlusPlus.Utilities;
 
 namespace BingusNametagsPlusPlus.Attributes
 {
     /// <summary>
     /// BingusNametagsPlugin holds the metadata of a plugin.
     /// </summary>
-    public class BingusNametagsPlugin(string name, string author, string description, float offset = float.NaN, string[]? unsupported = null) : Attribute
+    public class BingusNametagsPlugin(string name, string author, string description, float offset = 50f, string[]? unsupported = null) : Attribute
     {
         /// <summary>
         /// The display name of the nametag. This is used on the Plugins tab.
@@ -26,7 +25,12 @@ namespace BingusNametagsPlusPlus.Attributes
         /// <summary>
         /// The offset of the nametag from the user's selected nametag offset.
         /// </summary>
-        public float Offset = float.IsNaN(offset) ? PluginManager.DetermineOffset() : offset;
+        public float Offset = offset;
+
+        /// <summary>
+        /// Whether BingusNametags++ automatically calculates the offset of this nametag.
+        /// </summary>
+        public bool AutomaticOffsetCalculation = offset >= 50f;
 
         /// <summary>
         /// Any unsupported plugins. These will be turned off when your nametag is enabled.

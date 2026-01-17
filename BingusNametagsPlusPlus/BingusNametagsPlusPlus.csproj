@@ -7,6 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Resources\nametags" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Resources\nametags" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -56,9 +64,5 @@
         <Reference Include="UnityEngine.UI">
             <HintPath>$(GameAssemblyPath)\UnityEngine.UI.dll</HintPath>
         </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-        <EmbeddedResource Include="Resources\nametags" />
     </ItemGroup>
 </Project>

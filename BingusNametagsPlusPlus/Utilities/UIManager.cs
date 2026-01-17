@@ -93,7 +93,7 @@ public static class UIManager
 
 					ConfigManager.Offset =
 						GUI.HorizontalSlider(new Rect(WindowStartX + 90, WindowStartY + 75, WindowSizeX - 140, 20),
-							ConfigManager.Offset, 0.5f, 5f);
+							ConfigManager.Offset, 0f, 3.5f);
 
                     ConfigManager.SanitizeNicknames = GUI.Toggle(
                         new Rect(WindowStartX, WindowStartY + 100, 200, 20),
