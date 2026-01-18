@@ -7,6 +7,7 @@ using BepInEx;
 using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
+using TMPro;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -32,7 +33,7 @@ public class Main : BaseUnityPlugin
             ex.Report();
         }
 
-        LogManager.Log("Loading assetbundle [1/4]");
+        LogManager.Log("Loading assetbundle item [1/4]");
 
 		NametagDefault = Load<GameObject>("BingusNametagsPlusPlus.Resources.nametags", "Nametag");
         Instance = this;
@@ -49,6 +50,14 @@ public class Main : BaseUnityPlugin
 
     private static void OnPlayerSpawned()
     {
+        {
+            LogManager.Log("Applying assetbundle shaders [1/4]");
+
+            var tmPro = NametagDefault?.GetComponent<TextMeshPro>();
+
+            tmPro?.fontMaterial.shader = Shader.Find("TextMeshPro/Mobile/Distance Field");
+            tmPro?.spriteAsset.material.shader = Shader.Find("UI/Default");
+        }
         // load stuff
         {
             LogManager.Log("Loading nametags [2/4]");
