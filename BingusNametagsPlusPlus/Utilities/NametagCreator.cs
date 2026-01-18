@@ -19,7 +19,7 @@ public static class NametagCreator
 		tagObject?.transform.localPosition = new Vector3(0f, ConfigManager.Offset, 0f);
 		tagObject?.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
-		tagObject?.AddComponent<CameraFollower>().LookingAtThirdPerson = (layerName == "MirrorOnly"); // follow the camera around
+        tagObject?.AddComponent<CameraFollower>();
 
         var tmPro = tagObject?.GetComponent<TextMeshPro>();
 		tmPro?.text = "...";
@@ -28,8 +28,9 @@ public static class NametagCreator
 			tmPro?.font = ConfigManager.CustomFont;
 
 		// Fixed shaders because URP is love URP is life
-		tmPro?.fontMaterial.shader = Shader.Find("TextMeshPro/Mobile/Distance Field");
-		tmPro?.spriteAsset.material.shader = Shader.Find("UI/Default");
+		// (Note: these are changed in the asset bundle, no need to set them manually anymore)
+		// tmPro?.fontMaterial.shader = Shader.Find("TextMeshPro/Mobile/Distance Field");
+		// tmPro?.spriteAsset.material.shader = Shader.Find("UI/Default");
 
 		return tagObject ?? throw new Exception("Missing AB");
 	}
