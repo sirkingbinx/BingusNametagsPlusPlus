@@ -26,20 +26,20 @@ Press the `Right Shift` key to open the GUI. You can change every setting from t
 - **About**: Mod version information, you'll probably never have to touch this.
 
 ### Manual
-When BingusNametags++ is ran for the first time, it will create a directory (folder) for data (which we refer to as the "data directory" / "data folder"). This is located at `(Your Gorilla Tag Installation Folder)\BingusNametags++`. The directory layout looks like this:
-- `BingusNametags++`: holds all this data
+When BingusNametags++ is ran for the first time, it will create a directory (folder) for data (which we refer to as the "data directory" / "data folder"). This is located at `(Your Gorilla Tag Installation Folder)\BingusNametags++`, or you can also just open the UI and press the "Data Folder" button. The directory layout looks like this:
+- `BingusNametags++`: holds all the config
 	- `nametags`: This is where custom nametags go, unless it's a standalone mod (meaning it does more than just a nametag)
  	- `logs`: This is where "logs" go, which store error information incase something goes wrong.
     - `config.cfg`: This is where your preferences are stored. It is recommended to use the in-game UI to change this.
 
 To add a custom font, paste a font with the `.ttf` or `.otf` extension into the data directory. If running the game, press Refresh on the UI. You should see your font be used instead of the default (which is called JetBrains Mono for anyone wondering)
 
-To add a custom nametag, if the file extension is `.nametag`, 99% of the time, that is a custom nametag and should be placed in the `nametags` folder inside of your data folder.
+To add a custom nametag, paste the nametag into the `BingusNametags++\nametags` folder. Open the UI, go to the "Plugins" tab and enable the nametag.
 
 ## Plugin System (1.3.3+)
+### Quick Start
 > [!NOTE]
-> To make it simpler for non-technical people to install nametags, I recommend you to change the file extension to `.nametag` after building to make it clear that it isn't a standalone mod.
-
+> If your nametag isn't a BepInEx mod (meaning it does stuff besides be a nametag), please set the file extension to `.nametag` to clarify to users where it is supposed to go.
 ```cs
 // As long as your plugin is loaded into the application domain, plugins should be detected and load automatically.
 // If you use BepInEx and you have a BaseUnityPlugin, then you shouldn't have to worry about that.
