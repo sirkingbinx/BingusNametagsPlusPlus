@@ -10,6 +10,7 @@ namespace BingusNametagsPlusPlus.Classes;
 /// </summary>
 public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thirdPerson)
 {
+#region api
     private readonly List<string> _styles = [];
     private readonly Dictionary<string, string> _valueStyles = [];
 
@@ -115,6 +116,14 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
         }
     }
 
+    /* API TODO LIST (things i might add, take this with a grain of salt):
+     * - allow devs to load and add images to nametags directly instead of making their own sprite sheet
+     *      - AddIconSource(string path) / AddIconSource(byte[] imgData, ImgFormat format)
+     *      - AddIcon(string iconName)
+     */
+#endregion
+
+#region not api
     internal float PluginScale = 1f;
 
     internal void UpdateSettings(float offset)
@@ -164,4 +173,5 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
         firstPerson.Destroy();
         thirdPerson.Destroy();
     }
+#endregion
 }
