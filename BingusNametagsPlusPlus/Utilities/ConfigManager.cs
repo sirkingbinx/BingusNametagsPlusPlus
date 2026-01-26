@@ -21,6 +21,7 @@ public static class ConfigManager
     public static bool SanitizeNicknames = true;
     public static float Scale = 5f;
     public static float Offset = 0.65f;
+    public static bool GFriendsIntegration = true;
 
     // Icons
     public static bool Icons = true;

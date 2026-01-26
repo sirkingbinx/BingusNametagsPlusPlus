@@ -3,6 +3,7 @@ using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace BingusNametagsPlusPlus.Nametags;
 
@@ -21,6 +22,22 @@ public class DefaultNametag : IBaseNametag
             return (cachedPlatform,true);
 
         var properties = player.OwningNetPlayer.GetPlayerRef().CustomProperties.Count;
+
+        // these funny ranked variables were discovered by golden, thx
+        /*
+            Copyright (c) 2025 GoldenIsAProtogen
+           
+            Permission is hereby granted, free of charge, to any person obtaining a copy
+            of this software and associated documentation files (the "Software"), to use,
+            copy, modify, and redistribute the Software.
+
+            https://github.com/GoldenIsAProtogen/GoldensGorillaNametags/blob/main/LICENSE
+         */
+
+        if (player.currentRankedSubTierPC > 0)
+            return ("steam", true);
+        if (player.currentRankedSubTierQuest > 0)
+            return ("meta", true);
 
         if (cosmetics.Contains("s. first login"))
             return ("steam", true);
@@ -54,6 +71,14 @@ public class DefaultNametag : IBaseNametag
         var shownNickname = ConfigManager.SanitizeNicknames
             ? nametag.Owner.OwningNetPlayer.SanitizedNickName
             : nametag.Owner.OwningNetPlayer.NickName;
+
+        if (ConfigManager.GFriendsIntegration && nametag.Owner.playerText1.color != Color.white)
+        {
+            // this is just smarter way to add GFriends integration
+            // shaved off a reference to GorillaFriends by just using the nametag text color
+            var nametagColor = ColorUtility.ToHtmlStringRGB(nametag.Owner.playerText1.color);
+            nametag.AddStyle("color", $"#{nametagColor}");
+        }
 
         nametag.Text = $"{prefix}{(ConfigManager.Default_ShowingName ? shownNickname : "")}";
     }

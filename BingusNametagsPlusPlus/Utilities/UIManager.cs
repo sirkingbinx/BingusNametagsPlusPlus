@@ -96,9 +96,15 @@ public static class UIManager
 							ConfigManager.Offset, 0f, 3.5f);
 
                     ConfigManager.SanitizeNicknames = GUI.Toggle(
-                        new Rect(WindowStartX, WindowStartY + 100, 200, 20),
+                        new Rect(WindowStartX, WindowStartY + 100, 250, 20),
 						ConfigManager.SanitizeNicknames,
 						new GUIContent("Sanitize Nicknames", "Prevents invalid usernames from being displayed on nametags (eg. spaces, cuss words, etc.). This is the username displayed on the gorilla's chest.")
+                    );
+
+                    ConfigManager.GFriendsIntegration = GUI.Toggle(
+						new Rect(WindowStartX, WindowStartY + 125, 300, 20),
+						ConfigManager.GFriendsIntegration,
+						new GUIContent("GorillaFriends Support", "Enables the default nametag to integrate with GorillaFriends, showing verified players and friends.")
                     );
 
 					// Labels
@@ -356,7 +362,7 @@ public static class UIManager
 		// Window
 		GUI.Box(new Rect(WindowX, WindowY, WindowSizeX, WindowSizeY), "");
 		GUI.Label(
-			new Rect(WindowX + ((WindowSizeX / 2 - (WindowSizeX % 2)) - 60), WindowY + 5, 120, 20),
+			new Rect(WindowX + ((WindowSizeX / 2 - (WindowSizeX % 2)) - 75), WindowY + 5, 150, 20),
 			"BingusNametags++"
 		);
 
