@@ -1,9 +1,10 @@
-# BingusNametags++
+# BingusNametags++ [![Downloads](https://img.shields.io/github/downloads/sirkingbinx/BingusNametagsPlusPlus/total)](https://github.com/sirkingbinx/BingusNametagsPlusPlus/releases/latest) [![Static Badge](https://img.shields.io/badge/chat-discord-%235865f2)](https://discord.gg/TYvMnt9KtC)
+
 BingusNametags++ is a simple, clean, but customizable nametag mod for Gorilla Tag. You can customize it to your needs with a very cool featureset:
 
 - customize your own nametag with **bold** *italicized*, underlined, and colored text
-- customize the font used by pasting a `.ttf` or `.otf` file into the same directory as the mod
-- change visibility of certain items (such as platform/special user icons, the nametag itself)
+- customize the font used by pasting a `.ttf` or `.otf` file into the data directory
+- change visibility of certain items (such as platform/special user icons and the nametags themselves)
 - change offset, scale, and visibility of nametags
 - change where the nametag is visible (for example, show in VR but not on the PC monitor)
 
@@ -13,16 +14,32 @@ It's also open-source, free, and doesn't take up half of your screen.
 [Download the latest release (`BingusNametags++.dll`) here](https://github.com/sirkingbinx/BingusNametagsPlusPlus/releases/latest) and copy it into `(Your Gorilla Tag Install Directory)\BepInEx\plugins`.
 It has no dependencies, just paste it in and start using it.
 
-## Customization
+## Configuration
+> Custom fonts and plugins can only be customized manually, not through the GUI.
+
+### UI (recommended)
 Press the `Right Shift` key to open the GUI. You can change every setting from the GUI.
-- **Nametag**: Nametag behaviour settings
-- **Text**: Text display settings
-- **Icons**: Change how icons behave
+- **Nametag**: Nametag size and offset settings
+- **Icons**: Change which icons are displayed
 - **Network**: Change how your nametag looks to other people
-- **Plugins**: Toggle your installed plugins on/off.
+- **Plugins**: Toggle your installed plugins on/off
 - **About**: Mod version information, you'll probably never have to touch this.
 
-## Plugin System (1.3.0+)
+### Manual
+When BingusNametags++ is ran for the first time, it will create a directory (folder) for data (which we refer to as the "data directory" / "data folder"). This is located at `(Your Gorilla Tag Installation Folder)\BingusNametags++`, or you can also just open the UI and press the "Data Folder" button. The directory layout looks like this:
+- `BingusNametags++`: holds all the config
+	- `nametags`: This is where custom nametags go, unless it's a standalone mod (meaning it does more than just a nametag)
+ 	- `logs`: This is where "logs" go, which store error information incase something goes wrong.
+    - `config.cfg`: This is where your preferences are stored. It is recommended to use the in-game UI to change this.
+
+To add a custom font, paste a font with the `.ttf` or `.otf` extension into the data directory. If running the game, press Refresh on the UI. You should see your font be used instead of the default (which is called JetBrains Mono for anyone wondering)
+
+To add a custom nametag, paste the nametag into the `BingusNametags++\nametags` folder. Open the UI, go to the "Plugins" tab and enable the nametag.
+
+## Plugin System (1.3.3+)
+### Quick Start
+> [!NOTE]
+> If your nametag isn't a BepInEx mod (meaning it does stuff besides be a nametag), please set the file extension to `.nametag` to clarify to users where it is supposed to go.
 ```cs
 // As long as your plugin is loaded into the application domain, plugins should be detected and load automatically.
 // If you use BepInEx and you have a BaseUnityPlugin, then you shouldn't have to worry about that.
