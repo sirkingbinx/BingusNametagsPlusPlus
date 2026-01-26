@@ -81,35 +81,33 @@ public class DefaultNametag : IBaseNametag
             nametag.AddStyle("color", $"#{nametagColor}");
         }
 
-        if (!(ConfigManager.CustomNametags && nametag.Owner.OwningNetPlayer.GetPlayerRef().CustomProperties.TryGetValue("BingusNametags++", out var rawData)))
-            return;
+        if (ConfigManager.CustomNametags && nametag.Owner.OwningNetPlayer.GetPlayerRef().CustomProperties.TryGetValue("BingusNametags++", out var rawData))
+        {
+            var data = (Dictionary<string, object>)rawData;
 
-        var data = (Dictionary<string, object>)rawData;
-        if (data == null)
-            return;
+            var color = (string)data["Color"];
+            var bold = (bool)data["isBold"];
+            var italic = (bool)data["isItalic"];
+            var underlined = (bool)data["isUnderlined"];
 
-        var color = (string)data["Color"];
-        var bold = (bool)data["isBold"];
-        var italic = (bool)data["isItalic"];
-        var underlined = (bool)data["isUnderlined"];
+            if (ConfigManager.ValidHexCode(color))
+                nametag.AddStyle("color", $"\"#{color}\"");
 
-        if (ConfigManager.ValidHexCode(color))
-            nametag.AddStyle("color", $"\"#{color}\"");
+            if (bold)
+                nametag.AddStyle("b");
+            else
+                nametag.RemoveStyle("b");
 
-        if (bold)
-            nametag.AddStyle("b");
-        else
-            nametag.RemoveStyle("b");
+            if (italic)
+                nametag.AddStyle("i");
+            else
+                nametag.RemoveStyle("i");
 
-        if (italic)
-            nametag.AddStyle("i");
-        else
-            nametag.RemoveStyle("i");
-
-        if (underlined)
-            nametag.AddStyle("u");
-        else
-            nametag.RemoveStyle("u");
+            if (underlined)
+                nametag.AddStyle("u");
+            else
+                nametag.RemoveStyle("u");
+        }
 
         nametag.Text = $"{prefix}{(ConfigManager.Default_ShowingName ? shownNickname : "")}";
     }
