@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using BepInEx.Bootstrap;
 using BingusNametagsPlusPlus.Attributes;
+using BingusNametagsPlusPlus.Classes;
 
 namespace BingusNametagsPlusPlus.Utilities;
 
@@ -35,8 +36,6 @@ public static class PluginManager
     /// Any failures caused while loading plugins.
     /// </summary>
     public static List<string> PluginFailures = [];
-
-    internal static List<IBaseNametag> AutoOffsetPlugins = [];
 
     /// <summary>
     /// Safely enable the specified IBaseNametag, warning the user about any unsupported nametags. The success of this function depends if there are any unsupported nametags enabled.
@@ -69,8 +68,6 @@ public static class PluginManager
 
         foreach (var badPlugin in allEnabledPlugins.Where(a => unsupported.Contains(a.Metadata.Name)))
             DisablePlugin(badPlugin);
-
-        UpdateNametagData();
     }
 
     /// <summary>
@@ -81,7 +78,7 @@ public static class PluginManager
     {
         plugin.Metadata.Enabled = false;
 
-        if (!Main.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false)
+        if (Main.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false)
         {
             try { Main.UpdateNametags -= plugin.Update; }
             catch (Exception ex)
@@ -91,8 +88,6 @@ public static class PluginManager
 
             Main.Nametags[plugin].ForEach(rig => rig.Value.Destroy());
             Main.Nametags[plugin].Clear();
-
-            UpdateNametagData();
         }
     }
 
@@ -163,7 +158,20 @@ public static class PluginManager
                 if (Activator.CreateInstance(nametagType) is not IBaseNametag nametag)
                     return;
 
+                const BindingFlags everything = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+                var allNametagsInPlugin = nametagType.GetMethods(everything)
+                    .Where(f => f.IsDefined(typeof(BingusNametagsNametag), false))
+                    .ToList();
+
                 var metadata = nametagType.GetCustomAttribute<BingusNametagsPlugin>();
+
+                allNametagsInPlugin.ForEach(nametagMI =>
+                {
+                    var attribute = nametagMI.GetCustomAttribute(typeof(BingusNametagsNametag), false) as BingusNametagsNametag;
+                    var updateFunc = (Action<PlayerNametag>)Delegate.CreateDelegate(typeof(Action<PlayerNametag>), nametagMI);
+                    metadata.Nametags.Add(attribute, updateFunc);
+                });
+
                 PluginMetadata.Add(nametag, metadata);
 
                 if (metadata == null)
@@ -232,36 +240,5 @@ public static class PluginManager
 
         bepinexNametags.Dispose();
         managedNametags.Dispose();
-    }
-
-    internal static void UpdateNametagData()
-    {
-        AutoOffsetPlugins = Plugins
-            .Where(nametag => nametag.Metadata.Enabled && !nametag.Metadata.AutomaticOffsetCalculation)
-            .ToList();
-
-        AutoOffsetPlugins.ForEach(plugin => CalculateOffset(plugin));
-    }
-
-    internal static float HighestManualOffset()
-    {
-        var highest = 0f;
-        Plugins.Select(p => p.Metadata.Offset).ForEach(offset => highest = (offset > highest) ? offset : highest);
-        return highest;
-    }
-
-    internal static float CalculateOffset(IBaseNametag nametag)
-    {
-        var nametagIndex = AutoOffsetPlugins.IndexOf(nametag);
-
-        var highestAuto = nametagIndex * 0.5f;
-        var highestConst = HighestManualOffset();
-
-        var highest = highestConst > highestAuto ? highestConst : highestAuto;
-
-        var offset = highest > 0 ? highest + 0.25f : 0f;
-
-        nametag.Metadata.Offset = offset;
-        return offset;
     }
 }

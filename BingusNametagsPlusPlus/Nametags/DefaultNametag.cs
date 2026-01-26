@@ -8,12 +8,12 @@ using UnityEngine;
 
 namespace BingusNametagsPlusPlus.Nametags;
 
-[BingusNametagsPlugin("Default", "Bingus", "The default nametag provided by BingusNametags++. Includes platform icons and a nametag.", 0f)]
+[BingusNametagsPlugin("Default", "Bingus", "The default nametag provided by BingusNametags++. Includes platform icons and a nametag.")]
 public class DefaultNametag : IBaseNametag
 {
-    public Dictionary<VRRig, string> CachedPlatforms = [ ];
+    public static Dictionary<VRRig, string> CachedPlatforms = [ ];
 
-    private (string platform, bool loaded) GetPlatformString(VRRig player)
+    private static (string platform, bool loaded) GetPlatformString(VRRig player)
     {
         var cosmetics = player.rawCosmeticString.ToLower();
 
@@ -48,7 +48,8 @@ public class DefaultNametag : IBaseNametag
         return ("meta", true);
     }
 
-    public void UpdateNametag(PlayerNametag nametag)
+    [BingusNametagsNametag("Default", 0f)]
+    public static void UpdateDefaultNametag(PlayerNametag nametag)
     {
         var prefix = "";
 

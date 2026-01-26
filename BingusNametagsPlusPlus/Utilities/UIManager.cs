@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using BingusNametagsPlusPlus.Attributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -49,6 +50,8 @@ public static class UIManager
 	private static float WindowStartY => WindowY + WindowPadding + 50f;
 
 	private static BGWindowState WindowState = BGWindowState.Normal;
+
+    private static BingusNametagsPlugin? CurrentlyInspectedNametag;
 
 	public static void Update()
 	{
@@ -217,15 +220,25 @@ public static class UIManager
 				foreach (var plugin in PluginManager.Plugins)
 				{
 					var currently = GUI.Toggle(
-						new Rect(WindowStartX, startingIndex, WindowSizeX - 20, 20),
+						new Rect(WindowStartX, startingIndex, WindowSizeX - 120, 20),
 						plugin.Metadata.Enabled,
-						new GUIContent($"{plugin.Metadata.Name} [by {plugin.Metadata.Author}]", plugin.Metadata.Description)
+						new GUIContent($"{plugin.Metadata.Name}", plugin.Metadata.Description)
 					);
 
 					if (currently != plugin.Metadata.Enabled && plugin.Metadata.Enabled)
                         PluginManager.DisablePlugin(plugin);
 					else if (currently != plugin.Metadata.Enabled)
                         PluginManager.EnablePlugin(plugin);
+
+                    var inspect = GUI.Button(
+                        new Rect(WindowX + WindowSizeX - 110, startingIndex, 100, 20),
+                        new GUIContent("Inspect", "View information about this nametag"));
+
+                    if (inspect)
+                    {
+                        CurrentlyInspectedNametag = plugin.Metadata;
+                        WindowState = BGWindowState.Inspector;
+                    }
 
 					startingIndex += 25;
 				}
@@ -256,31 +269,30 @@ public static class UIManager
 					Credits
 				);
 
-				break;
+                if (GUI.Button(
+                        new Rect(WindowStartX, WindowY + WindowSizeY - 25, 150, 20),
+                        new GUIContent("Data Folder", "Opens the location of the BingusNametags++ data folder"))
+                   )
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = Constants.BingusNametagsData,
+                        UseShellExecute = true,
+                        Verb = "open"
+                    });
+
+                break;
 			default:
 				_pageSelected = 0;
 				break;
 		}
 
-        // Saving / other stuff like that
         if (GUI.Button(
-            new Rect(WindowStartX, WindowY + WindowSizeY - 25, 150, 20),
-            new GUIContent("Data Folder", "Opens the location of the BingusNametags++ data folder"))
-        )
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = Constants.BingusNametagsData,
-                UseShellExecute = true,
-                Verb = "open"
-            });
-
-        if (GUI.Button(
-			new Rect(WindowStartX + 155, WindowY + WindowSizeY - 25, 100, 20),
+			new Rect(WindowX + WindowSizeX - 190, WindowY + WindowSizeY - 25, 100, 20),
             new GUIContent("Refresh", "Reload all configuration. Any unsaved changes will be lost!"))
         )
 			ConfigManager.LoadPrefs();
 
-		if (GUI.Button(new Rect(WindowStartX + 260, WindowY + WindowSizeY - 25, 75, 20),
+		if (GUI.Button(new Rect(WindowX + WindowSizeX - 80, WindowY + WindowSizeY - 25, 75, 20),
 				new GUIContent("Apply",
 					"Save the current nametags configuration. Auto-saves!")))
 			ConfigManager.SavePrefs();
@@ -336,6 +348,52 @@ public static class UIManager
 		WindowState = BGWindowState.Prompt;
 	}
 
+    private static Vector2 scrollPosition;
+
+    public static void DrawPluginInspector()
+    {
+        if (CurrentlyInspectedNametag == null)
+        {
+			LogManager.Log("No CurrentlyInspectedNametag (uhoh) - sincerely, the UIManager");
+            WindowState = BGWindowState.Normal;
+            return;
+        }
+
+		GUILayout.BeginArea(new Rect(WindowStartX, WindowY + WindowPadding, WindowSizeX - (WindowPadding * 2), WindowSizeY - (WindowPadding * 2)));
+
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(WindowSizeX - (WindowPadding * 2)), GUILayout.Height(250));
+
+        // Metadata
+        GUILayout.Label(
+            CurrentlyInspectedNametag.Name
+        );
+
+        GUILayout.Label(
+            $"by {CurrentlyInspectedNametag.Author}"
+        );
+
+        GUILayout.Label(
+            CurrentlyInspectedNametag.Description
+        );
+
+        GUILayout.Label(
+            "This plugin contains the following nametags:"
+        );
+
+        foreach (var nametagMeta in CurrentlyInspectedNametag.Nametags.Keys)
+        {
+			GUILayout.Label($"- {nametagMeta.Name} (Offset: {nametagMeta.Offset})");
+        }
+
+		GUILayout.EndScrollView();
+        GUILayout.EndArea();
+
+        if (GUI.Button(new Rect(WindowX + (WindowSizeX - 105), WindowY + WindowSizeY - 25, 100, 20),
+                new GUIContent("Close",
+                    "Return to the Plugins tab")))
+            WindowState = BGWindowState.Normal;
+    }
+
     private static Vector2 mousePosition;
 
     public static void SafeDraw(Action drawingThing)
@@ -375,12 +433,15 @@ public static class UIManager
 			case BGWindowState.Prompt:
                 SafeDraw(DrawPrompt);
                 break;
+			case BGWindowState.Inspector:
+				SafeDraw(DrawPluginInspector);
+                break;
 		}
 
         mousePosition = Mouse.current.position.ReadValue();
 
         // X button
-        if (GUI.RepeatButton(new Rect(WindowX + WindowSizeX - 25, WindowY + 5, 20, 20), new GUIContent("X", "Close")))
+        if (GUI.Button(new Rect(WindowX + WindowSizeX - 25, WindowY + 5, 20, 20), new GUIContent("X", "Close")))
 			ShowingUI = false;
 
         // Tooltip display
@@ -398,6 +459,7 @@ public static class UIManager
 	enum BGWindowState
 	{
 		Normal,
-		Prompt
+		Prompt,
+		Inspector
 	}
 }

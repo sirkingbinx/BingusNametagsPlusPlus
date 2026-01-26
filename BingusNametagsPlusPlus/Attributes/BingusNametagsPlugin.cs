@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using BingusNametagsPlusPlus.Classes;
 
 namespace BingusNametagsPlusPlus.Attributes
 {
     /// <summary>
     /// BingusNametagsPlugin holds the metadata of a plugin.
     /// </summary>
-    public class BingusNametagsPlugin(string name, string author, string description, float offset, string[]? unsupported = null) : Attribute
+    [AttributeUsage(AttributeTargets.Class, Inherited = false)]
+    public class BingusNametagsPlugin(string name, string author, string description, string[]? unsupported = null) : Attribute
     {
         /// <summary>
         /// The display name of the nametag. This is used on the Plugins tab.
@@ -23,16 +26,6 @@ namespace BingusNametagsPlusPlus.Attributes
         public string Description = description;
 
         /// <summary>
-        /// The offset of the nametag from the user's selected nametag offset.
-        /// </summary>
-        public float Offset = offset;
-
-        /// <summary>
-        /// Whether BingusNametags++ automatically calculates the offset of this nametag.
-        /// </summary>
-        public bool AutomaticOffsetCalculation = false;
-
-        /// <summary>
         /// Any unsupported plugins. These will be turned off when your nametag is enabled.
         /// </summary>
         public string[] Unsupported = unsupported ?? [];
@@ -41,5 +34,7 @@ namespace BingusNametagsPlusPlus.Attributes
         /// Whether the nametag is enabled.
         /// </summary>
         public bool Enabled = false;
+
+        internal Dictionary<BingusNametagsNametag, Action<PlayerNametag>> Nametags = [];
     }
 }
