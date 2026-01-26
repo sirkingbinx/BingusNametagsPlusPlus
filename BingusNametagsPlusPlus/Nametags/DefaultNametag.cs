@@ -2,6 +2,7 @@
 using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
+using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -79,6 +80,36 @@ public class DefaultNametag : IBaseNametag
             var nametagColor = ColorUtility.ToHtmlStringRGB(nametag.Owner.playerText1.color);
             nametag.AddStyle("color", $"#{nametagColor}");
         }
+
+        if (!(ConfigManager.CustomNametags && nametag.Owner.OwningNetPlayer.GetPlayerRef().CustomProperties.TryGetValue("BingusNametags++", out var rawData)))
+            return;
+
+        var data = (Dictionary<string, object>)rawData;
+        if (data == null)
+            return;
+
+        var color = (string)data["Color"];
+        var bold = (bool)data["isBold"];
+        var italic = (bool)data["isItalic"];
+        var underlined = (bool)data["isUnderlined"];
+
+        if (ConfigManager.ValidHexCode(color))
+            nametag.AddStyle("color", $"\"#{color}\"");
+
+        if (bold)
+            nametag.AddStyle("b");
+        else
+            nametag.RemoveStyle("b");
+
+        if (italic)
+            nametag.AddStyle("i");
+        else
+            nametag.RemoveStyle("i");
+
+        if (underlined)
+            nametag.AddStyle("u");
+        else
+            nametag.RemoveStyle("u");
 
         nametag.Text = $"{prefix}{(ConfigManager.Default_ShowingName ? shownNickname : "")}";
     }

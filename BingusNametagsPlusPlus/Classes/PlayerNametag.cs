@@ -136,36 +136,6 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
 
         firstPerson.SetActive(ConfigManager.FirstPersonEnabled);
         thirdPerson.SetActive(ConfigManager.ThirdPersonEnabled);
-
-        if (!(ConfigManager.CustomNametags && player.OwningNetPlayer.GetPlayerRef().CustomProperties.TryGetValue("BingusNametags++", out var rawData)))
-            return;
-
-        var data = (Dictionary<string, object>)rawData;
-        if (data == null)
-            return;
-
-        var color = (string)data["Color"];
-        var bold = (bool)data["isBold"];
-        var italic = (bool)data["isItalic"];
-        var underlined = (bool)data["isUnderlined"];
-
-        if (ConfigManager.ValidHexCode(color))
-            AddStyle("color", $"\"#{color}\"");
-
-        if (bold) 
-            AddStyle("b");
-        else
-            RemoveStyle("b");
-
-        if (italic)
-            AddStyle("i");
-        else
-            RemoveStyle("i");
-
-        if (underlined)
-            AddStyle("u");
-        else
-            RemoveStyle("u");
     }
 
     internal void Destroy()
