@@ -37,9 +37,13 @@ To add a custom font, paste a font with the `.ttf` or `.otf` extension into the 
 To add a custom nametag, paste the nametag into the `BingusNametags++\nametags` folder. Open the UI, go to the "Plugins" tab and enable the nametag.
 
 ## Plugin System (1.3.3+)
+## Get Nametags
+The best place to find custom nametags is in [the Discord chat](https://discord.gg/TYvMnt9KtC). You can share and find new nametags in the #community-nametags channel.
+## Development
 ### Quick Start
 > [!NOTE]
-> If your nametag isn't a BepInEx mod (meaning it does stuff besides be a nametag), please set the file extension to `.nametag` to clarify to users where it is supposed to go.
+> If your nametag isn't a BepInEx mod (meaning it does stuff besides be a nametag), please set the file extension to `.nametag` to clarify to users where it is supposed to go. When loading from the `nametags` folder, BingusNametags++ looks for files with the `*.nametag` extension, so make sure it is set correctly.
+
 ```cs
 // As long as your plugin is loaded into the application domain, plugins should be detected and load automatically.
 // If you use BepInEx and you have a BaseUnityPlugin, then you shouldn't have to worry about that.
