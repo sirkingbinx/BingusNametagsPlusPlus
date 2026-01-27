@@ -126,7 +126,7 @@ public static class PluginManager
             return;
         }
 
-        foreach (var file in Directory.GetFiles(folderPath, "*.dll", SearchOption.AllDirectories))
+        foreach (var file in Directory.GetFiles(folderPath, "*.nametag", SearchOption.AllDirectories))
         {
             try
             {
