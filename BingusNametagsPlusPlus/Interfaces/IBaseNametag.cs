@@ -66,6 +66,8 @@ namespace BingusNametagsPlusPlus.Interfaces
                         nametags[rig].Text = $"<color=red>ERR: {ex.Message}</color>";
                     }
                 }
-            } }
+            }
+
+        }
     }
 }
