@@ -36,7 +36,7 @@ To add a custom font, paste a font with the `.ttf` or `.otf` extension into the 
 
 To add a custom nametag, paste the nametag into the `BingusNametags++\nametags` folder. Open the UI, go to the "Plugins" tab and enable the nametag.
 
-## Plugin System (1.3.3+)
+## Plugin System (1.3.4+)
 ## Get Nametags
 The best place to find custom nametags is in [the Discord chat](https://discord.gg/TYvMnt9KtC). You can share and find new nametags in the #community-nametags channel.
 ## Development
@@ -48,11 +48,13 @@ The best place to find custom nametags is in [the Discord chat](https://discord.
 // As long as your plugin is loaded into the application domain, plugins should be detected and load automatically.
 // If you use BepInEx and you have a BaseUnityPlugin, then you shouldn't have to worry about that.
 
-//                    [   plugin name   ][author][                                         description                                     ][offset][ unsupported ]
-[BingusNametagsPlugin("Your Plugin Name", "Me", "Write a short description of your plugin here. It is shown to the user on the Plugins tab.", 0.5f, [  "Default"  ])]
+//                    [   plugin name   ][author][                                         description                                     ][ unsupported ]
+[BingusNametagsPlugin("Your Plugin Name", "Me", "Write a short description of your plugin here. It is shown to the user on the Plugins tab.", [  "Default"  ])]
 public class MyNametag : IBaseNametag
 {
 	// Called every frame to update a nametag.
+	// 					   [nametag name][offset]
+	[BingusNametagsNametag("Nametag #1", 0.5f)]
 	public void UpdateNametag(PlayerNametag nametag)
 	{
 		// Styles are automatically applied when the tag text is set.
