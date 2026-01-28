@@ -1,7 +1,6 @@
 ﻿using BingusNametagsPlusPlus.Attributes;
 using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Interfaces;
-using BingusNametagsPlusPlus.Utilities;
 
 namespace BingusNametagsPlusPlus.Nametags;
 
