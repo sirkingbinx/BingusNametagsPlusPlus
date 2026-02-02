@@ -6,6 +6,9 @@ namespace BingusNametagsPlusPlus.Utilities;
 
 public static class LogManager
 {
+    /*
+    - Before
+    */
     public static string LogFolder => Path.Combine(Constants.BingusNametagsData, "logs");
     public static bool LoggingToUnity = true;
 
@@ -23,7 +26,7 @@ public static class LogManager
             if (!Directory.Exists(LogFolder))
                 Directory.CreateDirectory(LogFolder);
 
-            LogWriter = File.CreateText(logFile);
+            LogWriter = new StreamWriter(logFile, false, Encoding.UTF8);
 
             LoggingToUnity = false;
         }
@@ -34,30 +37,32 @@ public static class LogManager
 
         LogWriter.AutoFlush = true;
 
-        LogLine();
-        Log("BingusNametags++ log file");
-        Log($"Unity Version: {Application.unityVersion}");
-        Log($"Gorilla Tag Version: {Application.version}");
-        LogLine();
+        LogDivider();
+        LogLine("BingusNametags++ log file");
+        LogLine($"Unity Version: {Application.unityVersion}");
+        LogLine($"Gorilla Tag Version: {Application.version}");
+        LogDivider();
     }
 
-    public static void LogLine() =>
-        Log("============================================");
+    public static void LogDivider() =>
+        LogLine("============================================");
+
+    public static void LogLine(string text) => Log($"{text}\n");
 
     public static void Log(string text)
     {
         if (LoggingToUnity)
             Debug.Log($"[BG++]: {text}");
         else
-            LogWriter.WriteLine(text);
+            LogWriter.Write(text);
     }
 
     public static void LogException(Exception ex)
     {
-        LogLine();
-        Log($"Error occured at {ex.Source}:");
-        Log($"  Msg: {ex.Message}");
-        Log($"  Stack Trace: {ex.StackTrace}");
-        LogLine();
+        LogDivider();
+        LogLine($"Error occured at {ex.Source}:");
+        LogLine($"  Msg: {ex.Message}");
+        LogLine($"  Stack Trace: {ex.StackTrace}");
+        LogDivider();
     }
 }

@@ -131,8 +131,8 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
         firstPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.Scale * PluginScale;
         thirdPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.Scale * PluginScale;
 
-        firstPerson.transform.localPosition = new Vector3(0f, ConfigManager.Offset + 0.55f + offset, 0f);
-        thirdPerson.transform.localPosition = new Vector3(0f, ConfigManager.Offset + 0.55f + offset, 0f);
+        firstPerson.transform.localPosition = new Vector3(0f, ConfigManager.Offset + offset, 0f);
+        thirdPerson.transform.localPosition = new Vector3(0f, ConfigManager.Offset + offset, 0f);
 
         firstPerson.SetActive(ConfigManager.FirstPersonEnabled);
         thirdPerson.SetActive(ConfigManager.ThirdPersonEnabled);
