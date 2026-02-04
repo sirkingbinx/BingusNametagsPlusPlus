@@ -71,15 +71,17 @@ public class Main : BaseUnityPlugin
 
         // summary
         {
-            LogManager.LogLine();
+            LogManager.LogDivider();
             LogManager.Log($"Plugins loaded: {PluginManager.Plugins.Count}");
-            LogManager.LogLine();
+            LogManager.LogDivider();
 
+#pragma warning disable CS0162
             if (Constants.Channel != ReleaseChannel.Stable)
             {
                 LogManager.Log("WARNING!!! This is a beta build of BingusNametags++.\nBugs are to be expected.");
-                LogManager.LogLine();
+                LogManager.LogDivider();
             }
+#pragma warning restore CS0162
         }
 
         // report errors
@@ -92,7 +94,7 @@ public class Main : BaseUnityPlugin
             UIManager.Ask(
                 $"There were errors loading some nametags.\n\n{PluginManager.PluginFailures.Zip("\n- ")}\n\nIf you are a user, please report these messages to the developer(s) of the nametag.",
                 ["OK"],
-                (ans) => { }
+                (_) => { }
             );
         }
     }

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 namespace BingusNametagsPlusPlus.Utilities;
 
 public static class LogManager
 {
-    /*
-    - Before
-    */
     public static string LogFolder => Path.Combine(Constants.BingusNametagsData, "logs");
     public static bool LoggingToUnity = true;
 
@@ -26,7 +24,7 @@ public static class LogManager
             if (!Directory.Exists(LogFolder))
                 Directory.CreateDirectory(LogFolder);
 
-            LogWriter = new StreamWriter(logFile, false, Encoding.UTF8);
+            LogWriter = new StreamWriter(logFile);
 
             LoggingToUnity = false;
         }
