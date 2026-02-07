@@ -7,6 +7,11 @@ using UnityEngine.InputSystem;
 
 namespace BingusNametagsPlusPlus.Utilities;
 
+/*
+ * Dear contributor:
+ * I would rather kill myself then clean this code up. Please do it for me.
+ * - Bingus
+ */
 public static class UIManager
 {
 	private static float WindowX = 10;
@@ -107,7 +112,7 @@ public static class UIManager
 					ConfigManager.GFriendsIntegration = GUI.Toggle(
 						new Rect(WindowStartX, WindowStartY + 125, 300, 20),
 						ConfigManager.GFriendsIntegration,
-						new GUIContent("GorillaFriends Support", "Enables the default nametag to integrate with GorillaFriends, showing verified players and friends.")
+						new GUIContent("Match Nametag Color", "Make the color of the nametag the same color as the nametag on their chest, allowing support for GorillaFriends and Very Important Monke subscribers.")
 					);
 
 					// Labels

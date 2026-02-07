@@ -165,11 +165,13 @@ public static class PluginManager
 
                 var metadata = nametagType.GetCustomAttribute<BingusNametagsPlugin>();
 
-                allNametagsInPlugin.ForEach(nametagMI =>
+                allNametagsInPlugin.ForEach(nametagInfo =>
                 {
-                    var attribute = nametagMI.GetCustomAttribute(typeof(BingusNametagsNametag), false) as BingusNametagsNametag;
-                    var updateFunc = (Action<PlayerNametag>)Delegate.CreateDelegate(typeof(Action<PlayerNametag>), nametagMI);
-                    metadata.Nametags.Add(attribute, updateFunc);
+                    var attribute = nametagInfo.GetCustomAttribute(typeof(BingusNametagsNametag), false) as BingusNametagsNametag;
+                    var updateFunc = (Action<PlayerNametag>)Delegate.CreateDelegate(typeof(Action<PlayerNametag>), nametagInfo);
+
+                    if (attribute != null)
+                        metadata.Nametags.Add(attribute, updateFunc);
                 });
 
                 PluginMetadata.Add(nametag, metadata);
@@ -219,7 +221,7 @@ public static class PluginManager
             {
                 LogManager.Log("Loading nametags from BepInEx");
                 // bepinex assemblies
-                LoadNametagsFromAssemblies(Chainloader.PluginInfos.Values.Select(info => info.GetType().Assembly).AsArray());
+                LoadNametagsFromAssemblies(Chainloader.PluginInfos.Values.Select(info => info.GetType().Assembly).ToArray());
                 LogManager.Log("Loaded nametags from BepInEx");
             }
             catch (Exception ex)

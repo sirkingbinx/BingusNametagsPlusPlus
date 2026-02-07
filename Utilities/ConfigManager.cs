@@ -38,7 +38,6 @@ public static class ConfigManager
 	public static bool   NetworkItalic = false;
 
     // Misc
-    public static bool Default_ShowingName = true;
     public static TMP_FontAsset? CustomFont;
 
     public static ConfigFile GenerateConfig()

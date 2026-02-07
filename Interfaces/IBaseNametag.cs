@@ -17,30 +17,23 @@ namespace BingusNametagsPlusPlus.Interfaces
         /// The metadata associated with your nametag.
         /// </summary>
         public BingusNametagsPlugin Metadata => PluginManager.PluginMetadata[this];
-
-        /// <summary>
-        /// <i>UpdateNametag()</i> is called for every user each frame to update their nametag.
-        /// </summary>
-        /// <param name="nametag">The nametag of the player. Use nametag.Owner to get it's owning VRRig. Use nametag.Text to set the text.</param>
-        [Obsolete("UpdateNametag() is no longer used. Please see the documentation for new plugin usage details (I promise it's easy): https://github.com/sirkingbinx/BingusNametagsPlusPlus#plugin-system-133", true)]
-        public void UpdateNametag(PlayerNametag nametag) { }
          
         internal void Update()
         {
-            var AllowedToShowNametags = ConfigManager.Nametags && Main.PluginEnabled;
+            var allowedToShowNametags = ConfigManager.Nametags && Main.PluginEnabled;
 
             foreach (var pair in Metadata.Nametags)
             {
                 Main.Nametags.TryAdd(this, []);
                 var nametags = Main.Nametags[this];
 
-                if (!AllowedToShowNametags && nametags.Count != 0)
+                if (!allowedToShowNametags && nametags.Count != 0)
                 {
                     nametags.ForEach(rig => rig.Value.Destroy());
                     nametags.Clear();
                 }
 
-                if (!GorillaParent.hasInstance || !AllowedToShowNametags)
+                if (!GorillaParent.hasInstance || !allowedToShowNametags)
                     return;
 
                 foreach (var pair2 in nametags.Where(p => !GorillaParent.instance.vrrigs.Contains(p.Key)))
@@ -57,7 +50,7 @@ namespace BingusNametagsPlusPlus.Interfaces
                     try
                     {
                         nametags[rig].UpdateSettings(pair.Key.Offset);
-                        pair.Value(nametags[rig]);
+                        pair.Value?.Invoke(nametags[rig]);
                     }
                     catch (Exception ex)
                     {

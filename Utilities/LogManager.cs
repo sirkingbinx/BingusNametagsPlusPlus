@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using UnityEngine;
 
 namespace BingusNametagsPlusPlus.Utilities;
@@ -10,7 +9,7 @@ public static class LogManager
     public static string LogFolder => Path.Combine(Constants.BingusNametagsData, "logs");
     public static bool LoggingToUnity = true;
 
-    public static StreamWriter LogWriter;
+    public static StreamWriter? LogWriter;
 
     public static void CreateLog()
     {
@@ -25,6 +24,7 @@ public static class LogManager
                 Directory.CreateDirectory(LogFolder);
 
             LogWriter = new StreamWriter(logFile);
+            LogWriter.AutoFlush = true;
 
             LoggingToUnity = false;
         }
@@ -32,8 +32,6 @@ public static class LogManager
         {
             Debug.Log($"============================================\n[BG++] could not generate log file. ${ex.Message}\nAll BingusNametags++ related messages are forwarded into the Unity Log. (Ctrl + F - search for [BG++])\n============================================");
         }
-
-        LogWriter.AutoFlush = true;
 
         LogDivider();
         LogLine("BingusNametags++ log file");
@@ -45,14 +43,14 @@ public static class LogManager
     public static void LogDivider() =>
         LogLine("============================================");
 
-    public static void LogLine(string text) => Log($"{text}\n");
+    public static void LogLine(string text) => Log($"{text}");
 
-    public static void Log(string text)
+    public static void Log(string text, string ending = "\n")
     {
         if (LoggingToUnity)
             Debug.Log($"[BG++]: {text}");
         else
-            LogWriter.Write(text);
+            LogWriter?.Write($"{text}{ending}");
     }
 
     public static void LogException(Exception ex)

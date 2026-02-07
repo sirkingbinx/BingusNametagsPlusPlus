@@ -71,7 +71,7 @@ public class DefaultNametag : IBaseNametag
         }
 
         var shownNickname = ConfigManager.SanitizeNicknames
-            ? nametag.Owner.OwningNetPlayer.SanitizedNickName
+            ? nametag.Owner.playerText1.text
             : nametag.Owner.OwningNetPlayer.NickName;
 
         if (ConfigManager.GFriendsIntegration && nametag.Owner.playerText1.color != Color.white)
@@ -110,6 +110,6 @@ public class DefaultNametag : IBaseNametag
                 nametag.RemoveStyle("u");
         }
 
-        nametag.Text = $"{prefix}{(ConfigManager.Default_ShowingName ? shownNickname : "")}";
+        nametag.Text = $"{prefix}{shownNickname}";
     }
 }

@@ -33,7 +33,7 @@ public class Main : BaseUnityPlugin
             ex.Report();
         }
 
-        LogManager.Log("Loading assetbundle item [1/4]");
+        LogManager.LogLine("Loading assetbundle item [1/4]");
 
 		NametagDefault = Load<GameObject>("BingusNametagsPlusPlus.Resources.nametags", "Nametag");
         Instance = this;
@@ -54,7 +54,6 @@ public class Main : BaseUnityPlugin
             LogManager.Log("Applying assetbundle shaders [1/4]");
 
             var tmPro = NametagDefault?.GetComponent<TextMeshPro>();
-
             tmPro?.fontMaterial.shader = Shader.Find("TextMeshPro/Mobile/Distance Field");
             tmPro?.spriteAsset.material.shader = Shader.Find("UI/Default");
         }
@@ -113,6 +112,7 @@ public class Main : BaseUnityPlugin
     public void OnDisable()
     {
         PluginEnabled = false;
+        UpdateNametags?.Invoke(); // turn yourselves off
         ConfigManager.SavePrefs();
 	}
 
