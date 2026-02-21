@@ -18,11 +18,9 @@ public static class Extensions
 		{
 			case ReleaseChannel.Stable:
 				return "stable";
+			default:
 			case ReleaseChannel.Beta:
 				return "beta";
-			default:
-			case ReleaseChannel.Development:
-				return "dev";
 		}
 	}
 

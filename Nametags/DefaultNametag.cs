@@ -22,7 +22,7 @@ public class DefaultNametag : IBaseNametag
         if (cosmetics != "" && CachedPlatforms.TryGetValue(player, out var cachedPlatform))
             return (cachedPlatform,true);
 
-        var properties = player.OwningNetPlayer.GetPlayerRef().CustomProperties.Count;
+        var properties = player.Creator.GetPlayerRef().CustomProperties.Count;
 
         // these funny ranked variables were discovered by golden, thx
         /*
@@ -55,7 +55,7 @@ public class DefaultNametag : IBaseNametag
 
         if (ConfigManager.Icons)
         {
-            if (ConfigManager.UserIcons && Constants.SpecialBadgeIds.TryGetValue(nametag.Owner.OwningNetPlayer.UserId.ToLower(), out var n))
+            if (ConfigManager.UserIcons && Constants.SpecialBadgeIds.TryGetValue(nametag.Owner.Creator.UserId.ToLower(), out var n))
             {
                 var adding = "";
                 n.Split(",").ForEach(sprite => adding += $"<sprite name=\"{sprite}\">");
@@ -72,7 +72,7 @@ public class DefaultNametag : IBaseNametag
 
         var shownNickname = ConfigManager.SanitizeNicknames
             ? nametag.Owner.playerText1.text
-            : nametag.Owner.OwningNetPlayer.NickName;
+            : nametag.Owner.Creator.NickName;
 
         if (ConfigManager.GFriendsIntegration && nametag.Owner.playerText1.color != Color.white)
         {
@@ -82,7 +82,7 @@ public class DefaultNametag : IBaseNametag
             nametag.AddStyle("color", $"#{nametagColor}");
         }
 
-        if (ConfigManager.CustomNametags && nametag.Owner.OwningNetPlayer.GetPlayerRef().CustomProperties.TryGetValue("BingusNametags++", out var rawData))
+        if (ConfigManager.CustomNametags && nametag.Owner.Creator.GetPlayerRef().CustomProperties.TryGetValue("BingusNametags++", out var rawData))
         {
             var data = (Dictionary<string, object>)rawData;
 

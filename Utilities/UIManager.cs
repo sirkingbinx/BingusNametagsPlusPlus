@@ -22,17 +22,21 @@ public static class UIManager
 
 	private const float WindowPadding = 10;
 
-	private const string Credits =
-		"Beta Testers:\n" +
-		"\tMedievalz\n" +
-		"\tMonky\n" +
-		"\ttfsdemon\n" +
-		"\tSalty0591\n" +
-		"\tLinear\n" +
-		"\tGolden\n" +
-		"\tJosh\n" +
-		"\tAriel (The Mysterious Person)\n" +
-		"\tCrazykid\n";
+    private const string Credits = """
+                                   Beta Testers:
+                                       Medievalz
+                                       Monky
+                                       tfsdemon
+                                       salty
+                                       Linear
+                                       Golden
+                                       Josh
+                                       Ariel (The Mysterious Person)
+                                       Crazykid
+                                       
+                                   Join the discord:
+                                   https://discord.gg/SYCpaKjyU6
+                                   """;
 
 	public static bool ShowingUI;
 
@@ -302,8 +306,9 @@ public static class UIManager
 					"Save the current nametags configuration. Auto-saves!")))
 			ConfigManager.SavePrefs();
 
-		#region Debug Stuff
-		if (Constants.Channel != ReleaseChannel.Stable)
+        #region Debug Stuff
+#pragma warning disable CS0162
+        if (Constants.Channel != ReleaseChannel.Stable)
 		{
 			GUI.Label(
 				new Rect(WindowStartX, WindowY + WindowSizeY + WindowPadding, WindowSizeX - WindowPadding * 2, 20),
@@ -317,10 +322,11 @@ public static class UIManager
 				$"FPS: {Mathf.Floor(fps)}"
 			);
 		}
-		#endregion
-	}
+#pragma warning restore CS0162
+        #endregion
+    }
 
-	private static string promptQuestion = "";
+    private static string promptQuestion = "";
 	private static List<string> promptButtons = [ ];
 	private static Action<string> promptCallback = delegate { };
 
