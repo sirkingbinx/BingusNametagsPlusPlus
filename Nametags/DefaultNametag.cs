@@ -92,7 +92,7 @@ public class DefaultNametag : IBaseNametag
             var underlined = (bool)data["isUnderlined"];
 
             if (ConfigManager.ValidHexCode(color))
-                nametag.AddStyle("color", $"\"#{color}\"");
+                nametag.AddStyle("color", $"#{color}");
 
             if (bold)
                 nametag.AddStyle("b");
