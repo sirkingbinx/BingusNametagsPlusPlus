@@ -8,17 +8,18 @@ public static class Constants
 {
 	public const string Name = "BingusNametags++";
 	public const string Guid = "bingus.nametagsplusplus";
-    public const string Version = "1.3.6";
+    public const string Version = "1.3.7";
 
-    public const ReleaseChannel Channel = ReleaseChannel.Stable;
+    public const ReleaseChannel Channel = ReleaseChannel.Beta;
 
     public static string BingusNametagsData =>
         Path.Combine(Application.dataPath[.. Application.dataPath.LastIndexOfAny(['/', '\\'])], "BingusNametags++");
 
     public static readonly Dictionary<string, string> SpecialBadgeIds = new()
 	{
-		["3df1e7a71f3b9ef1"] = "beta,bingus",
-		["defc9810769f1f55"] = "beta,bingus",
+		// note: badges are applied in specified order, so put the icon you like more at the FRONT
+		["3df1e7a71f3b9ef1"] = "bingus,beta",
+		["defc9810769f1f55"] = "bingus,beta",
 		["846e7dd5aceac0d4"] = "beta",
 		["68ccddc115fdc9fb"] = "beta",
 		["706572060708c655"] = "beta",

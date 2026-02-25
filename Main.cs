@@ -124,10 +124,6 @@ public class Main : BaseUnityPlugin
 		var ab = AssetBundle.LoadFromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream(path));
 		var obj = ab.LoadAsset<T>(name);
 
-		if (obj.Uninitialized())
-			LogManager.Log(
-				$"Cannot load assetbundle \"{path}\" object \"{name}\" to type \"{typeof(T).FullName}.\nValid streams: \n\t{Assembly.GetExecutingAssembly().GetManifestResourceNames().Join("\n\t")}");
-
 		ab.Unload(false);
 
 		return obj;

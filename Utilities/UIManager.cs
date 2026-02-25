@@ -255,7 +255,7 @@ public static class UIManager
 				break;
 			case 4:
 				GUI.Label(new Rect(WindowStartX, WindowStartY, WindowSizeX - WindowPadding * 2, 20),
-					$"BingusNametags++ v{Constants.Version}-{Constants.Channel.AsString()}");
+					$"BingusNametags++ v{Constants.Version}-{Constants.Channel == ReleaseChannel.Stable ? "stable" : "beta"}");
 				GUI.Label(new Rect(WindowStartX, WindowStartY + 20, WindowSizeX - WindowPadding * 2, 20),
 					"(C) Copyright 2025 - 2026 Bingus/SirKingBinx");
 				GUI.Label(new Rect(WindowStartX, WindowStartY + 40, WindowSizeX - WindowPadding * 2, 20),
