@@ -1,4 +1,3 @@
-using BingusNametagsPlusPlus.Models;
 using System.Collections.Generic;
 using System.Linq;
 using ExitGames.Client.Photon;
@@ -13,22 +12,20 @@ public static class NetworkingManager
 		if (ConfigManager.CustomNametags)
 		{
             var color = ConfigManager.NetworkColor.First() == '#' ? ConfigManager.NetworkColor[1..] : ConfigManager.NetworkColor;
-			var nametagData = new BGNametagData {
-				Color = color,
-			};
-
-			if (ConfigManager.NetworkBold)
-				nametagData.Style |= BGNametagStyle.Bold;
-			
-			if (ConfigManager.NetworkItalic)
-				nametagData.Style |= BGNametagStyle.Italic;
-
-			if (ConfigManager.NetworkUnderline)
-				nametagData.Style |= BGNametagStyle.Underline;
 
             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
-				{{"BingusNametags++", nametagData }}
-			);
+			{
+				{
+					"BingusNametags++", new Dictionary<string, object>
+					{
+						{ "Color", color },
+						{ "isBold", ConfigManager.NetworkBold },
+						{ "isItalic", ConfigManager.NetworkItalic },
+						{ "isUnderlined", ConfigManager.NetworkUnderline },
+						{ "version", Main.Instance?.Info.Metadata.Version.ToString() ?? "0.0.0" }
+					}
+				}
+			});
         } else
 		{
 			PhotonNetwork.LocalPlayer.CustomProperties.Remove("BingusNametags++");

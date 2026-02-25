@@ -2,7 +2,6 @@
 using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
-using BingusNametagsPlusPlus.Models;
 using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
@@ -83,26 +82,29 @@ public class DefaultNametag : IBaseNametag
             nametag.AddStyle("color", $"#{nametagColor}");
         }
 
-        if (
-            ConfigManager.CustomNametags
-            && nametag.Owner.Creator.GetPlayerRef().CustomProperties.TryGetValue("BingusNametags++", out var rawData)
-            && rawData is BGNametagData data
-        )
+        if (ConfigManager.CustomNametags && nametag.Owner.Creator.GetPlayerRef().CustomProperties.TryGetValue("BingusNametags++", out var rawData))
         {
-            if (ConfigManager.ValidHexCode(data.Color))
-                nametag.AddStyle("color", $"#{data.Color}");
+            var data = (Dictionary<string, object>)rawData;
 
-            if (data.Style.HasFlag(BGNametagStyle.Bold))
+            var color = (string)data["Color"];
+            var bold = (bool)data["isBold"];
+            var italic = (bool)data["isItalic"];
+            var underlined = (bool)data["isUnderlined"];
+
+            if (ConfigManager.ValidHexCode(color))
+                nametag.AddStyle("color", $"#{color}");
+
+            if (bold)
                 nametag.AddStyle("b");
             else
                 nametag.RemoveStyle("b");
 
-            if (data.Style.HasFlag(BGNametagStyle.Italic))
+            if (italic)
                 nametag.AddStyle("i");
             else
                 nametag.RemoveStyle("i");
 
-            if (data.Style.HasFlag(BGNametagStyle.Underline))
+            if (underlined)
                 nametag.AddStyle("u");
             else
                 nametag.RemoveStyle("u");
