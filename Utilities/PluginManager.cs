@@ -78,17 +78,17 @@ public static class PluginManager
     {
         plugin.Metadata.Enabled = false;
 
-        if (Main.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false)
-        {
-            try { Main.UpdateNametags -= plugin.Update; }
-            catch (Exception ex)
-            {
-                ex.Report();
-            }
+        if (!Main.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false)
+            return;
 
-            Main.Nametags[plugin].ForEach(rig => rig.Value.Destroy());
-            Main.Nametags[plugin].Clear();
+        try { Main.UpdateNametags -= plugin.Update; }
+        catch (Exception ex)
+        {
+            ex.Report();
         }
+
+        plugin.Metadata.Nametags.ForEach(pair => pair.Key.Nametags.ForEach(thing => thing.Value.Destroy()));
+        plugin.Metadata.Nametags.ForEach(pair => pair.Key.Nametags.Clear());
     }
 
     /// <summary>

@@ -19,7 +19,7 @@ public static class NametagCreator
 		tagObject?.transform.localPosition = new Vector3(0f, ConfigManager.Offset, 0f);
 		tagObject?.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
-        tagObject?.AddComponent<CameraFollower>();
+        tagObject?.AddComponent<CameraFollower>().lookingAtThirdPerson = (layerName == "MirrorOnly");
 
         var tmPro = tagObject?.GetComponent<TextMeshPro>();
 		tmPro?.text = "...";

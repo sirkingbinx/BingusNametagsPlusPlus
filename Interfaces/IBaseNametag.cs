@@ -24,8 +24,7 @@ namespace BingusNametagsPlusPlus.Interfaces
 
             foreach (var pair in Metadata.Nametags)
             {
-                Main.Nametags.TryAdd(this, []);
-                var nametags = Main.Nametags[this];
+                var nametags = pair.Key.Nametags;
 
                 if (!allowedToShowNametags && nametags.Count != 0)
                 {

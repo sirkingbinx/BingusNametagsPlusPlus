@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using BepInEx;
-using BingusNametagsPlusPlus.Classes;
-using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
 using TMPro;
 using UnityEngine;
@@ -22,8 +19,6 @@ public class Main : BaseUnityPlugin
     internal static Action? UpdateNametags;
 
     internal static bool PluginEnabled = true;
-
-    internal static Dictionary<IBaseNametag, Dictionary<VRRig, PlayerNametag>> Nametags = new();
 
 	private void Start()
     {

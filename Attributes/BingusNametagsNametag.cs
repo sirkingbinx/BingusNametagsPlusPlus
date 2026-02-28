@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using BingusNametagsPlusPlus.Classes;
 
 namespace BingusNametagsPlusPlus.Attributes
 {
@@ -19,5 +21,7 @@ namespace BingusNametagsPlusPlus.Attributes
         /// The offset from the default nametag's position. The default nametag's offset is 0f.
         /// </summary>
         public float Offset => offset;
+
+        public Dictionary<VRRig, PlayerNametag> Nametags = new();
     }
 }
