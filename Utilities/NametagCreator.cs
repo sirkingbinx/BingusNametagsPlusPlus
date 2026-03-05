@@ -13,7 +13,7 @@ public static class NametagCreator
 	private static GameObject CreateNametag(VRRig owner, string layerName)
 	{
 		var parent = owner.transform.Find("Body") ?? owner.transform;
-		var tagObject = Object.Instantiate(Main.NametagDefault, parent, false);
+		var tagObject = Object.Instantiate(Plugin.NametagDefault, parent, false);
 
 		tagObject?.gameObject.layer = LayerMask.NameToLayer(layerName);
 		tagObject?.transform.localPosition = new Vector3(0f, ConfigManager.Offset, 0f);

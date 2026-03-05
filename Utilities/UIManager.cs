@@ -312,7 +312,7 @@ public static class UIManager
 		{
 			GUI.Label(
 				new Rect(WindowStartX, WindowY + WindowSizeY + WindowPadding, WindowSizeX - WindowPadding * 2, 20),
-				$"Plugin updates polled: {Main.UpdateNametags?.GetInvocationList().Length}"
+				$"Plugin updates polled: {Plugin.UpdateNametags?.GetInvocationList().Length}"
 			);
 
 			var fps = 1.0f / Time.deltaTime;

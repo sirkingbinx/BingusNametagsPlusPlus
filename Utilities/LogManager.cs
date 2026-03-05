@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using MelonLoader;
 using UnityEngine;
 
 namespace BingusNametagsPlusPlus.Utilities;
@@ -16,7 +17,7 @@ public static class LogManager
         var logFile = Path.Combine(LogFolder,
             $"bg++_{DateTime.Now.ToShortDateString().Replace("/", "-")}_{DateTime.Now.ToLongTimeString().Replace(":", "-").Replace(" ", "-")}.txt");
 
-        Debug.Log($"[BG++] creating a log file at \"{logFile}\"");
+        Log($"[BG++] creating a log file at \"{logFile}\"");
 
         try
         {
@@ -30,7 +31,7 @@ public static class LogManager
         }
         catch (Exception ex)
         {
-            Debug.Log($"============================================\n[BG++] could not generate log file. ${ex.Message}\nAll BingusNametags++ related messages are forwarded into the Unity Log. (Ctrl + F - search for [BG++])\n============================================");
+            Log($"============================================\n[BG++] could not generate log file. ${ex.Message}\nAll BingusNametags++ related messages are forwarded into the Unity Log. (Ctrl + F - search for [BG++])\n============================================");
         }
 
         LogDivider();
@@ -48,7 +49,7 @@ public static class LogManager
     public static void Log(string text, string ending = "\n")
     {
         if (LoggingToUnity)
-            Debug.Log($"[BG++]: {text}");
+            Plugin.Instance?.LoggerInstance.Log($"{text}{ending}");
         else
             LogWriter?.Write($"{text}{ending}");
     }

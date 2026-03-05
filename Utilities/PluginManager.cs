@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using BepInEx.Bootstrap;
 using BingusNametagsPlusPlus.Attributes;
 using BingusNametagsPlusPlus.Classes;
 
@@ -60,11 +59,11 @@ public static class PluginManager
             );
         }
 
-        if (!disableStuff || (Main.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false))
+        if (!disableStuff || (Plugin.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false))
             return;
 
         plugin.Metadata.Enabled = true;
-        Main.UpdateNametags += plugin.Update;
+        Plugin.UpdateNametags += plugin.Update;
 
         foreach (var badPlugin in allEnabledPlugins.Where(a => unsupported.Contains(a.Metadata.Name)))
             DisablePlugin(badPlugin);
@@ -78,10 +77,10 @@ public static class PluginManager
     {
         plugin.Metadata.Enabled = false;
 
-        if (!Main.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false)
+        if (!Plugin.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false)
             return;
 
-        try { Main.UpdateNametags -= plugin.Update; }
+        try { Plugin.UpdateNametags -= plugin.Update; }
         catch (Exception ex)
         {
             ex.Report();
@@ -215,14 +214,14 @@ public static class PluginManager
             LogManager.Log("Loaded nametags from BG++");
         });
 
-        var bepinexNametags = Task.Run(() =>
+        var appDomainNametags = Task.Run(() =>
         {
             try
             {
-                LogManager.Log("Loading nametags from BepInEx");
+                LogManager.Log("Loading nametags from app domain");
                 // bepinex assemblies
-                LoadNametagsFromAssemblies(Chainloader.PluginInfos.Values.Select(info => info.GetType().Assembly).ToArray());
-                LogManager.Log("Loaded nametags from BepInEx");
+                LoadNametagsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+                LogManager.Log("Loaded nametags from app domain");
             }
             catch (Exception ex)
             {
@@ -238,9 +237,10 @@ public static class PluginManager
             LogManager.Log("Loaded nametags from data folder");
         });
 
-        await Task.WhenAll(usNametags, bepinexNametags, managedNametags);
+        await Task.WhenAll(usNametags, appDomainNametags, managedNametags);
 
-        bepinexNametags.Dispose();
+        usNametags.Dispose();
+        appDomainNametags.Dispose();
         managedNametags.Dispose();
     }
 }

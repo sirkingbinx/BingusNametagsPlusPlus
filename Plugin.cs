@@ -1,26 +1,26 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using BepInEx;
+﻿using BingusNametagsPlusPlus;
 using BingusNametagsPlusPlus.Utilities;
+using MelonLoader;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using Object = UnityEngine.Object;
+
+[assembly: MelonInfo(typeof(Plugin), BingusNametagsPlusPlus.Constants.Name, BingusNametagsPlusPlus.Constants.Version, BingusNametagsPlusPlus.Constants.Author)]
+[assembly: MelonGame("Another Axiom", "Gorilla Tag")]
 
 namespace BingusNametagsPlusPlus;
-
-[BepInPlugin(Constants.Guid, Constants.Name, Constants.Version)]
-public class Main : BaseUnityPlugin
+public class Plugin : MelonMod
 {
-	public static Main? Instance;
+    public static Plugin? Instance;
 
-	internal static GameObject? NametagDefault;
+    internal static GameObject? NametagDefault;
     internal static Action? UpdateNametags;
 
     internal static bool PluginEnabled = true;
 
-	private void Start()
+    public override void OnInitializeMelon()
     {
         try { LogManager.CreateLog(); }
         catch (Exception ex)
@@ -30,7 +30,7 @@ public class Main : BaseUnityPlugin
 
         LogManager.LogLine("Loading assetbundle item [1/4]");
 
-		NametagDefault = Load<GameObject>("BingusNametagsPlusPlus.Resources.nametags", "Nametag");
+        NametagDefault = Load<GameObject>("BingusNametagsPlusPlus.Resources.nametags", "Nametag");
         Instance = this;
 
         GorillaTagger.OnPlayerSpawned(() =>
@@ -93,10 +93,15 @@ public class Main : BaseUnityPlugin
         }
     }
 
-	private void Update()
-	{
-		UIManager.Update();
+    public override void OnUpdate()
+    {
+        UIManager.Update();
         UpdateNametags?.Invoke();
+    }
+
+    public override void OnLateUpdate()
+    {
+        NetworkingManager.SetNetworkedProperties();
     }
 
     public void OnEnable()
@@ -104,27 +109,29 @@ public class Main : BaseUnityPlugin
         PluginEnabled = true;
     }
 
-    public void OnDisable()
+    public override void OnDeinitializeMelon()
     {
         PluginEnabled = false;
         UpdateNametags?.Invoke(); // turn yourselves off
         ConfigManager.SavePrefs();
-	}
+    }
 
-	private void OnGUI() => UIManager.OnGUI();
-	private void LateUpdate() => NetworkingManager.SetNetworkedProperties();
+    public override void OnGUI()
+    {
+        UIManager.OnGUI();
+    }
 
-	private static T Load<T>(string path, string name) where T : Object
-	{
-		var ab = AssetBundle.LoadFromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream(path));
-		var obj = ab.LoadAsset<T>(name);
+    private static T Load<T>(string path, string name) where T : UnityEngine.Object
+    {
+        var ab = AssetBundle.LoadFromStream(typeof(Plugin).Assembly.GetManifestResourceStream(path));
+        var obj = ab.LoadAsset<T>(name);
 
-		if (obj.Uninitialized())
-			LogManager.Log(
-				$"Cannot load assetbundle \"{path}\" object \"{name}\" to type \"{typeof(T).FullName}.\nValid streams: \n\t{Assembly.GetExecutingAssembly().GetManifestResourceNames().Join("\n\t")}");
+        if (obj.Uninitialized())
+            LogManager.Log(
+                $"Cannot load assetbundle \"{path}\" object \"{name}\" to type \"{typeof(T).FullName}.\nValid streams: \n\t{typeof(Plugin).Assembly.GetManifestResourceNames().Join("\n\t")}");
 
-		ab.Unload(false);
+        ab.Unload(false);
 
-		return obj;
-	}
+        return obj;
+    }
 }
