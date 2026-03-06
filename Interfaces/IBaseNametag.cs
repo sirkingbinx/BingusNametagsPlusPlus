@@ -35,13 +35,13 @@ namespace BingusNametagsPlusPlus.Interfaces
                 if (!GorillaParent.hasInstance || !allowedToShowNametags)
                     return;
 
-                foreach (var pair2 in nametags.Where(p => !GorillaParent.instance.vrrigs.Contains(p.Key)))
+                foreach (var pair2 in nametags.Where(p => !VRRigCache.ActiveRigs.Contains(p.Key)))
                 {
                     pair2.Value.Destroy();
                     nametags.Remove(pair2.Key);
                 }
 
-                foreach (var rig in GorillaParent.instance.vrrigs.Where(rig => rig != GorillaTagger.Instance.offlineVRRig))
+                foreach (var rig in VRRigCache.ActiveRigs.Where(rig => rig != GorillaTagger.Instance.offlineVRRig))
                 {
                     if (!nametags.ContainsKey(rig))
                         nametags.Add(rig, NametagCreator.CreateNametagObject(rig));
