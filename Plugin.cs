@@ -31,7 +31,7 @@ public class MLPlugin : MelonMod {
 
 #elif BEPINEX
 [BepInPlugin(Constants.Guid, Constants.Name, Constants.Version)]
-public class BPlugin : BepInPlugin {
+public class BPlugin : BaseUnityPlugin {
     public void Start() => new GameObject("BingusNametags++").AddComponent<Plugin>();
 
     public void OnEnable() => Plugin.Instance?.OnEnable();
