@@ -1,7 +1,10 @@
 using System;
-using BepInEx.Configuration;
 using System.Collections.Generic;
 using BingusNametagsPlusPlus.Utilities;
+
+#if BEPINEX
+using BepInEx.Configuration;
+#endif
 
 namespace BingusNametagsPlusPlus;
 
@@ -24,6 +27,8 @@ public static class Extensions
 		}
 	}
 
+	public static string AsString(this ModLoader obj) => obj == ModLoader.MelonLoader ? "MelonLoader" : "BepInEx";
+
     public static string Zip(this IEnumerable<object> enumerable, string seperator = ", ")
     {
         var str = "";
@@ -31,11 +36,13 @@ public static class Extensions
         return str;
     }
 
-    public static ConfigEntry<T> Get<T>(this ConfigFile file, string section, string name)
+	#if BEPINEX
+	public static ConfigEntry<T> Get<T>(this ConfigFile file, string section, string name)
     {
         file.TryGetEntry(section, name, out ConfigEntry<T> thing);
         return thing;
     }
+	#endif
 
     public static void Report(this Exception ex) => LogManager.LogException(ex);
 }

@@ -3,13 +3,20 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <LangVersion>14</LangVersion>
         <Nullable>enable</Nullable>
+	    <PlatformTarget Condition="'$(Loader)' == 'MELONLOADER'">x64</PlatformTarget>
     </PropertyGroup>
 
     <ItemGroup>
       <EmbeddedResource Include="Resources\nametags" />
     </ItemGroup>
 
+    <PropertyGroup>
+      <!-- See Directory.Build.props-->
+      <DefineConstants>$(DefineConstants);$(Loader)</DefineConstants>
+    </PropertyGroup>
+
     <ItemGroup>
+        <!-- this will work with ML, don't be alarmed -->
         <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -20,7 +27,10 @@
         <Reference Include="Assembly-CSharp" Publicize="true">
             <HintPath>$(GameAssemblyPath)\Assembly-CSharp.dll</HintPath>
         </Reference>
-        <Reference Include="BepInEx">
+        <Reference Include="MelonLoader" Condition="'$(Loader)' == 'MELONLOADER'">
+            <HintPath>$(MelonLoaderAssemblyPath)\MelonLoader.dll</HintPath>
+        </Reference>
+        <Reference Include="BepInEx" Condition="'$(Loader)' == 'BEPINEX'">
             <HintPath>$(BepInExAssemblyPath)\BepInEx.dll</HintPath>
         </Reference>
         <Reference Include="Fusion.Runtime">

@@ -1,26 +1,53 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using BepInEx;
+﻿// Note: to change what mod loader to build for, see Directory.Build.props
+
+using BingusNametagsPlusPlus;
 using BingusNametagsPlusPlus.Utilities;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using Object = UnityEngine.Object;
+
+#if MELONLOADER
+using MelonLoader;
+
+[assembly: MelonInfo(typeof(MLPlugin), BingusNametagsPlusPlus.Constants.Name, BingusNametagsPlusPlus.Constants.Version, BingusNametagsPlusPlus.Constants.Author)]
+[assembly: MelonGame("Another Axiom", "Gorilla Tag")]
+
+#elif BEPINEX
+using BepInEx;
+#endif
 
 namespace BingusNametagsPlusPlus;
 
-[BepInPlugin(Constants.Guid, Constants.Name, Constants.Version)]
-public class Main : BaseUnityPlugin
-{
-	public static Main? Instance;
+#if MELONLOADER
+public class MLPlugin : MelonMod {
+    public void OnInitializeMelon() => new GameObject("BingusNametags++").AddComponent<Plugin>();
+    public void OnDeinitializeMelon() => Plugin.Instance?.OnDisable();
 
-	internal static GameObject? NametagDefault;
+    public void OnEnable() => Plugin.Instance?.OnEnable();
+    public void OnDisable() => Plugin.Instance?.OnDisable();
+}
+
+#elif BEPINEX
+[BepInPlugin(Constants.Guid, Constants.Name, Constants.Version)]
+public class BPlugin : BepInPlugin {
+    public void Start() => new GameObject("BingusNametags++").AddComponent<Plugin>();
+
+    public void OnEnable() => Plugin.Instance?.OnEnable();
+    public void OnDisable() => Plugin.Instance?.OnDisable();
+}
+#endif
+
+public class Plugin {
+    public static Plugin? Instance;
+
+    internal static GameObject? NametagDefault;
     internal static Action? UpdateNametags;
 
     internal static bool PluginEnabled = true;
 
-	private void Start()
+    public void Start()
     {
         try { LogManager.CreateLog(); }
         catch (Exception ex)
@@ -30,8 +57,10 @@ public class Main : BaseUnityPlugin
 
         LogManager.LogLine("Loading assetbundle item [1/4]");
 
-		NametagDefault = Load<GameObject>("BingusNametagsPlusPlus.Resources.nametags", "Nametag");
+        NametagDefault = Load<GameObject>("BingusNametagsPlusPlus.Resources.nametags", "Nametag");
         Instance = this;
+
+        PluginEnabled = true;
 
         GorillaTagger.OnPlayerSpawned(() =>
         {
@@ -93,10 +122,15 @@ public class Main : BaseUnityPlugin
         }
     }
 
-	private void Update()
-	{
-		UIManager.Update();
+    public void Update()
+    {
+        UIManager.Update();
         UpdateNametags?.Invoke();
+    }
+
+    public void LateUpdate()
+    {
+        NetworkingManager.SetNetworkedProperties();
     }
 
     public void OnEnable()
@@ -104,27 +138,29 @@ public class Main : BaseUnityPlugin
         PluginEnabled = true;
     }
 
-    public void OnDisable()
+    public override void OnDisable()
     {
         PluginEnabled = false;
         UpdateNametags?.Invoke(); // turn yourselves off
         ConfigManager.SavePrefs();
-	}
+    }
 
-	private void OnGUI() => UIManager.OnGUI();
-	private void LateUpdate() => NetworkingManager.SetNetworkedProperties();
+    public override void OnGUI()
+    {
+        UIManager.OnGUI();
+    }
 
-	private static T Load<T>(string path, string name) where T : Object
-	{
-		var ab = AssetBundle.LoadFromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream(path));
-		var obj = ab.LoadAsset<T>(name);
+    private static T Load<T>(string path, string name) where T : UnityEngine.Object
+    {
+        var ab = AssetBundle.LoadFromStream(typeof(Plugin).Assembly.GetManifestResourceStream(path));
+        var obj = ab.LoadAsset<T>(name);
 
-		if (obj.Uninitialized())
-			LogManager.Log(
-				$"Cannot load assetbundle \"{path}\" object \"{name}\" to type \"{typeof(T).FullName}.\nValid streams: \n\t{Assembly.GetExecutingAssembly().GetManifestResourceNames().Join("\n\t")}");
+        if (obj.Uninitialized())
+            LogManager.Log(
+                $"Cannot load assetbundle \"{path}\" object \"{name}\" to type \"{typeof(T).FullName}.\nValid streams: \n\t{typeof(Plugin).Assembly.GetManifestResourceNames().Join("\n\t")}");
 
-		ab.Unload(false);
+        ab.Unload(false);
 
-		return obj;
-	}
+        return obj;
+    }
 }
