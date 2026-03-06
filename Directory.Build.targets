@@ -8,4 +8,9 @@
 		<Copy SourceFiles="bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).pdb" DestinationFiles="$(PluginsPath)\$(MSBuildProjectName).pdb" />
 		<Message Text="$(MSBuildProjectName).pdb -> $(MSBuildProjectName)\$(MSBuildProjectName).pdb (pdb = Program Database, it is useful for debugging your apps)" Importance="high"/>
 	</Target>
+
+	<Target Name="AddToBuildsFolder" AfterTargets="CopyToPlugins" Condition="'$(CI)'!='TRUE'">
+		<Copy SourceFiles="$(TargetPath)" Condition="'$(Loader)' == 'BEPINEX'" DestinationFiles="Builds\$(MSBuildProjectName).BepInEx.dll"/>
+		<Copy SourceFiles="$(TargetPath)" Condition="'$(Loader)' == 'MELONLOADER'" DestinationFiles="Builds\$(MSBuildProjectName).MelonLoader.dll"/>
+	</Target>
 </Project>

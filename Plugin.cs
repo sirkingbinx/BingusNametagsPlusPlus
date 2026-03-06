@@ -21,7 +21,8 @@ using BepInEx;
 namespace BingusNametagsPlusPlus;
 
 #if MELONLOADER
-public class MLPlugin : MelonMod {
+public class MLPlugin : MelonMod
+{
     public void OnInitializeMelon() => new GameObject("BingusNametags++").AddComponent<Plugin>();
     public void OnDeinitializeMelon() => Plugin.Instance?.OnDisable();
 
@@ -31,7 +32,8 @@ public class MLPlugin : MelonMod {
 
 #elif BEPINEX
 [BepInPlugin(Constants.Guid, Constants.Name, Constants.Version)]
-public class BPlugin : BaseUnityPlugin {
+public class BPlugin : BaseUnityPlugin
+{
     public void Start() => new GameObject("BingusNametags++").AddComponent<Plugin>();
 
     public void OnEnable() => Plugin.Instance?.OnEnable();
@@ -39,7 +41,8 @@ public class BPlugin : BaseUnityPlugin {
 }
 #endif
 
-public class Plugin {
+public class Plugin
+{
     public static Plugin? Instance;
 
     internal static GameObject? NametagDefault;
