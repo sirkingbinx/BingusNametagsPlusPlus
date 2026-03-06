@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using BingusNametagsPlusPlus.Utilities;
 
+#if BEPINEX
+using BepInEx.Configuration;
+#endif
+
 namespace BingusNametagsPlusPlus;
 
 public static class Extensions
@@ -29,6 +33,14 @@ public static class Extensions
         enumerable.ForEach(e => str += $"{(str != "" ? seperator: "")}{e}");
         return str;
     }
+
+	#if BEPINEX
+	public static ConfigEntry<T> Get<T>(this ConfigFile file, string section, string name)
+    {
+        file.TryGetEntry(section, name, out ConfigEntry<T> thing);
+        return thing;
+    }
+	#endif
 
     public static void Report(this Exception ex) => LogManager.LogException(ex);
 }

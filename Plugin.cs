@@ -1,18 +1,45 @@
-﻿using BingusNametagsPlusPlus;
+﻿// Note: to change what mod loader to build for, see Directory.Build.props
+
+using BingusNametagsPlusPlus;
 using BingusNametagsPlusPlus.Utilities;
-using MelonLoader;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(Plugin), BingusNametagsPlusPlus.Constants.Name, BingusNametagsPlusPlus.Constants.Version, BingusNametagsPlusPlus.Constants.Author)]
+#if MELONLOADER
+using MelonLoader;
+
+[assembly: MelonInfo(typeof(MLPlugin), BingusNametagsPlusPlus.Constants.Name, BingusNametagsPlusPlus.Constants.Version, BingusNametagsPlusPlus.Constants.Author)]
 [assembly: MelonGame("Another Axiom", "Gorilla Tag")]
 
+#elif BEPINEX
+using BepInEx;
+#endif
+
 namespace BingusNametagsPlusPlus;
-public class Plugin : MelonMod
-{
+
+#if MELONLOADER
+public class MLPlugin : MelonMod {
+    public void OnInitializeMelon() => new GameObject("BingusNametags++").AddComponent<Plugin>();
+    public void OnDeinitializeMelon() => Plugin.Instance?.OnDisable();
+
+    public void OnEnable() => Plugin.Instance?.OnEnable();
+    public void OnDisable() => Plugin.Instance?.OnDisable();
+}
+
+#elif BEPINEX
+[BepInPlugin(Constants.Guid, Constants.Name, Constants.Version)]
+public class BPlugin : BepInPlugin {
+    public void Start() => new GameObject("BingusNametags++").AddComponent<Plugin>();
+
+    public void OnEnable() => Plugin.Instance?.OnEnable();
+    public void OnDisable() => Plugin.Instance?.OnDisable();
+}
+#endif
+
+public class Plugin {
     public static Plugin? Instance;
 
     internal static GameObject? NametagDefault;
@@ -20,7 +47,7 @@ public class Plugin : MelonMod
 
     internal static bool PluginEnabled = true;
 
-    public override void OnInitializeMelon()
+    public void Start()
     {
         try { LogManager.CreateLog(); }
         catch (Exception ex)
@@ -32,6 +59,8 @@ public class Plugin : MelonMod
 
         NametagDefault = Load<GameObject>("BingusNametagsPlusPlus.Resources.nametags", "Nametag");
         Instance = this;
+
+        PluginEnabled = true;
 
         GorillaTagger.OnPlayerSpawned(() =>
         {
@@ -93,13 +122,13 @@ public class Plugin : MelonMod
         }
     }
 
-    public override void OnUpdate()
+    public void Update()
     {
         UIManager.Update();
         UpdateNametags?.Invoke();
     }
 
-    public override void OnLateUpdate()
+    public void LateUpdate()
     {
         NetworkingManager.SetNetworkedProperties();
     }
@@ -109,7 +138,7 @@ public class Plugin : MelonMod
         PluginEnabled = true;
     }
 
-    public override void OnDeinitializeMelon()
+    public override void OnDisable()
     {
         PluginEnabled = false;
         UpdateNametags?.Invoke(); // turn yourselves off

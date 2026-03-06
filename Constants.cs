@@ -12,6 +12,12 @@ public static class Constants
     public const string Author = "SirKingBinx";
 
     public const ReleaseChannel Channel = ReleaseChannel.Beta;
+	public const ModLoader Loader = 
+	#if MELONLOADER
+	ModLoader.MelonLoader
+	#else
+	ModLoader.BepInEx
+	#endif;
 
     public static string BingusNametagsData =>
         Path.Combine(Application.dataPath[..Application.dataPath.LastIndexOfAny(['/', '\\'])], "BingusNametags++");
