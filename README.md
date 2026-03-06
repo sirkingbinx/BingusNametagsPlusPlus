@@ -12,10 +12,9 @@ It's also open-source, free, and doesn't take up half of your screen.
 
 ## Installation
 > [!NOTE]
-> BingusNametags++ is also avaliable on MonkeModManager. Run `?mmm` in the Gorilla Tag Modding Group for downloads.
+> BingusNametags++ is also avaliable on MonkeModManager, if you have that
 
-[Download the latest release (`BingusNametags++.dll`) here](https://github.com/sirkingbinx/BingusNametagsPlusPlus/releases/latest) and copy it into `(Your Gorilla Tag Install Directory)\BepInEx\plugins`.
-It has no dependencies, just paste it in and start using it.
+[Download the latest release (`BingusNametagsPlusPlus.dll`) here](https://github.com/sirkingbinx/BingusNametagsPlusPlus/releases/latest) and copy it into your mods folder.
 
 ## Configuration
 Configuration Guide: https://github.com/sirkingbinx/BingusNametagsPlusPlus/wiki/Configuration
