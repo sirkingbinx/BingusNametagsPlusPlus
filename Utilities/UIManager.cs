@@ -257,7 +257,7 @@ public static class UIManager
 				GUI.Label(new Rect(WindowStartX, WindowStartY, WindowSizeX - WindowPadding * 2, 20),
 					$"BingusNametags++");
 				GUI.Label(new Rect(WindowStartX, WindowStartY + 20, WindowSizeX - WindowPadding * 2, 20),
-					$"v{Constants.Version}-{Constants.Channel.AsString()} ({Constants.ModLoader.AsString()})");
+					$"v{Constants.Version}-{Constants.Channel.AsString()} ({Constants.Loader.AsString()})");
 				GUI.Label(new Rect(WindowStartX, WindowStartY + 40, WindowSizeX - WindowPadding * 2, 20),
 					"(C) Copyright 2025 - 2026 Bingus/SirKingBinx / MIT License");
 

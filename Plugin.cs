@@ -11,7 +11,7 @@ using UnityEngine;
 #if MELONLOADER
 using MelonLoader;
 
-[assembly: MelonInfo(typeof(MLPlugin), BingusNametagsPlusPlus.Constants.Name, BingusNametagsPlusPlus.Constants.Version, BingusNametagsPlusPlus.Constants.Author)]
+[assembly: MelonInfo(typeof(MelonLoaderPlugin), BingusNametagsPlusPlus.Constants.Name, BingusNametagsPlusPlus.Constants.Version, BingusNametagsPlusPlus.Constants.Author)]
 [assembly: MelonGame("Another Axiom", "Gorilla Tag")]
 
 #elif BEPINEX
@@ -21,10 +21,14 @@ using BepInEx;
 namespace BingusNametagsPlusPlus;
 
 #if MELONLOADER
-public class MLPlugin : MelonMod
+public class MelonLoaderPlugin : MelonMod
 {
-    public void OnInitializeMelon() => new GameObject("BingusNametags++").AddComponent<Plugin>();
-    public void OnDeinitializeMelon() => Plugin.Instance?.OnDisable();
+    public override void OnSceneWasLoaded(int buildindex, string sceneName)
+    {
+        if (Plugin.Instance == null) new GameObject("BingusNametags++").AddComponent<Plugin>();
+    }
+
+    public override void OnDeinitializeMelon() => Plugin.Instance?.OnDisable();
 
     public void OnEnable() => Plugin.Instance?.OnEnable();
     public void OnDisable() => Plugin.Instance?.OnDisable();
@@ -32,7 +36,7 @@ public class MLPlugin : MelonMod
 
 #elif BEPINEX
 [BepInPlugin(Constants.Guid, Constants.Name, Constants.Version)]
-public class BPlugin : BaseUnityPlugin
+public class BepInExPlugin : BaseUnityPlugin
 {
     public void Start() => new GameObject("BingusNametags++").AddComponent<Plugin>();
 
@@ -41,7 +45,7 @@ public class BPlugin : BaseUnityPlugin
 }
 #endif
 
-public class Plugin
+public class Plugin : MonoBehaviour
 {
     public static Plugin? Instance;
 
@@ -77,52 +81,46 @@ public class Plugin
 
     private static void OnPlayerSpawned()
     {
-        {
-            LogManager.Log("Applying assetbundle shaders [1/4]");
+        
+        LogManager.Log("Applying assetbundle shaders [1/4]");
 
-            var tmPro = NametagDefault?.GetComponent<TextMeshPro>();
-            tmPro?.fontMaterial.shader = Shader.Find("TextMeshPro/Mobile/Distance Field");
-            tmPro?.spriteAsset.material.shader = Shader.Find("UI/Default");
-        }
+        var tmPro = NametagDefault?.GetComponent<TextMeshPro>();
+        tmPro?.fontMaterial.shader = Shader.Find("TextMeshPro/Mobile/Distance Field");
+        tmPro?.spriteAsset.material.shader = Shader.Find("UI/Default");
+        
         // load stuff
-        {
-            LogManager.Log("Loading nametags [2/4]");
-            Task.Run(PluginManager.LoadNametags).Wait();
+        LogManager.Log("Loading nametags [2/4]");
+        Task.Run(PluginManager.LoadNametags).Wait();
 
-            LogManager.Log("Loading configuration [3/4]");
-            ConfigManager.LoadPrefs();
+        LogManager.Log("Loading configuration [3/4]");
+        ConfigManager.LoadPrefs();
 
-            LogManager.Log("Nametags have been loaded. yay [4/4]");
-        }
+        LogManager.Log("Nametags have been loaded. yay [4/4]");
 
         // summary
-        {
-            LogManager.LogDivider();
-            LogManager.Log($"Plugins loaded: {PluginManager.Plugins.Count}");
-            LogManager.LogDivider();
+        LogManager.LogDivider();
+        LogManager.Log($"Plugins loaded: {PluginManager.Plugins.Count}");
+        LogManager.LogDivider();
 
 #pragma warning disable CS0162
-            if (Constants.Channel != ReleaseChannel.Stable)
-            {
-                LogManager.Log("WARNING!!! This is a beta build of BingusNametags++.\nBugs are to be expected.");
-                LogManager.LogDivider();
-            }
-#pragma warning restore CS0162
+        if (Constants.Channel != ReleaseChannel.Stable)
+        {
+            LogManager.Log("WARNING!!! This is a beta build of BingusNametags++.\nBugs are to be expected.");
+            LogManager.LogDivider();
         }
+#pragma warning restore CS0162
 
         // report errors
-        {
-            if (!PluginManager.PluginFailures.Any())
-                return;
+        if (!PluginManager.PluginFailures.Any())
+            return;
 
-            LogManager.Log("Some errors occured, we have logged them to the console and displayed them");
+        LogManager.Log("Some errors occured, we have logged them to the console and displayed them");
 
-            UIManager.Ask(
-                $"There were errors loading some nametags.\n\n{PluginManager.PluginFailures.Zip("\n- ")}\n\nIf you are a user, please report these messages to the developer(s) of the nametag.",
-                ["OK"],
-                (_) => { }
-            );
-        }
+        UIManager.Ask(
+            $"There were errors loading some nametags.\n\n{PluginManager.PluginFailures.Zip("\n- ")}\n\nIf you are a user, please report these messages to the developer(s) of the nametag.",
+            ["OK"],
+            (_) => { }
+        );
     }
 
     public void Update()
@@ -141,14 +139,14 @@ public class Plugin
         PluginEnabled = true;
     }
 
-    public override void OnDisable()
+    public void OnDisable()
     {
         PluginEnabled = false;
         UpdateNametags?.Invoke(); // turn yourselves off
         ConfigManager.SavePrefs();
     }
 
-    public override void OnGUI()
+    public void OnGUI()
     {
         UIManager.OnGUI();
     }

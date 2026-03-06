@@ -22,7 +22,7 @@ public static class NetworkingManager
 						{ "isBold", ConfigManager.NetworkBold },
 						{ "isItalic", ConfigManager.NetworkItalic },
 						{ "isUnderlined", ConfigManager.NetworkUnderline },
-						{ "version", Main.Instance?.Info.Metadata.Version.ToString() ?? "0.0.0" }
+						{ "version", Constants.Version}
 					}
 				}
 			});
