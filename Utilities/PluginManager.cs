@@ -157,6 +157,12 @@ public static class PluginManager
                 if (Activator.CreateInstance(nametagType) is not IBaseNametag nametag)
                     return;
 
+                if (Plugins.Contains(nametag))
+                {
+                    LogManager.Log("Double-loaded plugin, skipping..");
+                    return;
+                }
+
                 const BindingFlags everything = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
                 var allNametagsInPlugin = nametagType.GetMethods(everything)
                     .Where(f => f.IsDefined(typeof(BingusNametagsNametag), false))

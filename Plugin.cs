@@ -38,7 +38,10 @@ public class MelonLoaderPlugin : MelonMod
 [BepInPlugin(Constants.Guid, Constants.Name, Constants.Version)]
 public class BepInExPlugin : BaseUnityPlugin
 {
-    public void Start() => new GameObject("BingusNametags++").AddComponent<Plugin>();
+    public void Start()
+    {
+        if (Plugin.Instance == null) new GameObject("BingusNametags++").AddComponent<Plugin>();
+    }
 
     public void OnEnable() => Plugin.Instance?.OnEnable();
     public void OnDisable() => Plugin.Instance?.OnDisable();
@@ -81,7 +84,6 @@ public class Plugin : MonoBehaviour
 
     private static void OnPlayerSpawned()
     {
-        
         LogManager.Log("Applying assetbundle shaders [1/4]");
 
         var tmPro = NametagDefault?.GetComponent<TextMeshPro>();
