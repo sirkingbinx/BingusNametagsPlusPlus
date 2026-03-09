@@ -17,7 +17,7 @@ namespace BingusNametagsPlusPlus.Utilities;
 public static class ConfigManager
 {
     public static string ConfigFilePath =>
-        Path.Combine(Constants.BingusNametagsData, $"config.cfg");
+        Path.Combine(Constants.BingusNametagsData, "config.cfg");
 
     // Name
     public static bool Nametags = true;

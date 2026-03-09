@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 using BingusNametagsPlusPlus.Attributes;
 using BingusNametagsPlusPlus.Classes;
 
+#if BEPINEX
+using BepInEx.Bootstrap;
+#endif
+
 namespace BingusNametagsPlusPlus.Utilities;
 
 /// <summary>
@@ -59,11 +63,11 @@ public static class PluginManager
             );
         }
 
-        if (!disableStuff || (Plugin.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false))
+        if (!disableStuff || (Main.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false))
             return;
 
         plugin.Metadata.Enabled = true;
-        Plugin.UpdateNametags += plugin.Update;
+        Main.UpdateNametags += plugin.Update;
 
         foreach (var badPlugin in allEnabledPlugins.Where(a => unsupported.Contains(a.Metadata.Name)))
             DisablePlugin(badPlugin);
@@ -77,10 +81,10 @@ public static class PluginManager
     {
         plugin.Metadata.Enabled = false;
 
-        if (!Plugin.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false)
+        if (!Main.UpdateNametags?.GetInvocationList().Contains(plugin.Update) ?? false)
             return;
 
-        try { Plugin.UpdateNametags -= plugin.Update; }
+        try { Main.UpdateNametags -= plugin.Update; }
         catch (Exception ex)
         {
             ex.Report();
@@ -224,9 +228,10 @@ public static class PluginManager
         {
             try
             {
-                LogManager.Log("Loading nametags from app domain");
-                // bepinex assemblies
-                LoadNametagsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+                LogManager.Log("Loading nametags from current mod loader");
+#if BEPINEX
+                LoadNametagsFromAssemblies(Chainloader.PluginInfos.Values.Select(v => v.GetType().Assembly).ToArray());
+#endif
                 LogManager.Log("Loaded nametags from app domain");
             }
             catch (Exception ex)

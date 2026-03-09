@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using BepInEx;
 using BingusNametagsPlusPlus.Attributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -48,7 +49,6 @@ public static class UIManager
 		new("Plugins", "Enable/disable all nametags"),
 		new("About", "About BingusNametags++")
 	];
-	
 
 	private static int _pageSelected;
 
@@ -61,12 +61,6 @@ public static class UIManager
 	private static BGWindowState WindowState = BGWindowState.Normal;
 
 	private static BingusNametagsPlugin? CurrentlyInspectedNametag;
-
-	public static void Update()
-	{
-		if (Keyboard.current.rightShiftKey.wasPressedThisFrame)
-			ShowingUI = !ShowingUI;
-	}
 
 	public static void DrawNormal()
 	{
@@ -312,7 +306,7 @@ public static class UIManager
 		{
 			GUI.Label(
 				new Rect(WindowStartX, WindowY + WindowSizeY + WindowPadding, WindowSizeX - WindowPadding * 2, 20),
-				$"Plugin updates polled: {Plugin.UpdateNametags?.GetInvocationList().Length}"
+				$"Plugin updates polled: {Main.UpdateNametags?.GetInvocationList().Length}"
 			);
 
 			var fps = 1.0f / Time.deltaTime;
@@ -405,8 +399,6 @@ public static class UIManager
 			WindowState = BGWindowState.Normal;
 	}
 
-	private static Vector2 mousePosition;
-
 	public static void SafeDraw(Action drawingThing)
 	{
 		try
@@ -425,7 +417,10 @@ public static class UIManager
 	
 	public static void OnGUI()
 	{
-		if (!ShowingUI)
+        if (Keyboard.current.rightShiftKey.wasPressedThisFrame)
+            ShowingUI = !ShowingUI;
+
+        if (!ShowingUI)
 			return;
 
 		// Window
@@ -449,7 +444,7 @@ public static class UIManager
 				break;
 		}
 
-		mousePosition = Mouse.current.position.ReadValue();
+        var mousePosition = Mouse.current.position.ReadValue();
 
 		// X button
 		if (GUI.Button(new Rect(WindowX + WindowSizeX - 25, WindowY + 5, 20, 20), new GUIContent("X", "Close")))
