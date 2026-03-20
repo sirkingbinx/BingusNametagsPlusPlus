@@ -18,3 +18,7 @@ It's also open-source, free, and doesn't take up half of your screen.
 
 ## Configuration
 Configuration Guide: https://github.com/sirkingbinx/BingusNametagsPlusPlus/wiki/Configuration
+
+(A shortcut link is avaliable at https://sirkingbinx.dev/bgnametags)
+
+###### This product is not affiliated with Gorilla Tag or Another Axiom LLC and is not endorsed or otherwise sponsored by Another Axiom LLC. Portions of the materials contained herein are property of Another Axiom LLC. © 2021 Another Axiom LLC.
