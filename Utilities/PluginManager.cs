@@ -163,7 +163,10 @@ public static class PluginManager
 
                 // my world-renowned STFU block
                 try { API.CreateNametag(nametag); }
-                catch { }
+                catch (Exception ex)
+                {
+                    ex.Report();
+                }
             }
             catch (Exception ex)
             {

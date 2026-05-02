@@ -39,7 +39,7 @@ public static class UIManager
                                    https://discord.gg/SYCpaKjyU6
                                    """;
 
-	public static bool ShowingUI;
+	public static bool ShowingUI = true;
 
 	private static GUIContent[] Pages =
 	[

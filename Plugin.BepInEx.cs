@@ -8,7 +8,11 @@ public class PluginBepInEx : BaseUnityPlugin
 {
     private void Start()
     {
-        new GameObject($"BingusNametags++ {Constants.Version} [BepInEx]").AddComponent<Main>();
+        GameObject bingusNametagsGameObject = new GameObject($"BingusNametagsPlusPlus");
+        bingusNametagsGameObject.AddComponent<Main>();
+
+        DontDestroyOnLoad(bingusNametagsGameObject);
+
         Constants.Loader = ModLoader.BepInEx;
     }
 }

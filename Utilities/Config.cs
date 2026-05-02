@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,12 +5,6 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
-
-#if MELONLOADER
-using MelonLoader;
-#elif BEPINEX
-using BepInEx.Configuration;
-#endif
 
 namespace BingusNametagsPlusPlus.Utilities;
 
