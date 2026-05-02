@@ -39,7 +39,7 @@ public class Config
 	public bool   NetworkItalic = false;
 
     // Plugins
-    public List<string> EnabledPlugins = [];
+    public List<string> EnabledPlugins = ["Default"];
 
     // Misc
     public TMP_FontAsset? CustomFont;
