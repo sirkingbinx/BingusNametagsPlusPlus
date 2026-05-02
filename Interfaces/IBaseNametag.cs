@@ -20,7 +20,7 @@ namespace BingusNametagsPlusPlus.Interfaces
          
         internal void Update()
         {
-            var allowedToShowNametags = ConfigManager.Nametags && Main.PluginEnabled;
+            var allowedToShowNametags = Config.Current.Nametags && Main.PluginEnabled;
 
             foreach (var pair in Metadata.Nametags)
             {

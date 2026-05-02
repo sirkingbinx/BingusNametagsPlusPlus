@@ -16,7 +16,7 @@ public static class NametagCreator
 		var tagObject = Object.Instantiate(Main.NametagDefault, parent, false);
 
 		tagObject?.gameObject.layer = LayerMask.NameToLayer(layerName);
-		tagObject?.transform.localPosition = new Vector3(0f, ConfigManager.Offset, 0f);
+		tagObject?.transform.localPosition = new Vector3(0f, Config.Current.Offset, 0f);
 		tagObject?.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
         tagObject?.AddComponent<CameraFollower>().lookingAtThirdPerson = (layerName == "MirrorOnly");
@@ -24,11 +24,8 @@ public static class NametagCreator
         var tmPro = tagObject?.GetComponent<TextMeshPro>();
 		tmPro?.text = "...";
 
-		if (!ConfigManager.CustomFont.IsNull())
-			tmPro?.font = ConfigManager.CustomFont;
-
-        // Fixed shaders because URP is love URP is life
-        // Moved to main.cs during init
+		if (Config.Current.CustomFont is TMP_FontAsset f)
+			tmPro?.font = f;
 
         return tagObject ?? throw new Exception("Missing AB");
 	}

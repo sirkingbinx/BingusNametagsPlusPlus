@@ -69,23 +69,23 @@ public static class UIManager
 		switch (_pageSelected)
 		{
 			case 0:
-				ConfigManager.Nametags = GUI.Toggle(
+				Config.Current.Nametags = GUI.Toggle(
 					new Rect(WindowStartX, WindowStartY, 150, 20),
-					ConfigManager.Nametags,
+					Config.Current.Nametags,
 					new GUIContent("Nametags", "Show nametags")
 				);
 
-				if (ConfigManager.Nametags)
+				if (Config.Current.Nametags)
 				{
-					ConfigManager.FirstPersonEnabled = GUI.Toggle(
+					Config.Current.FirstPersonEnabled = GUI.Toggle(
 						new Rect(WindowStartX + 70, WindowStartY + 25, 100, 20),
-						ConfigManager.FirstPersonEnabled,
+						Config.Current.FirstPersonEnabled,
 						new GUIContent("First Person", "Display the nametag in VR (first person)")
 					 );
 
-					ConfigManager.ThirdPersonEnabled = GUI.Toggle(
+					Config.Current.ThirdPersonEnabled = GUI.Toggle(
 						new Rect(WindowStartX + 175, WindowStartY + 25, 100, 20),
-						ConfigManager.ThirdPersonEnabled,
+						Config.Current.ThirdPersonEnabled,
 						new GUIContent("Third Person", "Display the nametag on your PC (third person)")
 					);
 
@@ -94,22 +94,22 @@ public static class UIManager
 						new GUIContent("Display", "Change how nametags are displayed")
 					);
 
-					ConfigManager.Scale = GUI.HorizontalSlider(new Rect(WindowStartX + 90, WindowStartY + 50, WindowSizeX - 140, 20),
-						ConfigManager.Scale, 2f, 12f);
+					Config.Current.Scale = GUI.HorizontalSlider(new Rect(WindowStartX + 90, WindowStartY + 50, WindowSizeX - 140, 20),
+						Config.Current.Scale, 2f, 12f);
 
-					ConfigManager.Offset =
+					Config.Current.Offset =
 						GUI.HorizontalSlider(new Rect(WindowStartX + 90, WindowStartY + 75, WindowSizeX - 140, 20),
-							ConfigManager.Offset, 0f, 3.5f);
+							Config.Current.Offset, 0f, 3.5f);
 
-					ConfigManager.SanitizeNicknames = GUI.Toggle(
+					Config.Current.SanitizeNicknames = GUI.Toggle(
 						new Rect(WindowStartX, WindowStartY + 100, 250, 20),
-						ConfigManager.SanitizeNicknames,
+						Config.Current.SanitizeNicknames,
 						new GUIContent("Sanitize Nicknames", "Prevents invalid usernames from being displayed on nametags (eg. spaces, cuss words, etc.). This is the username displayed on the gorilla's chest.")
 					);
 
-					ConfigManager.GFriendsIntegration = GUI.Toggle(
+					Config.Current.GFriendsIntegration = GUI.Toggle(
 						new Rect(WindowStartX, WindowStartY + 125, 300, 20),
-						ConfigManager.GFriendsIntegration,
+						Config.Current.GFriendsIntegration,
 						new GUIContent("Match Nametag Color", "Make the color of the nametag the same color as the nametag on their chest, allowing support for GorillaFriends and Very Important Monke subscribers.")
 					);
 
@@ -119,36 +119,36 @@ public static class UIManager
 						new GUIContent("Size", "Change how large the nametag text is")
 					);
 
-					GUI.Label(new Rect(WindowStartX + WindowSizeX - 50, WindowStartY + 45, 30, 20), $"{ConfigManager.Scale}");
+					GUI.Label(new Rect(WindowStartX + WindowSizeX - 50, WindowStartY + 45, 30, 20), $"{Config.Current.Scale}");
 
 					GUI.Label(
 						new Rect(WindowStartX, WindowStartY + 70, 80, 20),
 						new GUIContent("Offset", "Change the Y axis offset of the nametag")
 					);
 
-					GUI.Label(new Rect(WindowStartX + WindowSizeX - 50, WindowStartY + 70, 30, 20), $"{ConfigManager.Offset}");
+					GUI.Label(new Rect(WindowStartX + WindowSizeX - 50, WindowStartY + 70, 30, 20), $"{Config.Current.Offset}");
 				}
 
 				break;
 			case 1:
-				ConfigManager.Icons = GUI.Toggle(
+				Config.Current.Icons = GUI.Toggle(
 					new Rect(WindowStartX, WindowStartY, 250, 20),
-					ConfigManager.Icons,
+					Config.Current.Icons,
 					new GUIContent("Icons", "Enable icons in the nametag")
 				);
 
-				if (ConfigManager.Icons)
+				if (Config.Current.Icons)
 				{
-					ConfigManager.UserIcons = GUI.Toggle(
+					Config.Current.UserIcons = GUI.Toggle(
 						new Rect(WindowStartX + 10, WindowStartY + 25, 250, 20),
-						ConfigManager.UserIcons,
+						Config.Current.UserIcons,
 						new GUIContent("Special User Icons",
 							"Display custom icons for known people like developers, beta testers, and whoever I want")
 					);
 
-					ConfigManager.PlatformIcons = GUI.Toggle(
+					Config.Current.PlatformIcons = GUI.Toggle(
 						new Rect(WindowStartX + 10, WindowStartY + 50, 250, 20),
-						ConfigManager.PlatformIcons,
+						Config.Current.PlatformIcons,
 						new GUIContent("Platform Icons", "Display icons representing the icon of a user")
 					);
 				}
@@ -157,54 +157,54 @@ public static class UIManager
 			case 2:
 				var propsToggle = GUI.Toggle(
 					new Rect(WindowStartX, WindowStartY, 175, 20),
-					ConfigManager.CustomNametags,
+					Config.Current.CustomNametags,
 					new GUIContent("Custom Nametags", "Customize how nametags look to other people")
 				);
 
-				if (propsToggle != ConfigManager.CustomNametags && !ConfigManager.CustomNametags)
+				if (propsToggle != Config.Current.CustomNametags && !Config.Current.CustomNametags)
 				{
 					Ask("By enabling this feature, your nametag style will be networked with properties.\n\nProperties are commonly used in mod checkers to detect what mods you have installed. Small, very immature children may harass you over your properties.\n\nAre you sure you want to enable Custom Nametags?",
 						["Yes", "No"],
-						result => ConfigManager.CustomNametags = (result == "Yes")
+						result => Config.Current.CustomNametags = (result == "Yes")
 					);
-				} else if (propsToggle != ConfigManager.CustomNametags)
+				} else if (propsToggle != Config.Current.CustomNametags)
 				{
-					ConfigManager.CustomNametags = false;
+					Config.Current.CustomNametags = false;
 				}
 
-				if (ConfigManager.CustomNametags)
+				if (Config.Current.CustomNametags)
 				{
-					ConfigManager.NetworkColor = GUI.TextArea(
+					Config.Current.NetworkColor = GUI.TextArea(
 						new Rect(WindowStartX + 75, WindowStartY + 25, 200, 20),
-						ConfigManager.NetworkColor
+						Config.Current.NetworkColor
 					);
 
 					GUI.Label(new Rect(WindowStartX, WindowStartY + 25, 75, 20),
 						new GUIContent("Hex Code",
 							"Custom hex code for your nametag (use a color picker to determine this.)"));
 
-					ConfigManager.NetworkBold = GUI.Toggle(
+					Config.Current.NetworkBold = GUI.Toggle(
 						new Rect(WindowStartX, WindowStartY + 50, 175, 20),
-						ConfigManager.NetworkBold,
+						Config.Current.NetworkBold,
 						new GUIContent("Bold", "Nametag text is bolded")
 					);
 
-					ConfigManager.NetworkItalic = GUI.Toggle(
+					Config.Current.NetworkItalic = GUI.Toggle(
 						new Rect(WindowStartX, WindowStartY + 75, 175, 20),
-						ConfigManager.NetworkItalic,
+						Config.Current.NetworkItalic,
 						new GUIContent("Italics", "Nametag text is italicized")
 					);
 
-					ConfigManager.NetworkUnderline = GUI.Toggle(
+					Config.Current.NetworkUnderline = GUI.Toggle(
 						new Rect(WindowStartX, WindowStartY + 100, 175, 20),
-						ConfigManager.NetworkUnderline,
+						Config.Current.NetworkUnderline,
 						new GUIContent("Underlined", "Nametag text is underlined")
 					);
 				}
 
-				ConfigManager.ViewOtherCustomStyles = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY + (ConfigManager.CustomNametags ? 125 : 25), 175, 20),
-					ConfigManager.ViewOtherCustomStyles,
+				Config.Current.ViewOtherCustomStyles = GUI.Toggle(
+					new Rect(WindowStartX, WindowStartY + (Config.Current.CustomNametags ? 125 : 25), 175, 20),
+					Config.Current.ViewOtherCustomStyles,
 					new GUIContent("View Other Nametag Styles", "View custom nametag styles for other users. This doesn't enable custom nametags for yourself.")
 				);
 
@@ -293,12 +293,12 @@ public static class UIManager
 			new Rect(WindowX + WindowSizeX - 190, WindowY + WindowSizeY - 25, 100, 20),
 			new GUIContent("Refresh", "Reload all configuration. Any unsaved changes will be lost!"))
 		)
-			ConfigManager.LoadPrefs();
+			Config.LoadPrefs();
 
 		if (GUI.Button(new Rect(WindowX + WindowSizeX - 80, WindowY + WindowSizeY - 25, 75, 20),
 				new GUIContent("Apply",
 					"Save the current nametags configuration. Auto-saves!")))
-			ConfigManager.SavePrefs();
+			Config.SavePrefs();
 
         #region Debug Stuff
 #pragma warning disable CS0162

@@ -3,17 +3,15 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <LangVersion>14</LangVersion>
         <Nullable>enable</Nullable>
-	    <PlatformTarget Condition="'$(Loader)' == 'MELONLOADER'">x64</PlatformTarget>
+	    <PlatformTarget>x64</PlatformTarget>
+
+		<!-- add debugging symbols to debug builds (build in Release config to auto-disable this) -->
+		<DebugType Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">embedded</DebugType>
     </PropertyGroup>
 
     <ItemGroup>
       <EmbeddedResource Include="Resources\nametags" />
     </ItemGroup>
-
-    <PropertyGroup>
-      <!-- See Directory.Build.props-->
-      <DefineConstants>$(DefineConstants);$(Loader)</DefineConstants>
-    </PropertyGroup>
 
     <ItemGroup>
         <!-- this will work with ML, don't be alarmed -->
@@ -21,17 +19,21 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     </ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="MelonLoader">
+			<HintPath>$(DependenciesPath)\MelonLoader.dll</HintPath>
+		</Reference>
+		<Reference Include="BepInEx">
+			<HintPath>$(DependenciesPath)\BepInEx.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 
     <ItemGroup>
         <Reference Include="Assembly-CSharp" Publicize="true">
             <HintPath>$(GameAssemblyPath)\Assembly-CSharp.dll</HintPath>
-        </Reference>
-        <Reference Include="MelonLoader" Condition="'$(Loader)' == 'MELONLOADER'">
-            <HintPath>$(MelonLoaderAssemblyPath)\MelonLoader.dll</HintPath>
-        </Reference>
-        <Reference Include="BepInEx" Condition="'$(Loader)' == 'BEPINEX'">
-            <HintPath>$(BepInExAssemblyPath)\BepInEx.dll</HintPath>
         </Reference>
         <Reference Include="Fusion.Runtime">
             <HintPath>$(GameAssemblyPath)\Fusion.Runtime.dll</HintPath>

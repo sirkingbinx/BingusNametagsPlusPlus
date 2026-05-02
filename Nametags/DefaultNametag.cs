@@ -2,7 +2,6 @@
 using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
-using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,9 +52,9 @@ public class DefaultNametag : IBaseNametag
     {
         var prefix = "";
 
-        if (ConfigManager.Icons)
+        if (Config.Current.Icons)
         {
-            if (ConfigManager.UserIcons && Constants.SpecialBadgeIds.TryGetValue(nametag.Owner.Creator.UserId.ToLower(), out var n))
+            if (Config.Current.UserIcons && Constants.SpecialBadgeIds.TryGetValue(nametag.Owner.Creator.UserId.ToLower(), out var n))
             {
                 var adding = "";
                 n.Split(",").ForEach(sprite => adding += $"<sprite name=\"{sprite}\">");
@@ -63,18 +62,18 @@ public class DefaultNametag : IBaseNametag
                 prefix += adding;
             }
 
-            if (ConfigManager.PlatformIcons)
+            if (Config.Current.PlatformIcons)
             {
                 var platformData = GetPlatformString(nametag.Owner);
                 prefix += $"<sprite name=\"{platformData.platform}\">{(!platformData.loaded ? "? " : "")}";
             }
         }
 
-        var shownNickname = ConfigManager.SanitizeNicknames
+        var shownNickname = Config.Current.SanitizeNicknames
             ? nametag.Owner.playerText1.text
             : nametag.Owner.Creator.NickName;
 
-        if (ConfigManager.GFriendsIntegration && nametag.Owner.playerText1.color != Color.white)
+        if (Config.Current.GFriendsIntegration && nametag.Owner.playerText1.color != Color.white)
         {
             // this is just smarter way to add GFriends integration
             // shaved off a reference to GorillaFriends by just using the nametag text color
@@ -82,7 +81,7 @@ public class DefaultNametag : IBaseNametag
             nametag.AddStyle("color", $"#{nametagColor}");
         }
 
-        if (ConfigManager.CustomNametags && nametag.Owner.Creator.GetPlayerRef().CustomProperties.TryGetValue("BingusNametags++", out var rawData))
+        if (Config.Current.CustomNametags && nametag.Owner.Creator.GetPlayerRef().CustomProperties.TryGetValue("BingusNametags++", out var rawData))
         {
             var data = (Dictionary<string, object>)rawData;
 
@@ -91,7 +90,7 @@ public class DefaultNametag : IBaseNametag
             var italic = (bool)data["isItalic"];
             var underlined = (bool)data["isUnderlined"];
 
-            if (ConfigManager.ValidHexCode(color))
+            if (Config.ValidHexCode(color))
                 nametag.AddStyle("color", $"#{color}");
 
             if (bold)

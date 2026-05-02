@@ -9,9 +9,9 @@ public static class NetworkingManager
 {
 	public static void SetNetworkedProperties()
 	{
-		if (ConfigManager.CustomNametags)
+		if (Config.Current.CustomNametags)
 		{
-            var color = ConfigManager.NetworkColor.First() == '#' ? ConfigManager.NetworkColor[1..] : ConfigManager.NetworkColor;
+            var color = Config.Current.NetworkColor.First() == '#' ? Config.Current.NetworkColor[1..] : Config.Current.NetworkColor;
 
             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable
 			{
@@ -19,9 +19,9 @@ public static class NetworkingManager
 					"BingusNametags++", new Dictionary<string, object>
 					{
 						{ "Color", color },
-						{ "isBold", ConfigManager.NetworkBold },
-						{ "isItalic", ConfigManager.NetworkItalic },
-						{ "isUnderlined", ConfigManager.NetworkUnderline },
+						{ "isBold", Config.Current.NetworkBold },
+						{ "isItalic", Config.Current.NetworkItalic },
+						{ "isUnderlined", Config.Current.NetworkUnderline },
 						{ "version", Constants.Version}
 					}
 				}

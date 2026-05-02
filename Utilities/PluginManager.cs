@@ -8,10 +8,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using BingusNametagsPlusPlus.Attributes;
 using BingusNametagsPlusPlus.Classes;
-
-#if BEPINEX
-using BepInEx.Bootstrap;
-#endif
+using BingusNametagsPlusPlus.Nametags;
 
 namespace BingusNametagsPlusPlus.Utilities;
 
@@ -44,7 +41,7 @@ public static class PluginManager
     /// Safely enable the specified IBaseNametag, warning the user about any unsupported nametags. The success of this function depends if there are any unsupported nametags enabled.
     /// </summary>
     /// <param name="plugin">The plugin to enable.</param>
-    public static void EnablePlugin(IBaseNametag plugin)
+    public static void EnablePlugin(IBaseNametag plugin, bool isManagedNametagCalling = false)
     {
         var allEnabledPlugins = Plugins.Where(a => a.Metadata.Enabled);
         var allEnabledNames = allEnabledPlugins.Select(a => a.Metadata.Name);
@@ -71,6 +68,9 @@ public static class PluginManager
 
         foreach (var badPlugin in allEnabledPlugins.Where(a => unsupported.Contains(a.Metadata.Name)))
             DisablePlugin(badPlugin);
+
+        if (!isManagedNametagCalling)
+            Config.Current.EnabledPlugins = EnabledPlugins.Select(s => s.Metadata.Name).ToList();
     }
 
     /// <summary>
@@ -161,39 +161,9 @@ public static class PluginManager
                 if (Activator.CreateInstance(nametagType) is not IBaseNametag nametag)
                     return;
 
-                if (Plugins.Contains(nametag))
-                {
-                    LogManager.Log("Double-loaded plugin, skipping..");
-                    return;
-                }
-
-                const BindingFlags everything = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-                var allNametagsInPlugin = nametagType.GetMethods(everything)
-                    .Where(f => f.IsDefined(typeof(BingusNametagsNametag), false))
-                    .ToList();
-
-                var metadata = nametagType.GetCustomAttribute<BingusNametagsPlugin>();
-
-                allNametagsInPlugin.ForEach(nametagInfo =>
-                {
-                    var attribute = nametagInfo.GetCustomAttribute(typeof(BingusNametagsNametag), false) as BingusNametagsNametag;
-                    var updateFunc = (Action<PlayerNametag>)Delegate.CreateDelegate(typeof(Action<PlayerNametag>), nametagInfo);
-
-                    if (attribute != null)
-                        metadata.Nametags.Add(attribute, updateFunc);
-                });
-
-                PluginMetadata.Add(nametag, metadata);
-
-                if (metadata == null)
-                {
-                    LogManager.Log($"Error: Your plugin {nametagType.Name} is missing a BingusNametagsPlugin attribute, which defines crucial metadata for your nametag.");
-                    return;
-                }
-
-                LogManager.Log($"Loaded nametag {nametag.Metadata.Name}");
-
-                Plugins.Add(nametag);
+                // my world-renowned STFU block
+                try { API.CreateNametag(nametag); }
+                catch { }
             }
             catch (Exception ex)
             {
@@ -219,26 +189,11 @@ public static class PluginManager
         var usNametags = Task.Run(() =>
         {
             LogManager.Log("Loading nametags from BG++");
-            // bepinex assemblies
-            LoadNametagsFromAssembly(Assembly.GetExecutingAssembly());
-            LogManager.Log("Loaded nametags from BG++");
-        });
 
-        var appDomainNametags = Task.Run(() =>
-        {
-            try
-            {
-                LogManager.Log("Loading nametags from current mod loader");
-#if BEPINEX
-                LoadNametagsFromAssemblies(Chainloader.PluginInfos.Values.Select(v => v.GetType().Assembly).ToArray());
-#endif
-                LogManager.Log("Loaded nametags from app domain");
-            }
-            catch (Exception ex)
-            {
-                LogManager.Log($"BepInEx nametag loading failed: {ex.Message}");
-                ex.Report();
-            }
+            API.CreateNametag<DefaultNametag>();
+            API.CreateNametag<AdvancedNametag>();
+
+            LogManager.Log("Loaded nametags from BG++");
         });
 
         var managedNametags = Task.Run(() =>
@@ -248,10 +203,9 @@ public static class PluginManager
             LogManager.Log("Loaded nametags from data folder");
         });
 
-        await Task.WhenAll(usNametags, appDomainNametags, managedNametags);
+        await Task.WhenAll(usNametags, managedNametags);
 
         usNametags.Dispose();
-        appDomainNametags.Dispose();
         managedNametags.Dispose();
     }
 }

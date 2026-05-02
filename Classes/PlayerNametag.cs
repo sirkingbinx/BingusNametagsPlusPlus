@@ -128,14 +128,14 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
 
     internal void UpdateSettings(float offset)
     {
-        firstPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.Scale * PluginScale;
-        thirdPerson.GetComponent<TextMeshPro>().fontSize = ConfigManager.Scale * PluginScale;
+        firstPerson.GetComponent<TextMeshPro>().fontSize = Config.Current.Scale * PluginScale;
+        thirdPerson.GetComponent<TextMeshPro>().fontSize = Config.Current.Scale * PluginScale;
 
-        firstPerson.transform.localPosition = new Vector3(0f, ConfigManager.Offset + offset, 0f);
-        thirdPerson.transform.localPosition = new Vector3(0f, ConfigManager.Offset + offset, 0f);
+        firstPerson.transform.localPosition = new Vector3(0f, Config.Current.Offset + offset, 0f);
+        thirdPerson.transform.localPosition = new Vector3(0f, Config.Current.Offset + offset, 0f);
 
-        firstPerson.SetActive(ConfigManager.FirstPersonEnabled);
-        thirdPerson.SetActive(ConfigManager.ThirdPersonEnabled);
+        firstPerson.SetActive(Config.Current.FirstPersonEnabled);
+        thirdPerson.SetActive(Config.Current.ThirdPersonEnabled);
     }
 
     internal void Destroy()

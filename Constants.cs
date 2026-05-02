@@ -8,17 +8,11 @@ public static class Constants
 {
 	public const string Name = "BingusNametags++";
 	public const string Guid = "bingus.nametagsplusplus";
-    public const string Version = "1.4.1";
+    public const string Version = "1.5.0";
     public const string Author = "SirKingBinx";
 
     public const ReleaseChannel Channel = ReleaseChannel.Stable; 
-    public const ModLoader Loader = 
-#if MELONLOADER
-	  ModLoader.MelonLoader
-#elif BEPINEX
-	  ModLoader.BepInEx
-#endif
-    ;
+    public static ModLoader Loader = ModLoader.BepInEx; // this will be changed by whatever mod loader gets picked up, don't worry
 
     public static string BingusNametagsData =>
         Path.Combine(Application.dataPath[..Application.dataPath.LastIndexOfAny(['/', '\\'])], "BingusNametags++");
