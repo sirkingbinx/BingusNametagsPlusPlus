@@ -1,4 +1,4 @@
-# BingusNametags++ [![Downloads](https://img.shields.io/github/downloads/sirkingbinx/BingusNametagsPlusPlus/total)](https://github.com/sirkingbinx/BingusNametagsPlusPlus/releases/latest) [![Static Badge](https://img.shields.io/badge/chat-discord-%235865f2)](https://discord.gg/TYvMnt9KtC)
+# BingusNametags++ [![Downloads](https://img.shields.io/github/downloads/sirkingbinx/BingusNametagsPlusPlus/total)](https://github.com/sirkingbinx/BingusNametagsPlusPlus/releases/latest) [![Static Badge](https://img.shields.io/badge/chat-discord-%235865f2)](https://discord.gg/TYvMnt9KtC) <a href="https://sirkingbinx.dev/mmm_install?mods=BingusNametags%2B%2B~https%3A%2F%2Fgithub.com%2Fsirkingbinx%2FBingusNametagsPlusPlus%2Freleases%2Flatest%2Fdownload%2FBingusNametagsPlusPlus%2Edll"><img src="https://img.shields.io/badge/install_with-MonkeModManager-blue"/></a>
 
 BingusNametags++ is a simple, clean, but customizable nametag mod for Gorilla Tag. You can customize it to your needs with a very cool featureset:
 
