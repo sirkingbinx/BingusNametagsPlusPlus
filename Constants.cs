@@ -19,7 +19,7 @@ public static class Constants
 
     public static readonly Dictionary<string, string> SpecialBadgeIds = new()
     {
-        ["3df1e7a71f3b9ef1"] = "bingus,beta",
+        ["596994ce81d973e1"] = "bingus,beta",
         ["defc9810769f1f55"] = "bingus,beta",
         ["846e7dd5aceac0d4"] = "beta",
         ["68ccddc115fdc9fb"] = "beta",

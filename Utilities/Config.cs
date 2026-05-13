@@ -73,6 +73,9 @@ public class Config
 		if (!fontFile.IsNullOrWhiteSpace())
 			Current.CustomFont = TMP_FontAsset.CreateFontAsset(new Font(fontFile));
 
+        if (!Current.EnabledPlugins.Any())
+            Current.EnabledPlugins.Add("Default");
+
         PluginManager.Plugins.ForEach(plugin =>
         {
             if (Current.EnabledPlugins.Contains(plugin.Metadata.Name))
