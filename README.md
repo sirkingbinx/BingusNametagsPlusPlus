@@ -1,4 +1,4 @@
-# BingusNametags++ [![Downloads](https://img.shields.io/github/downloads/sirkingbinx/BingusNametagsPlusPlus/total)](https://github.com/sirkingbinx/BingusNametagsPlusPlus/releases/latest) [![Static Badge](https://img.shields.io/badge/chat-discord-%235865f2)](https://discord.gg/TYvMnt9KtC) [![Install with MonkeModManager](https://img.shields.io/badge/install_with-MonkeModManager-blue)](https://sirkingbinx.dev/mmm_install?mods=BingusNametags%2B%2B~https%3A%2F%2Fgithub.com%2Fsirkingbinx%2FBingusNametagsPlusPlus%2Freleases%2Flatest%2Fdownload%2FBingusNametagsPlusPlus%2Edll)
+# BingusNametags++ [![Static Badge](https://img.shields.io/badge/chat-discord-%235865f2)](https://discord.gg/TYvMnt9KtC)
 
 BingusNametags++ is a simple, clean, but customizable nametag mod for Gorilla Tag. You can customize it to your needs with a very cool featureset:
 
@@ -14,7 +14,7 @@ It's also open-source, free, and doesn't take up half of your screen.
 > [!NOTE]
 > BingusNametags++ is also avaliable on MonkeModManager, if you have that
 
-[Download the latest release (`BingusNametagsPlusPlus.dll`) here](https://github.com/sirkingbinx/BingusNametagsPlusPlus/releases/latest) and copy it into your mods folder.
+[Download the latest release (`BingusNametagsPlusPlus.dll`) here](https://git.sirkingbinx.dev/sirkingbinx/BingusNametagsPlusPlus/-/releases) and copy it into your mods folder.
 
 ## Configuration
 Configuration Guide: https://github.com/sirkingbinx/BingusNametagsPlusPlus/wiki/Configuration
