@@ -17,7 +17,7 @@ It's also open-source, free, and doesn't take up half of your screen.
 [Download the latest release (`BingusNametagsPlusPlus.dll`) here](https://git.sirkingbinx.dev/sirkingbinx/BingusNametagsPlusPlus/-/releases) and copy it into your mods folder.
 
 ## Configuration
-Configuration Guide: https://github.com/sirkingbinx/BingusNametagsPlusPlus/wiki/Configuration
+Configuration Guide: https://git.sirkingbinx.dev/sirkingbinx/BingusNametagsPlusPlus/-/wikis/Configuration
 
 (A shortcut link is avaliable at https://sirkingbinx.dev/bgnametags)
 
