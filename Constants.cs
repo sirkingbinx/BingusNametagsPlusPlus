@@ -21,6 +21,7 @@ public static class Constants
     {
         ["596994ce81d973e1"] = "bingus,beta",
         ["defc9810769f1f55"] = "bingus,beta",
+        ["e678d10eca536d58"] = "beta",
         ["846e7dd5aceac0d4"] = "beta",
         ["68ccddc115fdc9fb"] = "beta",
         ["706572060708c655"] = "beta",
