@@ -17,9 +17,9 @@ public class DefaultNametag : IBaseNametag
         return platform switch
         {
             API.Platform.Quest => "<sprite name=\"meta\">",
-            API.Platform.OculusRift => "<sprite name\"oculus\">",
+            API.Platform.OculusRift => "<sprite name=\"oculus\">",
             API.Platform.SteamVR => "<sprite name=\"steam\">",
-            API.Platform.PCBasedPlatform => "<sprite name\"oculus\">≈", // ≈ denotes "almost"
+            API.Platform.PCBasedPlatform => "<sprite name=\"oculus\">≈", // ≈ denotes "almost"
             _ => "?"
         };
     }
