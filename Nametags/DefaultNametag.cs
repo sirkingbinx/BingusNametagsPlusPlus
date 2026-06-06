@@ -10,41 +10,18 @@ namespace BingusNametagsPlusPlus.Nametags;
 [BingusNametagsPlugin("Default", "Bingus", "The default nametag provided by BingusNametags++. Includes platform icons and a nametag.")]
 public class DefaultNametag : IBaseNametag
 {
-    public static Dictionary<VRRig, string> CachedPlatforms = [ ];
-
-    private static (string platform, bool loaded) GetPlatformString(VRRig player)
+    private static string GetPlatformString(VRRig rig)
     {
-        var cosmetics = player.cosmeticSet.returnArray.Join("").ToLower();
+        var platform = API.GetPlatform(rig);
 
-        if (!player.InitializedCosmetics)
-            return ("meta", false);
-        if (cosmetics != "" && CachedPlatforms.TryGetValue(player, out var cachedPlatform))
-            return (cachedPlatform,true);
-
-        var properties = player.Creator.GetPlayerRef().CustomProperties.Count;
-
-        // these funny ranked variables were discovered by golden, thx
-        /*
-            Copyright (c) 2025 GoldenIsAProtogen
-           
-            Permission is hereby granted, free of charge, to any person obtaining a copy
-            of this software and associated documentation files (the "Software"), to use,
-            copy, modify, and redistribute the Software.
-
-            https://github.com/GoldenIsAProtogen/GoldensGorillaNametags/blob/main/LICENSE
-         */
-
-        if (player.currentRankedSubTierPC > 0)
-            return ("steam", true);
-        if (player.currentRankedSubTierQuest > 0)
-            return ("meta", true);
-
-        if (cosmetics.Contains("s. first login"))
-            return ("steam", true);
-        if (cosmetics.Contains("first login") || properties > 1)
-            return ("oculus", true);
-
-        return ("meta", true);
+        return platform switch
+        {
+            API.Platform.Quest => "<sprite name=\"meta\">",
+            API.Platform.OculusRift => "<sprite name\"oculus\">",
+            API.Platform.SteamVR => "<sprite name=\"steam\">",
+            API.Platform.PCBasedPlatform => "<sprite name\"oculus\">≈", // ≈ denotes "almost"
+            _ => "?"
+        };
     }
 
     [BingusNametagsNametag("Default", 0f)]
@@ -64,8 +41,7 @@ public class DefaultNametag : IBaseNametag
 
             if (Config.Current.PlatformIcons)
             {
-                var platformData = GetPlatformString(nametag.Owner);
-                prefix += $"<sprite name=\"{platformData.platform}\">{(!platformData.loaded ? "? " : "")}";
+                prefix += GetPlatformString(nametag.Owner);
             }
         }
 

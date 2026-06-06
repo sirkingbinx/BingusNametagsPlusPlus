@@ -23,8 +23,6 @@ public static class Extensions
 		}
 	}
 
-	public static string AsString(this ModLoader obj) => obj == ModLoader.MelonLoader ? "MelonLoader" : "BepInEx";
-
     public static string Zip(this IEnumerable<object> enumerable, string seperator = ", ")
     {
         var str = "";

@@ -59,6 +59,8 @@ public class Main : MonoBehaviour
 
         LogManager.Log("Nametags have been loaded. yay [4/4]");
 
+        NetworkSystem.Instance.OnReturnedToSinglePlayer += API.ClearPlatformCache;
+
         // summary
         LogManager.LogDivider();
         LogManager.Log($"Plugins loaded: {PluginManager.Plugins.Count}");
