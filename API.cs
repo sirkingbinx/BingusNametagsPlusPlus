@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -62,7 +62,7 @@ public static class API
 
     public static Platform GetPlatform(VRRig rig)
     {
-        var cosmetics = rig.cosmeticSet.ToDisplayNameArray().Select(n => n.ToLower()).ToList();
+        var cosmetics = rig._playerOwnedCosmetics.Select(n => n.ToLower()).ToList();
         var platform = Platform.Unknown;
         
         if (!rig.InitializedCosmetics)
@@ -74,7 +74,9 @@ public static class API
         if (_cachedPlatforms.TryGetValue(rig, out var cachedPlatform))
             return cachedPlatform;
 
-        if (rig.currentRankedSubTierPC > 0)
+        var properties = rig.Creator.GetPlayerRef().CustomProperties.Count;
+
+        if (rig.currentRankedSubTierPC > 0 || properties > 1)
             platform = Platform.PCBasedPlatform;
 
         if (rig.currentRankedSubTierQuest > 0)
@@ -82,13 +84,11 @@ public static class API
             platform = Platform.Quest;
             goto end;
         }
-        
-        var properties = rig.Creator.GetPlayerRef().CustomProperties.Count;
 
         if (cosmetics.Contains("s. first login"))
             platform = Platform.SteamVR;
         
-        if (cosmetics.Contains("first login") || properties > 1)
+        if (cosmetics.Contains("first login"))
             platform = Platform.OculusRift;
 
         end:
