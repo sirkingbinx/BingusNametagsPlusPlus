@@ -24,16 +24,17 @@ public static class UIManager
 	private const float WindowPadding = 10;
 
     private const string Credits = """
-                                   Beta Testers:
-                                       Medievalz
-                                       Monky
-                                       tfsdemon
-                                       salty
-                                       Linear
-                                       Golden
-                                       Josh
-                                       Ariel (The Mysterious Person)
-                                       Crazykid
+                                   Thanks to all of the beta testers:
+                                   - Medievalz
+                                   - Monky
+                                   - tfsdemon
+                                   - salty
+                                   - Linear
+                                   - Golden
+                                   - Josh
+                                   - Ariel
+                                   - Crazykid
+                                   - nebwella
                                        
                                    Join the discord:
                                    https://discord.gg/SYCpaKjyU6
@@ -44,7 +45,7 @@ public static class UIManager
 	private static GUIContent[] Pages =
 	[
 		new("Nametag", "Nametag behaviour settings"),
-		new("Icons", "Change how icons behave"),
+		new("Icons", "Change how icons are presented"),
 		new("Network", "Change how your nametag looks to other people"),
 		new("Plugins", "Enable/disable all nametags"),
 		new("About", "About BingusNametags++")
