@@ -7,7 +7,7 @@ namespace BingusNametagsPlusPlus.Nametags;
 [BingusNametagsPlugin("Advanced", "Bingus", "Extra nametag fields with FPS and speed in m/s.")]
 public class AdvancedNametag : IBaseNametag
 {
-    [BingusNametagsNametag("Advanced", -0.35f)]
+    [BingusNametagsNametag("Advanced", -0.3f)]
     public static void UpdateNametag(PlayerNametag nametag)
     {
         nametag.Size = 0.85f;

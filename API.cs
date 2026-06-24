@@ -58,8 +58,14 @@ public static class API
         };
     }
     
-    private static Dictionary<VRRig, Platform> _cachedPlatforms = [ ];
+    private static Dictionary<string, Platform> _cachedPlatforms = [ ];
 
+    /// <summary>
+    /// Gets the Platform enum of a VRRig.
+    /// Note that this check is not 100% accurate. It is not possible to 100% guarantee the platform of another player, but you can get pretty close.
+    /// </summary>
+    /// <param name="rig">The rig to detect the platform of.</param>
+    /// <returns>The Platform enum of rig.</returns>
     public static Platform GetPlatform(VRRig rig)
     {
         var cosmetics = rig._playerOwnedCosmetics.Select(n => n.ToLower()).ToList();
@@ -71,7 +77,7 @@ public static class API
             goto end;
         }
         
-        if (_cachedPlatforms.TryGetValue(rig, out var cachedPlatform))
+        if (_cachedPlatforms.TryGetValue(rig.Creator.UserId, out var cachedPlatform))
             return cachedPlatform;
 
         var properties = rig.Creator.GetPlayerRef().CustomProperties.Count;
@@ -94,16 +100,63 @@ public static class API
         end:
         
         if (platform != Platform.Unknown)
-            _cachedPlatforms[rig] = platform;
+            _cachedPlatforms[rig.Creator.UserId] = platform;
         
         return platform;
     }
 
+    /// <summary>
+    /// Clears the platform cache, forcing every new platform detection to refresh.
+    /// </summary>
     public static void ClearPlatformCache()
     {
         _cachedPlatforms.Clear();
     }
+
+
+    private static Dictionary<string, Badge[]> _badgeDataCache = new();
+
+    private static readonly Dictionary<string, Badge[]> _specialBadgeIds = new()
+    {
+        ["596994CE81D973E1"] = [Badge.Developer, Badge.BetaTester],
+        ["DEFC9810769F1F55"] = [Badge.Developer, Badge.BetaTester],
+        ["E678D10ECA536D58"] = [Badge.BetaTester],
+        ["846E7DD5ACEAC0d4"] = [Badge.BetaTester],
+        ["68CCDDC115FDC9FB"] = [Badge.BetaTester],
+        ["706572060708C655"] = [Badge.BetaTester],
+        ["7ADB8B7E8F60E767"] = [Badge.BetaTester],
+        ["21F6D8F675C9234"]  = [Badge.BetaTester],
+    };
+
+    /// <summary>
+    /// Gets the badges associated with the specified userId. UserId is not case-sensitive.
+    /// </summary>
+    /// <param name="rig">The rig to get the platform of.</param>
+    public static Badge[] GetBadgeData(VRRig rig)
+    {
+        Badge[] badges = [];
+
+        if (_badgeDataCache.TryGetValue(rig.Creator.UserId, out var cachedBadges))
+            return cachedBadges;
+        
+        if (_specialBadgeIds.TryGetValue(rig.Creator.UserId, out var listBadges))
+            badges = listBadges;
+        
+        _badgeDataCache.Add(rig.Creator.UserId, badges);
+        return badges;
+    }
+
+    /// <summary>
+    /// Clears the badge cache, forcing every new badge fetch to refresh.
+    /// </summary>
+    public static void ClearBadgeCache()
+    {
+        _badgeDataCache.Clear();
+    }
     
+    /// <summary>
+    /// Represents a platform of a player.
+    /// </summary>
     public enum Platform
     {
         /// <summary>
@@ -130,6 +183,37 @@ public static class API
         /// Unknown platform. May be waiting for initialization.
         /// </summary>
         Unknown = -1,
+    }
+
+    /// <summary>
+    /// Badges owned by a user. These are displayed as icons on the default nametag.
+    /// </summary>
+    public enum Badge
+    {
+        /// <summary>
+        /// The user is a developer of BingusNametags++. Exclusively for Bingus.
+        /// </summary>
+        Developer,
+
+        /// <summary>
+        /// The user is a beta tester for BingusNametags++.
+        /// </summary>
+        BetaTester
+    }
+
+    /// <summary>
+    /// Gets the badge sprite ID of a badge for usage with the default nametag sprites.
+    /// </summary>
+    /// <param name="badge">The badge to get the sprite ID of.</param>
+    /// <returns>A string to be used as a sprite ID. Use it with &lt;sprite name="[NAME HERE]"&gt;</returns>
+    public static string GetBadgeSpriteId(Badge badge)
+    {
+        return badge switch
+        {
+            Badge.Developer => "bingus",
+            Badge.BetaTester => "beta",
+            _ => ""
+        };
     }
 
     public static ManagedNametag CreateNametag<T>() where T : IBaseNametag

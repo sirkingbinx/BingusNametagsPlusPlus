@@ -352,6 +352,7 @@ public static class UIManager
 		promptButtons = answers;
 		promptCallback = callback;
 		WindowState = BGWindowState.Prompt;
+		ShowingUI = true;
 	}
 
 	private static Vector2 scrollPosition;

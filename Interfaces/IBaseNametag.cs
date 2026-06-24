@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using BingusNametagsPlusPlus.Classes;
 using System.Linq;
 using BingusNametagsPlusPlus.Attributes;
 using BingusNametagsPlusPlus.Utilities;

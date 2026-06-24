@@ -74,6 +74,9 @@ public class Main : MonoBehaviour
         }
 #pragma warning restore CS0162 
 
+        LogManager.LogLine("Invoking auto-updater...");
+        AutoUpdater.Invoke();
+
         // report errors
         if (!PluginManager.PluginFailures.Any())
             return;

@@ -3,7 +3,9 @@ using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngineInternal;
 
 namespace BingusNametagsPlusPlus.Nametags;
 
@@ -19,7 +21,7 @@ public class DefaultNametag : IBaseNametag
             API.Platform.Quest => "<sprite name=\"meta\">",
             API.Platform.OculusRift => "<sprite name=\"oculus\">",
             API.Platform.SteamVR => "<sprite name=\"steam\">",
-            API.Platform.PCBasedPlatform => "≈<sprite name=\"oculus\">", // ≈ denotes "almost"
+            API.Platform.PCBasedPlatform => "<sprite name=\"oculus\">? ", // ≈ denotes "almost"
             _ => "? "
         };
     }
@@ -31,18 +33,12 @@ public class DefaultNametag : IBaseNametag
 
         if (Config.Current.Icons)
         {
-            if (Config.Current.UserIcons && Constants.SpecialBadgeIds.TryGetValue(nametag.Owner.Creator.UserId.ToLower(), out var n))
-            {
-                var adding = "";
-                n.Split(",").ForEach(sprite => adding += $"<sprite name=\"{sprite}\">");
-
-                prefix += adding;
-            }
+            if (Config.Current.UserIcons) API.GetBadgeData(nametag.Owner)
+                    .Select(badge => API.GetBadgeSpriteId(badge))
+                    .ForEach(sprite => prefix += $"<sprite name=\"{sprite}\">");
 
             if (Config.Current.PlatformIcons)
-            {
                 prefix += GetPlatformString(nametag.Owner);
-            }
         }
 
         var shownNickname = Config.Current.SanitizeNicknames
