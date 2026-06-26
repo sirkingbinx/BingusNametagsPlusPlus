@@ -14,10 +14,10 @@ It's also open-source, free, and doesn't take up half of your screen.
 > [!NOTE]
 > BingusNametags++ is also avaliable on MonkeModManager, if you have that
 
-[Download the latest release (`BingusNametagsPlusPlus.dll`) here](https://git.sirkingbinx.dev/sirkingbinx/BingusNametagsPlusPlus/-/releases) and copy it into your mods folder.
+[Download the latest release (`BingusNametagsPlusPlus.dll`) here](https://github.com/sirkingbinx/BingusNametagsPlusPlus/releases/latest) and copy it into your mods folder.
 
 ## Configuration
-Configuration Guide: https://git.sirkingbinx.dev/sirkingbinx/BingusNametagsPlusPlus/-/wikis/Configuration
+Configuration Guide: https://github.com/sirkingbinx/BingusNametagsPlusPlus/wiki/Configuration
 
 (A shortcut link is avaliable at https://sirkingbinx.dev/bgnametags)
 

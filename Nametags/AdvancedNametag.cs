@@ -11,7 +11,7 @@ public class AdvancedNametag : IBaseNametag
     public static void UpdateNametag(PlayerNametag nametag)
     {
         nametag.Size = 0.85f;
-        nametag.AddStyle("color", "#d6d6d6");
+        nametag.AddStyle("color", "#b6b6b6");
         nametag.Text = $"{nametag.Owner.fps} fps / {nametag.Owner.LatestVelocity().magnitude:F1} m/s";
     }
 }

@@ -1,7 +1,7 @@
 ﻿using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
 
-namespace BingusNametagsPlusPlus.APIClasses;
+namespace BingusNametagsPlusPlus.Classes.API;
 
 /// <summary>
 /// A nametag whose features are fully managed by another mod.
