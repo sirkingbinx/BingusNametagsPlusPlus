@@ -120,7 +120,7 @@ public class Main : MonoBehaviour
         NetworkingManager.SetNetworkedProperties();
     }
 
-    private static T Load<T>(string path, string name) where T : Object
+    private static T? Load<T>(string path, string name) where T : Object
     {
         var ab = AssetBundle.LoadFromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream(path));
         var obj = ab.LoadAsset<T>(name);
