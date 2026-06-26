@@ -66,16 +66,16 @@ public class Main : MonoBehaviour
         LogManager.Log($"Plugins loaded: {PluginManager.Plugins.Count}");
         LogManager.LogDivider();
 
+        LogManager.LogLine("Invoking auto-updater...");
+        AutoUpdater.Invoke();
+
 #pragma warning disable CS0162
         if (Constants.Channel != ReleaseChannel.Stable)
         {
             LogManager.Log("WARNING!!! This is a beta build of BingusNametags++.\nBugs are to be expected.");
             LogManager.LogDivider();
         }
-#pragma warning restore CS0162 
-
-        LogManager.LogLine("Invoking auto-updater...");
-        AutoUpdater.Invoke();
+#pragma warning restore CS0162
 
         // report errors
         if (!PluginManager.PluginFailures.Any())

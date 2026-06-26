@@ -48,6 +48,7 @@ public static class UIManager
 		new("Icons", "Change how icons are presented"),
 		new("Network", "Change how your nametag looks to other people"),
 		new("Plugins", "Enable/disable all nametags"),
+		new("Misc", "Other settings available for configuration"),
 		new("About", "About BingusNametags++")
 	];
 
@@ -250,6 +251,36 @@ public static class UIManager
 				break;
 			case 4:
 				GUI.Label(new Rect(WindowStartX, WindowStartY, WindowSizeX - WindowPadding * 2, 20),
+					"Auto-Update mode:");
+				
+				var autoUpdFull = GUI.Toggle(
+					new Rect(WindowStartX, WindowStartY + 20, WindowSizeX - WindowPadding * 2, 20),
+					Config.Current.AutoUpdateMode == 0,
+					new GUIContent("Full", "If an update is found, automatically install it")
+				);
+
+				var autoUpdPrompt = GUI.Toggle(
+					new Rect(WindowStartX, WindowStartY + 40, WindowSizeX - WindowPadding * 2, 20),
+					Config.Current.AutoUpdateMode == 1,
+					new GUIContent("Prompt", "If an update is found, ask if you would like to update")
+				);
+
+				var autoUpdOff = GUI.Toggle(
+					new Rect(WindowStartX, WindowStartY + 60, WindowSizeX - WindowPadding * 2, 20),
+					Config.Current.AutoUpdateMode == 2,
+					new GUIContent("Off", "Do not automatically update")
+				);
+
+				if (autoUpdFull)
+					Config.Current.AutoUpdateMode = 0;
+				if (autoUpdPrompt)
+					Config.Current.AutoUpdateMode = 1;
+				if (autoUpdOff)
+					Config.Current.AutoUpdateMode = 2;
+
+				break;
+			case 5:
+				GUI.Label(new Rect(WindowStartX, WindowStartY, WindowSizeX - WindowPadding * 2, 20),
 					$"BingusNametags++");
 				GUI.Label(new Rect(WindowStartX, WindowStartY + 20, WindowSizeX - WindowPadding * 2, 20),
 					$"v{Constants.Version}-{Constants.Channel.AsString()}");
@@ -273,10 +304,8 @@ public static class UIManager
 					Credits
 				);
 
-				if (GUI.Button(
-						new Rect(WindowStartX, WindowY + WindowSizeY - 25, 150, 20),
-						new GUIContent("Data Folder", "Opens the location of the BingusNametags++ data folder"))
-				   )
+				if (GUI.Button(new Rect(WindowStartX, WindowY + WindowSizeY - 25, 150, 20),
+				  new GUIContent("Data Folder", "Opens the location of the BingusNametags++ data folder")))
 					Process.Start(new ProcessStartInfo
 					{
 						FileName = Constants.BingusNametagsData,

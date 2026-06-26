@@ -3,47 +3,16 @@ using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngineInternal;
 
 namespace BingusNametagsPlusPlus.Nametags;
 
 [BingusNametagsPlugin("Default", "Bingus", "The default nametag provided by BingusNametags++. Includes platform icons and a nametag.")]
 public class DefaultNametag : IBaseNametag
 {
-    private static string GetPlatformString(VRRig rig)
-    {
-        var platform = API.GetPlatform(rig);
-
-        return platform switch
-        {
-            API.Platform.Quest => "<sprite name=\"meta\">",
-            API.Platform.OculusRift => "<sprite name=\"oculus\">",
-            API.Platform.SteamVR => "<sprite name=\"steam\">",
-            API.Platform.PCBasedPlatform => "<sprite name=\"oculus\">? ", // ≈ denotes "almost"
-            _ => "? "
-        };
-    }
-
     [BingusNametagsNametag("Default", 0f)]
     public static void UpdateDefaultNametag(PlayerNametag nametag)
     {
-        var prefix = "";
-
-        if (Config.Current.Icons)
-        {
-            if (Config.Current.UserIcons) API.GetBadgeData(nametag.Owner)
-                    .Select(badge => API.GetBadgeSpriteId(badge))
-                    .ForEach(sprite => prefix += $"<sprite name=\"{sprite}\">");
-
-            if (Config.Current.PlatformIcons)
-                prefix += GetPlatformString(nametag.Owner);
-        }
-
-        var shownNickname = Config.Current.SanitizeNicknames
-            ? nametag.Owner.playerText1.text
-            : nametag.Owner.Creator.NickName;
 
         if (Config.Current.GFriendsIntegration && nametag.Owner.playerText1.color != Color.white)
         {
@@ -81,6 +50,6 @@ public class DefaultNametag : IBaseNametag
                 nametag.RemoveStyle("u");
         }
 
-        nametag.Text = $"{prefix}{shownNickname}";
+        nametag.Text = API.GetDefaultNametagText(nametag.Owner);
     }
 }

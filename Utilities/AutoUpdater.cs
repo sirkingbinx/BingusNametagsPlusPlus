@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
+using UnityEngine;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 namespace BingusNametagsPlusPlus.Utilities;
 
@@ -13,13 +15,21 @@ public static class AutoUpdater
 
     public static void Invoke()
     {
+        if (Config.Current.AutoUpdateMode == 2) // auto-update off
+            return;
+
         try
         {
             var currentVersion = new Version(Constants.Version);
             var latestVersion = new Version(httpClient.GetStringAsync(updateVersionUrl).Result);
 
             if (currentVersion < latestVersion)
-                UIManager.Ask($"A new version of BingusNametags++ is available!\n\n{currentVersion} -> {latestVersion}\n\nBingusNametags++ can automatically install the update. Would you like to update?", ["Decline", "Update"], Update);
+            {
+                if (Config.Current.AutoUpdateMode == 0)
+                    Update("Update");
+                if (Config.Current.AutoUpdateMode == 1)
+                    UIManager.Ask($"A new version of BingusNametags++ is available!\n\n{currentVersion} -> {latestVersion}\n\nBingusNametags++ can automatically install the update. Would you like to update?", ["Decline", "Update"], Update);
+            }
         }
         catch (Exception ex)
         {
@@ -63,6 +73,13 @@ public static class AutoUpdater
         LogManager.Log("Auto-update was a success!");
         File.Delete(oldAssemblyName); // clear old dll
 
-        UIManager.Ask($"The update has succeeded. Please restart your game for changes to take effect.", ["Okay"], (_) => {});
+        LogManager.Log("Loading new assembly..");
+
+        Assembly newVersion = Assembly.Load(File.ReadAllBytes(currentAssemblyName));
+
+        Main.Instance?.gameObject.Destroy();
+
+        var newMainType = newVersion.GetType("BingusNametagsPlusPlus.Main");
+        new GameObject("BingusNametags++").AddComponent(newMainType);
     }
 }

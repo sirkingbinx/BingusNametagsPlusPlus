@@ -38,6 +38,8 @@ public class Config
 	public bool   NetworkUnderline = false;
 	public bool   NetworkItalic = false;
 
+    public int AutoUpdateMode = 0;
+
     // Plugins
     public List<string> EnabledPlugins = ["Default"];
 
