@@ -31,7 +31,7 @@ public static class LogManager
         }
 
         LogDivider();
-        LogLine("BingusNametags++ log file");
+        LogLine($"BingusNametags++ {Constants.Version} (channel: {(Constants.Channel == ReleaseChannel.Stable ? "stable" : "beta")})");
         LogLine($"Unity Version: {Application.unityVersion}");
         LogLine($"Gorilla Tag Version: {Application.version}");
         LogDivider();

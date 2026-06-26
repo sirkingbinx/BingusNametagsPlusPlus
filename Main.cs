@@ -84,7 +84,7 @@ public class Main : MonoBehaviour
         LogManager.Log("Some errors occured, we have logged them to the console and displayed them");
 
         UIManager.Ask(
-            $"There were errors loading some nametags.\n\n{PluginManager.PluginFailures.Zip("\n- ")}\n\nIf you are a user, please report these messages to the developer(s) of the nametag.",
+            $"There were errors loading some nametags.\n\n{string.Join("\n- ", PluginManager.PluginFailures)}\n\nIf you are a user, please report these messages to the developer(s) of the nametag.",
             ["OK"],
             (_) => { }
         );
@@ -125,9 +125,10 @@ public class Main : MonoBehaviour
         var ab = AssetBundle.LoadFromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream(path));
         var obj = ab.LoadAsset<T>(name);
 
-        if (obj.Uninitialized())
-            LogManager.Log(
-                $"Cannot load assetbundle \"{path}\" object \"{name}\" to type \"{typeof(T).FullName}.\nValid streams: \n\t{Assembly.GetExecutingAssembly().GetManifestResourceNames().Join("\n\t")}");
+        if (obj == null) {
+            LogManager.Log($"Cannot load assetbundle \"{path}\". Valid streams: \n\t{Assembly.GetExecutingAssembly().GetManifestResourceNames().Join("\n\t")}");
+            return default;
+        }
 
         ab.Unload(false);
 
