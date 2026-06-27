@@ -119,9 +119,10 @@ public static class API
     //!/BADGES
     private static readonly Dictionary<string, Badge[]> _specialBadgeIds = new()
     {
-        ["596994CE81D973E1"] = [Badge.Developer, Badge.BetaTester], // BINGUS steam
-        ["DEFC9810769F1F55"] = [Badge.Developer, Badge.BetaTester], // BINGUS meta+rift
-        ["8997933977628EA8"] = [Badge.Developer, Badge.BetaTester], // BINGUS meta+rift
+        ["596994CE81D973E1"] = [Badge.Developer, Badge.BetaTester],
+        ["A0454E65CAD418DF"] = [Badge.Developer, Badge.BetaTester],
+        ["DEFC9810769F1F55"] = [Badge.Developer, Badge.BetaTester],
+        ["8997933977628EA8"] = [Badge.Developer, Badge.BetaTester],
         ["E678D10ECA536D58"] = [Badge.BetaTester],
         ["846E7DD5ACEAC0d4"] = [Badge.BetaTester],
         ["68CCDDC115FDC9FB"] = [Badge.BetaTester],
