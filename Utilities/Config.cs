@@ -41,7 +41,7 @@ public class Config
     public int AutoUpdateMode = 0;
 
     // Plugins
-    public List<string> EnabledPlugins = ["Default"];
+    public List<string> EnabledPlugins = [ "Default" ];
 
     // Misc
     public TMP_FontAsset? CustomFont;
@@ -54,10 +54,13 @@ public class Config
 
 	public static void LoadPrefs()
 	{
+        if (Current.EnabledPlugins.Count == 0)
+            Current.EnabledPlugins.Add("Default");
+
         try
         {
             if (!File.Exists(ConfigFilePath))
-                return;
+                SavePrefs();
 
             if (JsonConvert.DeserializeObject<Config>(File.ReadAllText(ConfigFilePath)) is Config now)
                 Current = now;
@@ -75,7 +78,7 @@ public class Config
 		if (!fontFile.IsNullOrWhiteSpace())
 			Current.CustomFont = TMP_FontAsset.CreateFontAsset(new Font(fontFile));
 
-        if (!Current.EnabledPlugins.Any())
+        if (Current.EnabledPlugins.Count == 0)
             Current.EnabledPlugins.Add("Default");
 
         PluginManager.Plugins.ForEach(plugin =>
