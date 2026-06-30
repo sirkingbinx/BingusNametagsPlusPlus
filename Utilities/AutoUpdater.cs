@@ -3,7 +3,6 @@ using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using UnityEngine;
-using UnityEngine.InputSystem.EnhancedTouch;
 
 namespace BingusNametagsPlusPlus.Utilities;
 
@@ -15,6 +14,8 @@ public static class AutoUpdater
 
     public static void Invoke()
     {
+        httpClient.DefaultRequestHeaders.Add("User-Agent", $"BingusNametags++/{Constants.Version} ({System.Environment.Version.ToString()} System.Net.Http.HttpClient)"); 
+        
         if (Config.Current.AutoUpdateMode == 2) // auto-update off
             return;
 
