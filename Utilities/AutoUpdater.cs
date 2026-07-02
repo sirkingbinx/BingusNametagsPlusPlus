@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace BingusNametagsPlusPlus.Utilities;
@@ -9,21 +10,30 @@ namespace BingusNametagsPlusPlus.Utilities;
 public static class AutoUpdater
 {
     private static readonly HttpClient httpClient = new();
-    private const string updateVersionUrl = "https://files.sirkingbinx.dev/bingusNametagsPlusPlus/version.txt";
-    private const string updateFileUrl = "https://files.sirkingbinx.dev/bingusNametagsPlusPlus/latest.dll";
+    private const string updateUrl = "https://api.github.com/repos/sirkingbinx/BingusNametagsPlusPlus/releases/latest";
+    private static string? downloadUrl;
 
     public static void Invoke()
     {
-        httpClient.DefaultRequestHeaders.Add("User-Agent", $"BingusNametags++/{Constants.Version} ({System.Environment.Version.ToString()} System.Net.Http.HttpClient)"); 
+        httpClient.DefaultRequestHeaders.Add("User-Agent", $"BingusNametags++/{Constants.Version} (.NET CLR {Environment.Version}; gh/sirkingbinx/BingusNametagsPlusPlus)"); 
         
-        if (Config.Current.AutoUpdateMode == 2) // auto-update off
+        if (Config.Current.AutoUpdateMode == 2)
             return;
 
         try
         {
             var currentVersion = new Version(Constants.Version);
-            var latestVersion = new Version(httpClient.GetStringAsync(updateVersionUrl).Result);
+            var versionData = JObject.Parse(httpClient.GetStringAsync(updateUrl).Result);
 
+#pragma warning disable CS8600
+#pragma warning disable CS8602
+            var latestVersion = new Version((string)versionData["tag_name"]);
+            downloadUrl = (string)versionData["assets"][0]["browser_download_url"];
+#pragma warning restore CS8602
+#pragma warning restore CS8600
+
+            LogManager.LogLine("[AutoUpdater] Latest version: " + latestVersion + ", available at \"" + downloadUrl + "\".");
+ 
             if (currentVersion < latestVersion)
             {
                 if (Config.Current.AutoUpdateMode == 0)
@@ -41,7 +51,7 @@ public static class AutoUpdater
 
     private static void Update(string result)
     {
-        if (result == "Decline")
+        if (result == "Decline" || downloadUrl == null)
             return;
         
         // move current assembly
@@ -53,7 +63,7 @@ public static class AutoUpdater
         try
         {
             // start update
-            using var resp = httpClient.GetAsync(updateFileUrl, HttpCompletionOption.ResponseHeadersRead).Result;
+            using var resp = httpClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead).Result;
 
             resp.EnsureSuccessStatusCode(); // safe here since we have error handling
 

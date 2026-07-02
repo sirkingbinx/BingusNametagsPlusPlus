@@ -48,7 +48,6 @@ public static class UIManager
 		new("Icons", "Change how icons are presented"),
 		new("Network", "Change how your nametag looks to other people"),
 		new("Plugins", "Enable/disable all nametags"),
-		new("Misc", "Other settings available for configuration"),
 		new("About", "About BingusNametags++")
 	];
 
@@ -205,10 +204,38 @@ public static class UIManager
 				}
 
 				Config.Current.ViewOtherCustomStyles = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY + (Config.Current.CustomNametags ? 125 : 25), 175, 20),
+					new Rect(WindowStartX, WindowStartY + 25 + (Config.Current.CustomNametags ? 100 : 0), 175, 20),
 					Config.Current.ViewOtherCustomStyles,
 					new GUIContent("View Other Nametag Styles", "View custom nametag styles for other users. This doesn't enable custom nametags for yourself.")
 				);
+
+				GUI.Label(new Rect(WindowStartX, WindowStartY + 50 + (Config.Current.CustomNametags ? 100 : 0), WindowSizeX - WindowPadding * 2, 20),
+					"Auto-Update mode:");
+				
+				var autoUpdFull = GUI.Toggle(
+					new Rect(WindowStartX, WindowStartY + 70 + (Config.Current.CustomNametags ? 100 : 0), WindowSizeX - WindowPadding * 2, 20),
+					Config.Current.AutoUpdateMode == 0,
+					new GUIContent("Full", "If an update is found, automatically install it")
+				);
+
+				var autoUpdPrompt = GUI.Toggle(
+					new Rect(WindowStartX, WindowStartY + 90 + (Config.Current.CustomNametags ? 100 : 0), WindowSizeX - WindowPadding * 2, 20),
+					Config.Current.AutoUpdateMode == 1,
+					new GUIContent("Prompt", "If an update is found, ask if you would like to update")
+				);
+
+				var autoUpdOff = GUI.Toggle(
+					new Rect(WindowStartX, WindowStartY + 110 + (Config.Current.CustomNametags ? 100 : 0), WindowSizeX - WindowPadding * 2, 20),
+					Config.Current.AutoUpdateMode == 2,
+					new GUIContent("Off", "Do not automatically update")
+				);
+
+				if (autoUpdFull)
+					Config.Current.AutoUpdateMode = 0;
+				if (autoUpdPrompt)
+					Config.Current.AutoUpdateMode = 1;
+				if (autoUpdOff)
+					Config.Current.AutoUpdateMode = 2;
 
 				break;
 			case 3:
@@ -250,36 +277,6 @@ public static class UIManager
 
 				break;
 			case 4:
-				GUI.Label(new Rect(WindowStartX, WindowStartY, WindowSizeX - WindowPadding * 2, 20),
-					"Auto-Update mode:");
-				
-				var autoUpdFull = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY + 20, WindowSizeX - WindowPadding * 2, 20),
-					Config.Current.AutoUpdateMode == 0,
-					new GUIContent("Full", "If an update is found, automatically install it")
-				);
-
-				var autoUpdPrompt = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY + 40, WindowSizeX - WindowPadding * 2, 20),
-					Config.Current.AutoUpdateMode == 1,
-					new GUIContent("Prompt", "If an update is found, ask if you would like to update")
-				);
-
-				var autoUpdOff = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY + 60, WindowSizeX - WindowPadding * 2, 20),
-					Config.Current.AutoUpdateMode == 2,
-					new GUIContent("Off", "Do not automatically update")
-				);
-
-				if (autoUpdFull)
-					Config.Current.AutoUpdateMode = 0;
-				if (autoUpdPrompt)
-					Config.Current.AutoUpdateMode = 1;
-				if (autoUpdOff)
-					Config.Current.AutoUpdateMode = 2;
-
-				break;
-			case 5:
 				GUI.Label(new Rect(WindowStartX, WindowStartY, WindowSizeX - WindowPadding * 2, 20),
 					$"BingusNametags++");
 				GUI.Label(new Rect(WindowStartX, WindowStartY + 20, WindowSizeX - WindowPadding * 2, 20),
