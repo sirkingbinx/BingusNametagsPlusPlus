@@ -8,7 +8,7 @@ namespace BingusNametagsPlusPlus.Classes;
 /// <summary>
 /// PlayerNametag represents the nametag of a single player.
 /// </summary>
-public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thirdPerson)
+public class PlayerNametag(VRRig player, GameObject nametag)
 {
 #region api
     private readonly List<string> _styles = [];
@@ -63,8 +63,7 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
         get => _text;
         set
         {
-            var tmpFirst = firstPerson.GetComponent<TextMeshPro>();
-            var tmpThird = thirdPerson.GetComponent<TextMeshPro>();
+            var tmp = nametag.GetComponent<TextMeshPro>();
 
             var start = "";
             var end = "";
@@ -81,8 +80,7 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
                 end += $"</{vstyle.Key}>";
             }
 
-            tmpFirst.text = $"{start}{value}{end}";
-            tmpThird.text = $"{start}{value}{end}";
+            tmp.text = $"{start}{value}{end}";
 
             _text = value;
         }
@@ -108,19 +106,9 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
     /// </summary>
     public TMP_SpriteAsset SpriteSheet
     {
-        get => firstPerson.GetComponent<TextMeshPro>().spriteAsset;
-        set
-        {
-            firstPerson.GetComponent<TextMeshPro>().spriteAsset = value;
-            thirdPerson.GetComponent<TextMeshPro>().spriteAsset = value;
-        }
+        get => nametag.GetComponent<TextMeshPro>().spriteAsset;
+        set => nametag.GetComponent<TextMeshPro>().spriteAsset = value;
     }
-
-    /* API TODO LIST (things i might add, take this with a grain of salt):
-     * - allow devs to load and add images to nametags directly instead of making their own sprite sheet
-     *      - AddIconSource(string path) / AddIconSource(byte[] imgData, ImgFormat format)
-     *      - AddIcon(string iconName)
-     */
 #endregion
 
 #region not api
@@ -128,20 +116,26 @@ public class PlayerNametag(VRRig player, GameObject firstPerson, GameObject thir
 
     internal void UpdateSettings(float offset)
     {
-        firstPerson.GetComponent<TextMeshPro>().fontSize = Config.Current.Scale * PluginScale;
-        thirdPerson.GetComponent<TextMeshPro>().fontSize = Config.Current.Scale * PluginScale;
+        if (nametag.activeSelf != Config.Current.Nametags)
+            nametag.SetActive(Config.Current.Nametags);
+        
+        if (!nametag.activeSelf)
+            return;
 
-        firstPerson.transform.localPosition = new Vector3(0f, Config.Current.Offset + offset, 0f);
-        thirdPerson.transform.localPosition = new Vector3(0f, Config.Current.Offset + offset, 0f);
+        nametag.GetComponent<TextMeshPro>().fontSize = Config.Current.Scale * PluginScale;
+        nametag.transform.localPosition = new Vector3(0f, Config.Current.Offset + offset, 0f);
 
-        firstPerson.SetActive(Config.Current.FirstPersonEnabled);
-        thirdPerson.SetActive(Config.Current.ThirdPersonEnabled);
+        if (Config.Current.FirstPersonEnabled && Config.Current.ThirdPersonEnabled)
+            nametag.layer = 0;
+        else if (Config.Current.FirstPersonEnabled && !Config.Current.ThirdPersonEnabled)
+            nametag.layer = LayerMask.NameToLayer("FirstPersonOnly");
+        else if (!Config.Current.FirstPersonEnabled && Config.Current.ThirdPersonEnabled)
+            nametag.layer = LayerMask.NameToLayer("MirrorOnly");
     }
 
     internal void Destroy()
     {
-        firstPerson.Destroy();
-        thirdPerson.Destroy();
+        nametag.Destroy();
     }
 #endregion
 }

@@ -1,7 +1,6 @@
 using System;
 using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Components;
-using GorillaExtensions;
 using TMPro;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -10,16 +9,15 @@ namespace BingusNametagsPlusPlus.Utilities;
 
 public static class NametagCreator
 {
-	private static GameObject CreateNametag(VRRig owner, string layerName)
+	private static GameObject CreateNametag(VRRig owner)
 	{
 		var parent = owner.transform.Find("Body") ?? owner.transform;
 		var tagObject = Object.Instantiate(Main.NametagDefault, parent, false);
 
-		tagObject?.gameObject.layer = LayerMask.NameToLayer(layerName);
 		tagObject?.transform.localPosition = new Vector3(0f, Config.Current.Offset, 0f);
 		tagObject?.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
-        tagObject?.AddComponent<CameraFollower>().lookingAtThirdPerson = (layerName == "MirrorOnly");
+        tagObject?.AddComponent<CameraFollower>();
 
         var tmPro = tagObject?.GetComponent<TextMeshPro>();
 		tmPro?.text = "...";
@@ -30,12 +28,6 @@ public static class NametagCreator
         return tagObject ?? throw new Exception("Missing AB");
 	}
 
-	public static PlayerNametag CreateNametagObject(VRRig owner)
-	{
-        return new PlayerNametag(
-			owner,
-			CreateNametag(owner, "FirstPersonOnly"),
-			CreateNametag(owner, "MirrorOnly")
-        );
-	}
+	public static PlayerNametag CreateNametagObject(VRRig owner) =>
+		new PlayerNametag(owner, CreateNametag(owner));
 }
