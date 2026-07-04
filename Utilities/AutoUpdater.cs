@@ -10,12 +10,12 @@ namespace BingusNametagsPlusPlus.Utilities;
 public static class AutoUpdater
 {
     private static readonly HttpClient httpClient = new();
-    private const string updateUrl = "https://api.github.com/repos/sirkingbinx/BingusNametagsPlusPlus/releases/latest";
+    private const string updateUrl = "https://updates.sirkingbinx.dev/version/nametags";
     private static string? downloadUrl;
 
     public static void Invoke()
     {
-        httpClient.DefaultRequestHeaders.Add("User-Agent", $"BingusNametags++/{Constants.Version} (.NET CLR {Environment.Version}; gh/sirkingbinx/BingusNametagsPlusPlus)"); 
+        httpClient.DefaultRequestHeaders.Add("User-Agent", $"BingusNametags++/{Constants.Version} (.NET CLR {Environment.Version})"); 
         
         if (Config.Current.AutoUpdateMode == 2)
             return;
@@ -27,8 +27,8 @@ public static class AutoUpdater
 
 #pragma warning disable CS8600
 #pragma warning disable CS8602
-            var latestVersion = new Version((string)versionData["tag_name"]);
-            downloadUrl = (string)versionData["assets"][0]["browser_download_url"];
+            var latestVersion = new Version((string)versionData["version"]);
+            downloadUrl = (string)versionData["download"];
 #pragma warning restore CS8602
 #pragma warning restore CS8600
 
