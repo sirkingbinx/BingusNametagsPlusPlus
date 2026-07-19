@@ -120,10 +120,7 @@ public static class API
     private static readonly Dictionary<string, Badge[]> _specialBadgeIds = new()
     {
         // bingus
-        ["596994CE81D973E1"] = [Badge.Developer, Badge.BetaTester],
-        ["A0454E65CAD418DF"] = [Badge.Developer, Badge.BetaTester],
-        ["DEFC9810769F1F55"] = [Badge.Developer, Badge.BetaTester],
-        ["8997933977628EA8"] = [Badge.Developer, Badge.BetaTester],
+        ["BA147A3E966ABFDE"] = [Badge.Developer, Badge.BetaTester],
         // contest winners
         ["54E4FF50DA51FA1"] = [Badge.BetaTester],
         ["DC87370B150525E7"] = [Badge.BetaTester],
