@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+    <comment/>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ja</value>
+    <comment/>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nein</value>
+    <comment/>
+  </data>
+  <data name="t1" xml:space="preserve">
+    <value>Beim Laden von manchen Nametags sind Fehler aufgetreten.</value>
+    <comment/>
+  </data>
+  <data name="t2" xml:space="preserve">
+    <value>Wenn du ein Spieler bist, meld die Nachrichten bitte dem Nametag-Entwickler.</value>
+    <comment/>
+  </data>
+  <data name="t3" xml:space="preserve">
+    <value>Beta-Tester</value>
+    <comment/>
+  </data>
+  <data name="t4" xml:space="preserve">
+    <value>Übersetzer</value>
+    <comment/>
+  </data>
+  <data name="t5" xml:space="preserve">
+    <value>Komm auf den Discord</value>
+    <comment/>
+  </data>
+  <data name="t6" xml:space="preserve">
+    <value>Nametag</value>
+    <comment/>
+  </data>
+  <data name="t7" xml:space="preserve">
+    <value>Icons</value>
+    <comment/>
+  </data>
+  <data name="t8" xml:space="preserve">
+    <value>Netzwerk</value>
+    <comment/>
+  </data>
+  <data name="t9" xml:space="preserve">
+    <value>Plugins</value>
+    <comment/>
+  </data>
+  <data name="t10" xml:space="preserve">
+    <value>Über</value>
+    <comment/>
+  </data>
+  <data name="t11" xml:space="preserve">
+    <value>Nametag-Verhaltenseinstellungen</value>
+    <comment/>
+  </data>
+  <data name="t12" xml:space="preserve">
+    <value>Ändere, wie Icons, angezeigt werden</value>
+    <comment/>
+  </data>
+  <data name="t13" xml:space="preserve">
+    <value>Ändere, wie dein Nametag für andre Leute ausschaut</value>
+    <comment/>
+  </data>
+  <data name="t14" xml:space="preserve">
+    <value>Alle Nametags aktivieren/deaktivieren</value>
+    <comment/>
+  </data>
+  <data name="t15" xml:space="preserve">
+    <value>über BingusNametags++</value>
+    <comment/>
+  </data>
+  <data name="t16" xml:space="preserve">
+    <value>Nametags - Nametags anzeigen</value>
+    <comment/>
+  </data>
+  <data name="t17" xml:space="preserve">
+    <value>Erste Person - Zeigt der Nametag in VR aus deiner Sicht an</value>
+    <comment/>
+  </data>
+  <data name="t18" xml:space="preserve">
+    <value>Dritte Person - Zeigt das Nametag auf deinem PC in der dritten Person an</value>
+    <comment/>
+  </data>
+  <data name="t19" xml:space="preserve">
+    <value>Anzeige - Ändere, wie Nametags angezeigt werden</value>
+    <comment/>
+  </data>
+  <data name="t20" xml:space="preserve">
+    <value>Nicknames bereinigen</value>
+    <comment/>
+  </data>
+  <data name="t21" xml:space="preserve">
+    <value>Nametag-Farbe übernehmen</value>
+    <comment/>
+  </data>
+  <data name="t22" xml:space="preserve">
+    <value>Größe - Ändere, wie groß der Nametag-Text ist</value>
+    <comment/>
+  </data>
+  <data name="t23" xml:space="preserve">
+    <value>Versatz - Ändere die Y-Achsen-Verschiebung vom Nametag</value>
+    <comment/>
+  </data>
+  <data name="t24" xml:space="preserve">
+    <value>Verhindert, dass ungültige Usernamen in Nametags angezeigt werden (z.B. Leerzeichen, Schimpfwörter usw.)</value>
+    <comment/>
+  </data>
+  <data name="t25" xml:space="preserve">
+    <value>Macht die Farbe vom Nametag gleich wie die Farbe vom Nametag auf der Brust, damit GorillaFriends und Very Important Monke unterstützt werden.</value>
+    <comment/>
+  </data>
+  <data name="t26" xml:space="preserve">
+    <value>Icons - Icons im Nametag aktivieren</value>
+    <comment/>
+  </data>
+  <data name="t27" xml:space="preserve">
+    <value>Spezille User-Icons - Zeigt eigene Icons für bekannte Leute wie Entwickler, Beta-Tester und Übersetzer an</value>
+    <comment/>
+  </data>
+  <data name="t28" xml:space="preserve">
+    <value>Plattform-Icons - Zeigt Icons an, die die Plattform eines Users darstellen</value>
+    <comment/>
+  </data>
+  <data name="t29" xml:space="preserve">
+    <value>Eigene Nametags - Passe an, wie nametags für andere Leute ausschauen</value>
+    <comment/>
+  </data>
+  <data name="t30" xml:space="preserve">
+    <value>Wenn du das aktivierst, wird dein Nametag Style mit Properties übers Netzwerk geteilt. Properties werden oft von Mod-Checkern benutzt, um herauszufinden, welche Mods du installiert hast. Kleine, unreife Kinder könnten dich wegen deinen Properties nerven. Bist du sicher, dass du Custom Nametags aktivieren willst?</value>
+    <comment/>
+  </data>
+  <data name="t31" xml:space="preserve">
+    <value>Hex-Code - Eigener Hex-Code für dein Nametag</value>
+    <comment/>
+  </data>
+  <data name="t32" xml:space="preserve">
+    <value>Fett</value>
+    <comment/>
+  </data>
+  <data name="t33" xml:space="preserve">
+    <value>Kursiv</value>
+    <comment/>
+  </data>
+  <data name="t34" xml:space="preserve">
+    <value>Unterstrichen</value>
+    <comment/>
+  </data>
+  <data name="t35" xml:space="preserve">
+    <value>Andere Nametag-Styles anschauen - Schau dir die eigenen Nametag-Styles von anderen Usern an. Aktiviert keine Custom Nametags für dich selbst.</value>
+    <comment/>
+  </data>
+  <data name="t36" xml:space="preserve">
+    <value>Automatischer Update-Modus</value>
+    <comment/>
+  </data>
+  <data name="t37" xml:space="preserve">
+    <value>Vollständig - Wenn ein Update gefunden wird, wird es automatisch installiert</value>
+    <comment/>
+  </data>
+  <data name="t38" xml:space="preserve">
+    <value>Nachfragen - Wenn ein Update gefunden wird, wirst du gefragt, ob du updaten willst</value>
+    <comment/>
+  </data>
+  <data name="t39" xml:space="preserve">
+    <value>Aus - Keine automatischen Updates</value>
+    <comment/>
+  </data>
+  <data name="t40" xml:space="preserve">
+    <value>Nametag-Ordner öffnen - Du kannst hier .dll-Dateien von Nametag-Dateien reinpacken, damit sie manuell von BingusNametags++ geladen werden.</value>
+    <comment/>
+  </data>
+  <data name="t41" xml:space="preserve">
+    <value>Untersuchen - Infos über dieses Nametag ansehen</value>
+    <comment/>
+  </data>
+  <data name="t42" xml:space="preserve">
+    <value>Datenordner - Öffnet den Speicherort vom BingusNametags++ Datenordner</value>
+    <comment/>
+  </data>
+  <data name="t43" xml:space="preserve">
+    <value>Aktualisieren - Lädt alle Einstellungen neu. Nicht gespeicherte Änderungen gehen verloren!</value>
+    <comment/>
+  </data>
+  <data name="t44" xml:space="preserve">
+    <value>Anwenden - Speichert die aktuellen Nametag-Einstellungen. Wird automatisch gespeichert!</value>
+    <comment/>
+  </data>
+  <data name="t45" xml:space="preserve">
+    <value>Dieses Plugin enthält die folgenden Nametags</value>
+    <comment/>
+  </data>
+  <data name="t46" xml:space="preserve">
+    <value>Versatz</value>
+    <comment/>
+  </data>
+  <data name="t47" xml:space="preserve">
+    <value>Zurück zum Plugins-Tab</value>
+    <comment/>
+  </data>
+  <data name="t48" xml:space="preserve">
+    <value>Schließen</value>
+    <comment/>
+  </data>
+</root>

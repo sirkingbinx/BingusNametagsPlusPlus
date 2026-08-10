@@ -7,9 +7,9 @@ public static class Constants
 {
 	public const string Name = "BingusNametags++";
 	public const string Guid = "bingus.nametagsplusplus";
-    public const string Version = "1.6.3";
+    public const string Version = "1.7.0";
 
-    public const ReleaseChannel Channel = ReleaseChannel.Stable;
+    public const ReleaseChannel Channel = ReleaseChannel.Beta;
 
     public static string BingusNametagsData =>
         Path.Combine(Application.dataPath[..Application.dataPath.LastIndexOfAny(['/', '\\'])], "BingusNametags++");

@@ -40,6 +40,8 @@ public class Config
 
     public int AutoUpdateMode = 0;
 
+    public int SetLanguage = 0;
+
     // Plugins
     public List<string> EnabledPlugins = [ "Default" ];
 
@@ -88,6 +90,8 @@ public class Config
             else
                 PluginManager.DisablePlugin(plugin);
         });
+
+        LocalizationManager.SetLanguage(Current.SetLanguage);
     }
 
 	public static bool ValidHexCode(string hexCode) =>

@@ -23,33 +23,7 @@ public static class UIManager
 
 	private const float WindowPadding = 10;
 
-    private const string Credits = """
-                                   Thanks to all of the beta testers:
-                                   - Medievalz
-                                   - Monky
-                                   - tfsdemon
-                                   - salty
-                                   - Linear
-                                   - Golden
-                                   - Josh
-                                   - Ariel
-                                   - Crazykid
-                                   - nebwella
-                                       
-                                   Join the discord:
-                                   https://discord.gg/SYCpaKjyU6
-                                   """;
-
 	public static bool ShowingUI = false;
-
-	private static GUIContent[] Pages =
-	[
-		new("Nametag", "Nametag behaviour settings"),
-		new("Icons", "Change how icons are presented"),
-		new("Network", "Change how your nametag looks to other people"),
-		new("Plugins", "Enable/disable all nametags"),
-		new("About", "About BingusNametags++")
-	];
 
 	private static int _pageSelected;
 
@@ -65,7 +39,16 @@ public static class UIManager
 
 	public static void DrawNormal()
 	{
-		_pageSelected = GUI.Toolbar(new Rect(WindowX + 5, WindowY + 30, WindowSizeX - WindowPadding, 20), _pageSelected, Pages.AsArray());
+		GUIContent[] pages =
+		[
+			new(LocalizationManager.GetString("t6"), LocalizationManager.GetString("t11")),
+			new(LocalizationManager.GetString("t7"), LocalizationManager.GetString("t12")),
+			new(LocalizationManager.GetString("t8"), LocalizationManager.GetString("t13")),
+			new(LocalizationManager.GetString("t9"), LocalizationManager.GetString("t14")),
+			new(LocalizationManager.GetString("t10"), LocalizationManager.GetString("t15"))
+		];
+
+		_pageSelected = GUI.Toolbar(new Rect(WindowX + 5, WindowY + 30, WindowSizeX - WindowPadding, 20), _pageSelected, pages.AsArray());
 
 		switch (_pageSelected)
 		{
@@ -73,7 +56,7 @@ public static class UIManager
 				Config.Current.Nametags = GUI.Toggle(
 					new Rect(WindowStartX, WindowStartY, 150, 20),
 					Config.Current.Nametags,
-					new GUIContent("Nametags", "Show nametags")
+					new GUIContent(LocalizationManager.GetString("t16"), LocalizationManager.GetString("t16", 1))
 				);
 
 				if (Config.Current.Nametags)
@@ -81,18 +64,18 @@ public static class UIManager
 					Config.Current.FirstPersonEnabled = GUI.Toggle(
 						new Rect(WindowStartX + 70, WindowStartY + 25, 100, 20),
 						Config.Current.FirstPersonEnabled,
-						new GUIContent("First Person", "Display the nametag in VR (first person)")
+						new GUIContent(LocalizationManager.GetString("t17"), LocalizationManager.GetString("t17", 1))
 					 );
 
 					Config.Current.ThirdPersonEnabled = GUI.Toggle(
 						new Rect(WindowStartX + 175, WindowStartY + 25, 100, 20),
 						Config.Current.ThirdPersonEnabled,
-						new GUIContent("Third Person", "Display the nametag on your PC (third person)")
+						new GUIContent(LocalizationManager.GetString("t18"), LocalizationManager.GetString("t18", 1))
 					);
 
 					GUI.Label(
 						new Rect(WindowStartX, WindowStartY + 25, 70, 20),
-						new GUIContent("Display", "Change how nametags are displayed")
+						new GUIContent(LocalizationManager.GetString("t19"), LocalizationManager.GetString("t19", 1))
 					);
 
 					Config.Current.Scale = GUI.HorizontalSlider(new Rect(WindowStartX + 90, WindowStartY + 50, WindowSizeX - 140, 20),
@@ -105,26 +88,26 @@ public static class UIManager
 					Config.Current.SanitizeNicknames = GUI.Toggle(
 						new Rect(WindowStartX, WindowStartY + 100, 250, 20),
 						Config.Current.SanitizeNicknames,
-						new GUIContent("Sanitize Nicknames", "Prevents invalid usernames from being displayed on nametags (eg. spaces, cuss words, etc.). This is the username displayed on the gorilla's chest.")
+						new GUIContent(LocalizationManager.GetString("t20"), LocalizationManager.GetString("t24"))
 					);
 
 					Config.Current.GFriendsIntegration = GUI.Toggle(
 						new Rect(WindowStartX, WindowStartY + 125, 300, 20),
 						Config.Current.GFriendsIntegration,
-						new GUIContent("Match Nametag Color", "Make the color of the nametag the same color as the nametag on their chest, allowing support for GorillaFriends and Very Important Monke subscribers.")
+						new GUIContent(LocalizationManager.GetString("t21"), LocalizationManager.GetString("t25"))
 					);
 
 					// Labels
 					GUI.Label(
 						new Rect(WindowStartX, WindowStartY + 45, 80, 20),
-						new GUIContent("Size", "Change how large the nametag text is")
+						new GUIContent(LocalizationManager.GetString("t22"), LocalizationManager.GetString("t22", 1))
 					);
 
 					GUI.Label(new Rect(WindowStartX + WindowSizeX - 50, WindowStartY + 45, 30, 20), $"{Config.Current.Scale}");
 
 					GUI.Label(
 						new Rect(WindowStartX, WindowStartY + 70, 80, 20),
-						new GUIContent("Offset", "Change the Y axis offset of the nametag")
+						new GUIContent(LocalizationManager.GetString("t23"), LocalizationManager.GetString("t23", 1))
 					);
 
 					GUI.Label(new Rect(WindowStartX + WindowSizeX - 50, WindowStartY + 70, 30, 20), $"{Config.Current.Offset}");
@@ -135,7 +118,7 @@ public static class UIManager
 				Config.Current.Icons = GUI.Toggle(
 					new Rect(WindowStartX, WindowStartY, 250, 20),
 					Config.Current.Icons,
-					new GUIContent("Icons", "Enable icons in the nametag")
+					new GUIContent(LocalizationManager.GetString("t26"), LocalizationManager.GetString("t26", 1))
 				);
 
 				if (Config.Current.Icons)
@@ -143,14 +126,13 @@ public static class UIManager
 					Config.Current.UserIcons = GUI.Toggle(
 						new Rect(WindowStartX + 10, WindowStartY + 25, 250, 20),
 						Config.Current.UserIcons,
-						new GUIContent("Special User Icons",
-							"Display custom icons for known people like developers, beta testers, and whoever I want")
+						new GUIContent(LocalizationManager.GetString("t27"), LocalizationManager.GetString("t27", 1))
 					);
 
 					Config.Current.PlatformIcons = GUI.Toggle(
 						new Rect(WindowStartX + 10, WindowStartY + 50, 250, 20),
 						Config.Current.PlatformIcons,
-						new GUIContent("Platform Icons", "Display icons representing the icon of a user")
+						new GUIContent(LocalizationManager.GetString("t28"), LocalizationManager.GetString("t28", 1))
 					);
 				}
 
@@ -159,14 +141,14 @@ public static class UIManager
 				var propsToggle = GUI.Toggle(
 					new Rect(WindowStartX, WindowStartY, 175, 20),
 					Config.Current.CustomNametags,
-					new GUIContent("Custom Nametags", "Customize how nametags look to other people")
+					new GUIContent(LocalizationManager.GetString("t29"), LocalizationManager.GetString("t29", 1))
 				);
 
 				if (propsToggle != Config.Current.CustomNametags && !Config.Current.CustomNametags)
 				{
-					Ask("By enabling this feature, your nametag style will be networked with properties.\n\nProperties are commonly used in mod checkers to detect what mods you have installed. Small, very immature children may harass you over your properties.\n\nAre you sure you want to enable Custom Nametags?",
-						["Yes", "No"],
-						result => Config.Current.CustomNametags = (result == "Yes")
+					Ask(LocalizationManager.GetString("t30"),
+						[LocalizationManager.GetString("Yes"), LocalizationManager.GetString("No")],
+						result => Config.Current.CustomNametags = (result == LocalizationManager.GetString("Yes"))
 					);
 				} else if (propsToggle != Config.Current.CustomNametags)
 				{
@@ -181,53 +163,52 @@ public static class UIManager
 					);
 
 					GUI.Label(new Rect(WindowStartX, WindowStartY + 25, 75, 20),
-						new GUIContent("Hex Code",
-							"Custom hex code for your nametag (use a color picker to determine this.)"));
+						new GUIContent(LocalizationManager.GetString("t31"), LocalizationManager.GetString("t31", 1)));
 
 					Config.Current.NetworkBold = GUI.Toggle(
 						new Rect(WindowStartX, WindowStartY + 50, 175, 20),
 						Config.Current.NetworkBold,
-						new GUIContent("Bold", "Nametag text is bolded")
+						LocalizationManager.GetString("t32")
 					);
 
 					Config.Current.NetworkItalic = GUI.Toggle(
 						new Rect(WindowStartX, WindowStartY + 75, 175, 20),
 						Config.Current.NetworkItalic,
-						new GUIContent("Italics", "Nametag text is italicized")
+						LocalizationManager.GetString("t33")
 					);
 
 					Config.Current.NetworkUnderline = GUI.Toggle(
 						new Rect(WindowStartX, WindowStartY + 100, 175, 20),
 						Config.Current.NetworkUnderline,
-						new GUIContent("Underlined", "Nametag text is underlined")
+						LocalizationManager.GetString("t34")
 					);
 				}
 
 				Config.Current.ViewOtherCustomStyles = GUI.Toggle(
 					new Rect(WindowStartX, WindowStartY + 25 + (Config.Current.CustomNametags ? 100 : 0), 175, 20),
 					Config.Current.ViewOtherCustomStyles,
-					new GUIContent("View Other Nametag Styles", "View custom nametag styles for other users. This doesn't enable custom nametags for yourself.")
+					new GUIContent(LocalizationManager.GetString("t35"), LocalizationManager.GetString("t35", 1))
 				);
 
 				GUI.Label(new Rect(WindowStartX, WindowStartY + 50 + (Config.Current.CustomNametags ? 100 : 0), WindowSizeX - WindowPadding * 2, 20),
-					"Auto-Update mode:");
+					LocalizationManager.GetString("t36") + ':');
 				
 				var autoUpdFull = GUI.Toggle(
 					new Rect(WindowStartX, WindowStartY + 70 + (Config.Current.CustomNametags ? 100 : 0), WindowSizeX - WindowPadding * 2, 20),
 					Config.Current.AutoUpdateMode == 0,
-					new GUIContent("Full", "If an update is found, automatically install it")
+					new GUIContent(LocalizationManager.GetString("t37"), LocalizationManager.GetString("t37", 1))
 				);
 
 				var autoUpdPrompt = GUI.Toggle(
 					new Rect(WindowStartX, WindowStartY + 90 + (Config.Current.CustomNametags ? 100 : 0), WindowSizeX - WindowPadding * 2, 20),
 					Config.Current.AutoUpdateMode == 1,
-					new GUIContent("Prompt", "If an update is found, ask if you would like to update")
+					new GUIContent(LocalizationManager.GetString("t38"), LocalizationManager.GetString("t38", 1))
 				);
 
 				var autoUpdOff = GUI.Toggle(
 					new Rect(WindowStartX, WindowStartY + 110 + (Config.Current.CustomNametags ? 100 : 0), WindowSizeX - WindowPadding * 2, 20),
 					Config.Current.AutoUpdateMode == 2,
-					new GUIContent("Off", "Do not automatically update")
+					new GUIContent(LocalizationManager.GetString("t39"), LocalizationManager.GetString("t39", 1))
 				);
 
 				if (autoUpdFull)
@@ -241,7 +222,7 @@ public static class UIManager
 			case 3:
 				if (GUI.Button(
 					new Rect(WindowStartX, WindowStartY, WindowSizeX - 20, 20),
-					new GUIContent("Open Nametags Folder", "You can place .dlls of nametag files here to have them loaded manually by BingusNametags++.")
+					new GUIContent(LocalizationManager.GetString("t40"), LocalizationManager.GetString("t40", 1))
 				))
 				{
 					PluginManager.OpenNametagsFolder();
@@ -264,7 +245,7 @@ public static class UIManager
 
 					var inspect = GUI.Button(
 						new Rect(WindowX + WindowSizeX - 110, startingIndex, 100, 20),
-						new GUIContent("Inspect", "View information about this nametag"));
+						new GUIContent(LocalizationManager.GetString("t41"), LocalizationManager.GetString("t41", 1)));
 
 					if (inspect)
 					{
@@ -298,11 +279,29 @@ public static class UIManager
 					new Rect(
 						WindowStartX, WindowStartY + 110,
 						WindowSizeX - (WindowPadding + 5), WindowSizeY - (WindowStartY + 130)),
-					Credits
+					$"""
+{LocalizationManager.GetString("t3")}:
+- Medievalz
+- Monky
+- tfsdemon
+- salty
+- Linear
+- Golden
+- Josh
+- Ariel
+- Crazykid
+- nebwella
+
+{LocalizationManager.GetString("t4")}:
+- sirkingbinx
+	
+Join the Discord:
+https://discord.gg/SYCpaKjyU6
+"""
 				);
 
 				if (GUI.Button(new Rect(WindowStartX, WindowY + WindowSizeY - 25, 150, 20),
-				  new GUIContent("Data Folder", "Opens the location of the BingusNametags++ data folder")))
+				  	new GUIContent(LocalizationManager.GetString("t42"), LocalizationManager.GetString("t42", 1))))
 					Process.Start(new ProcessStartInfo
 					{
 						FileName = Constants.BingusNametagsData,
@@ -317,14 +316,22 @@ public static class UIManager
 		}
 
 		if (GUI.Button(
+			new Rect(WindowX + 5, WindowY + 5, 100, 20),
+			new GUIContent(LocalizationManager.Languages[LocalizationManager.CurrentLanguageIndex]))
+		)
+		{
+			LocalizationManager.CurrentLanguageIndex = (LocalizationManager.CurrentLanguageIndex + 1) % LocalizationManager.Languages.Length;
+			LocalizationManager.SetLanguage(LocalizationManager.CurrentLanguageIndex);
+		}
+
+		if (GUI.Button(
 			new Rect(WindowX + WindowSizeX - 190, WindowY + WindowSizeY - 25, 100, 20),
-			new GUIContent("Refresh", "Reload all configuration. Any unsaved changes will be lost!"))
+			new GUIContent(LocalizationManager.GetString("t43"), LocalizationManager.GetString("t43", 1)))
 		)
 			Config.LoadPrefs();
 
 		if (GUI.Button(new Rect(WindowX + WindowSizeX - 80, WindowY + WindowSizeY - 25, 75, 20),
-				new GUIContent("Apply",
-					"Save the current nametags configuration. Auto-saves!")))
+				new GUIContent(LocalizationManager.GetString("t44"), LocalizationManager.GetString("t44", 1))))
 			Config.SavePrefs();
 
         #region Debug Stuff
@@ -410,7 +417,7 @@ public static class UIManager
 		);
 
 		GUILayout.Label(
-			"This plugin contains the following nametags:"
+			LocalizationManager.GetString("t45") + ":"
 		);
 
 		foreach (var nametagMeta in CurrentlyInspectedNametag.Nametags.Keys)
@@ -422,8 +429,7 @@ public static class UIManager
 		GUILayout.EndArea();
 
 		if (GUI.Button(new Rect(WindowX + (WindowSizeX - 105), WindowY + WindowSizeY - 25, 100, 20),
-				new GUIContent("Close",
-					"Return to the Plugins tab")))
+				new GUIContent(LocalizationManager.GetString("t48"), LocalizationManager.GetString("t47"))))
 			WindowState = BGWindowState.Normal;
 	}
 
@@ -475,7 +481,7 @@ public static class UIManager
         var mousePosition = Mouse.current.position.ReadValue();
 
 		// X button
-		if (GUI.Button(new Rect(WindowX + WindowSizeX - 25, WindowY + 5, 20, 20), new GUIContent("X", "Close")))
+		if (GUI.Button(new Rect(WindowX + WindowSizeX - 25, WindowY + 5, 20, 20), new GUIContent("X", LocalizationManager.GetString("t48"))))
 			ShowingUI = false;
 
 		// Tooltip display

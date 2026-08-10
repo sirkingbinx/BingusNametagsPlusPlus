@@ -84,8 +84,8 @@ public class Main : MonoBehaviour
         LogManager.Log("Some errors occured, we have logged them to the console and displayed them");
 
         UIManager.Ask(
-            $"There were errors loading some nametags.\n\n{string.Join("\n- ", PluginManager.PluginFailures)}\n\nIf you are a user, please report these messages to the developer(s) of the nametag.",
-            ["OK"],
+            $"{LocalizationManager.GetString("t1")}\n\n{string.Join("\n- ", PluginManager.PluginFailures)}\n\n{LocalizationManager.GetString("t2")}",
+            [LocalizationManager.GetString("OK")],
             (_) => { }
         );
     }
