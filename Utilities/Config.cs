@@ -44,7 +44,7 @@ public class Config
     public int SetLanguage = 0;
 
     // Plugins
-    public List<string> EnabledPlugins = ["Default"];
+    public string EnabledPlugins = "Default";
 
     public Dictionary<string, float> PluginOffsets = new();
 
@@ -59,9 +59,6 @@ public class Config
 
 	public static void LoadPrefs()
 	{
-        if (Current.EnabledPlugins.Count == 0)
-            Current.EnabledPlugins.Add("Default");
-
         try
         {
             if (!File.Exists(ConfigFilePath))
@@ -77,6 +74,9 @@ public class Config
 
     public static void ProcessPrefs()
     {
+        if (Current.EnabledPlugins == "")
+            Current.EnabledPlugins = "Default";
+
         LocalizationManager.SetLanguage(Current.SetLanguage);
 
         var fontFile =

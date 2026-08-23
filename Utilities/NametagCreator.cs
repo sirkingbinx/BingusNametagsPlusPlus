@@ -9,7 +9,7 @@ namespace BingusNametagsPlusPlus.Utilities;
 
 public static class NametagCreator
 {
-	private static GameObject CreateNametag(VRRig owner)
+	private static GameObject CreateNametag(VRRig owner, string layer)
 	{
 		var parent = owner.transform.Find("Body") ?? owner.transform;
 		var tagObject = Object.Instantiate(Main.NametagDefault, parent, false);
@@ -17,7 +17,10 @@ public static class NametagCreator
 		tagObject?.transform.localPosition = new Vector3(0f, Config.Current.Offset, 0f);
 		tagObject?.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
-        tagObject?.AddComponent<CameraFollower>();
+		tagObject?.layer = LayerMask.NameToLayer(layer);
+
+        var cf = tagObject?.AddComponent<CameraFollower>();
+		cf?.lookingAtThirdPerson = (layer == "MirrorOnly");
 
         var tmPro = tagObject?.GetComponent<TextMeshPro>();
 		tmPro?.text = "...";
@@ -29,5 +32,5 @@ public static class NametagCreator
 	}
 
 	public static PlayerNametag CreateNametagObject(VRRig owner) =>
-		new PlayerNametag(owner, CreateNametag(owner));
+		new PlayerNametag(owner, CreateNametag(owner, "FirstPersonOnly"), CreateNametag(owner, "MirrorOnly"));
 }

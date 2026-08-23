@@ -70,7 +70,7 @@ public static class PluginManager
             DisablePlugin(badPlugin);
 
         if (!isManagedNametagCalling)
-            Config.Current.EnabledPlugins = EnabledPlugins.Select(s => s.Metadata.Name).ToList();
+            Config.Current.EnabledPlugins = string.Join(";", EnabledPlugins.Select(s => s.Metadata.Name));
     }
 
     /// <summary>
