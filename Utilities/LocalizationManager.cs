@@ -6,15 +6,16 @@ namespace BingusNametagsPlusPlus.Utilities;
 public static class LocalizationManager
 {
     public static int CurrentLanguageIndex = 0;
-    public static string[] Languages = [ "English", "Francais", "Nederlands", "Deutsch" ];
-    public static string[] LanguageCode = [ "en", "fr", "nl", "de" ];
+    public static string[] Languages = [ "English", "Nederlands", "Deutsch" ];
+    public static string[] LanguageCode = [ "en", "nl", "de" ];
 
-    private static ResourceManager rm;
+    private static ResourceManager rm = new ResourceManager("BingusNametagsPlusPlus.Localization.UIStrings-en", Assembly.GetExecutingAssembly());
 
     public static void SetLanguage(int languageIndex)
     {
         CurrentLanguageIndex = languageIndex;
         rm = new ResourceManager("BingusNametagsPlusPlus.Localization.UIStrings-" + LanguageCode[CurrentLanguageIndex], Assembly.GetExecutingAssembly());
+        Config.Current.SetLanguage = CurrentLanguageIndex;
     }
 
     public static string GetString(string translationName, int itemIndex = 0)

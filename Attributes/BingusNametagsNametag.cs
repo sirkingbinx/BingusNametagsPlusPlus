@@ -8,9 +8,9 @@ namespace BingusNametagsPlusPlus.Attributes
     /// Defines a nametag that will be updated each frame.
     /// </summary>
     /// <param name="name">The name of this specific nametag. For example, "speed_counter" or "fps_counter".</param>
-    /// <param name="offset">The offset from the default nametag's position. The default nametag's offset is 0f.</param>
+    /// <param name="offset">The default offset from the default nametag's position. The main nametag's offset is 0f.</param>
     [AttributeUsage(AttributeTargets.Method, Inherited = false)]
-    public class BingusNametagsNametag(string name, float offset) : Attribute
+    public class BingusNametagsNametag(string name, float defaultOffset) : Attribute
     {
         /// <summary>
         /// The name of this specific nametag.
@@ -20,7 +20,7 @@ namespace BingusNametagsPlusPlus.Attributes
         /// <summary>
         /// The offset from the default nametag's position. The default nametag's offset is 0f.
         /// </summary>
-        public float Offset => offset;
+        public float Offset { get; set; } = defaultOffset;
 
         public Dictionary<VRRig, PlayerNametag> Nametags = new();
     }

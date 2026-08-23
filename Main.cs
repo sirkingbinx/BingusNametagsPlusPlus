@@ -49,13 +49,16 @@ public class Main : MonoBehaviour
         var tmPro = NametagDefault?.GetComponent<TextMeshPro>();
         tmPro?.fontMaterial.shader = Shader.Find("TextMeshPro/Mobile/Distance Field");
         tmPro?.spriteAsset.material.shader = Shader.Find("UI/Default");
-        
+
         // load stuff
+        LogManager.Log("Loading configuration [3/4 pre]");
+        Config.LoadPrefs();
+
         LogManager.Log("Loading nametags [2/4]");
         Task.Run(PluginManager.LoadNametags).Wait();
 
-        LogManager.Log("Loading configuration [3/4]");
-        Config.LoadPrefs();
+        LogManager.Log("Loading configuration [3/4 post]");
+        Config.ProcessPrefs();
 
         LogManager.Log("Nametags have been loaded. yay [4/4]");
 

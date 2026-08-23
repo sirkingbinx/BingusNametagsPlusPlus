@@ -9,10 +9,10 @@ public static class Constants
 	public const string Guid = "bingus.nametagsplusplus";
     public const string Version = "1.7.0";
 
-    public const ReleaseChannel Channel = ReleaseChannel.Beta;
+    public const ReleaseChannel Channel = ReleaseChannel.Stable;
 
     public static string BingusNametagsData =>
-        Path.Combine(Application.dataPath[..Application.dataPath.LastIndexOfAny(['/', '\\'])], "BingusNametags++");
+        Path.Combine(Application.dataPath[.. Application.dataPath.LastIndexOfAny(['/', '\\'])], "BingusNametags++");
 }
 
 public enum ReleaseChannel

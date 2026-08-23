@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BingusNametagsPlusPlus.Attributes;
 using BingusNametagsPlusPlus.Utilities;
 using TMPro;
 using UnityEngine;
@@ -114,13 +115,15 @@ public class PlayerNametag(VRRig player, GameObject nametag)
 #region not api
     internal float PluginScale = 1f;
 
-    internal void UpdateSettings(float offset)
+    internal void UpdateSettings(BingusNametagsPlugin plugin, BingusNametagsNametag pNametag)
     {
         if (nametag.activeSelf != Config.Current.Nametags)
             nametag.SetActive(Config.Current.Nametags);
         
         if (!nametag.activeSelf)
             return;
+
+        float offset = Config.GetNametagOffset(plugin, pNametag);
 
         nametag.GetComponent<TextMeshPro>().fontSize = Config.Current.Scale * PluginScale;
         nametag.transform.localPosition = new Vector3(0f, Config.Current.Offset + offset, 0f);

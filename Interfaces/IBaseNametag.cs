@@ -46,7 +46,7 @@ namespace BingusNametagsPlusPlus.Interfaces
 
                     try
                     {
-                        nametags[rig].UpdateSettings(pair.Key.Offset);
+                        nametags[rig].UpdateSettings(Metadata, pair.Key);
                         pair.Value?.Invoke(nametags[rig]);
                     }
                     catch (Exception ex)

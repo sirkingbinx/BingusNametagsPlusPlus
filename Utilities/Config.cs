@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using BingusNametagsPlusPlus.Attributes;
 using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
@@ -31,19 +32,21 @@ public class Config
 
     // Networking
     public bool CustomNametags = false;
-	public bool ViewOtherCustomStyles = true;
+    public bool ViewOtherCustomStyles = true;
 
-	public string NetworkColor = "ffffff";
-	public bool   NetworkBold = false;
-	public bool   NetworkUnderline = false;
-	public bool   NetworkItalic = false;
+    public string NetworkColor = "ffffff";
+    public bool NetworkBold = false;
+    public bool NetworkUnderline = false;
+    public bool NetworkItalic = false;
 
     public int AutoUpdateMode = 0;
 
     public int SetLanguage = 0;
 
     // Plugins
-    public List<string> EnabledPlugins = [ "Default" ];
+    public List<string> EnabledPlugins = ["Default"];
+
+    public Dictionary<string, float> PluginOffsets = new();
 
     // Misc
     public TMP_FontAsset? CustomFont;
@@ -70,29 +73,27 @@ public class Config
         {
             return;
         }
-
-		var fontFile =
-			Directory.EnumerateFiles(Constants.BingusNametagsData, "*.ttf", SearchOption.AllDirectories)
-				.FirstOrDefault()
-			?? Directory.EnumerateFiles(Constants.BingusNametagsData, "*.otf", SearchOption.AllDirectories)
-				.FirstOrDefault();
-
-		if (!fontFile.IsNullOrWhiteSpace())
-			Current.CustomFont = TMP_FontAsset.CreateFontAsset(new Font(fontFile));
-
-        if (Current.EnabledPlugins.Count == 0)
-            Current.EnabledPlugins.Add("Default");
-
-        PluginManager.Plugins.ForEach(plugin =>
-        {
-            if (Current.EnabledPlugins.Contains(plugin.Metadata.Name))
-                PluginManager.EnablePlugin(plugin);
-            else
-                PluginManager.DisablePlugin(plugin);
-        });
-
-        LocalizationManager.SetLanguage(Current.SetLanguage);
     }
+
+    public static void ProcessPrefs()
+    {
+        LocalizationManager.SetLanguage(Current.SetLanguage);
+
+        var fontFile =
+            Directory.EnumerateFiles(Constants.BingusNametagsData, "*.ttf", SearchOption.AllDirectories)
+                .FirstOrDefault()
+            ?? Directory.EnumerateFiles(Constants.BingusNametagsData, "*.otf", SearchOption.AllDirectories)
+                .FirstOrDefault();
+
+        if (!fontFile.IsNullOrWhiteSpace())
+            Current.CustomFont = TMP_FontAsset.CreateFontAsset(new Font(fontFile));
+    }
+
+    public static void SaveNametagOffset(BingusNametagsPlugin plugin, BingusNametagsNametag nametag, float offset) =>
+        Current.PluginOffsets[$"{plugin.Author}.{plugin.Name}.{nametag.Name}"] = offset;
+
+    public static float GetNametagOffset(BingusNametagsPlugin plugin, BingusNametagsNametag nametag) =>
+        Current.PluginOffsets[$"{plugin.Author}.{plugin.Name}.{nametag.Name}"];
 
 	public static bool ValidHexCode(string hexCode) =>
         !hexCode.IsNullOrWhiteSpace() && Regex.IsMatch(hexCode, @"^#?([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$");

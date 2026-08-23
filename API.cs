@@ -7,6 +7,7 @@ using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Classes.API;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
+using UnityEngine;
 
 namespace BingusNametagsPlusPlus;
 
@@ -40,7 +41,10 @@ public static class API
             var updateFunc = (Action<PlayerNametag>)Delegate.CreateDelegate(typeof(Action<PlayerNametag>), nametagInfo);
 
             if (attribute != null)
+            {
                 metadata.Nametags.Add(attribute, updateFunc);
+                Config.Current?.PluginOffsets.TryAdd($"{metadata.Author}.{metadata.Name}.{attribute.Name}", attribute.Offset);
+            }
         });
 
         PluginManager.PluginMetadata.Add(nametag, metadata);
@@ -120,14 +124,14 @@ public static class API
     private static readonly Dictionary<string, Badge[]> _specialBadgeIds = new()
     {
         // bingus
-        ["BA147A3E966ABFDE"] = [Badge.Developer, Badge.BetaTester],
+        ["3DF1E7A71F3B9EF1"] = [Badge.Developer, Badge.BetaTester],
         // contest winners
         ["54E4FF50DA51FA1"] = [Badge.BetaTester],
         ["DC87370B150525E7"] = [Badge.BetaTester],
         ["342F4ADC70815AA3"] = [Badge.BetaTester],
         // beta testers
         ["E678D10ECA536D58"] = [Badge.BetaTester],
-        ["846E7DD5ACEAC0d4"] = [Badge.BetaTester],
+        ["846E7DD5ACEAC0D4"] = [Badge.BetaTester],
         ["68CCDDC115FDC9FB"] = [Badge.BetaTester],
         ["706572060708C655"] = [Badge.BetaTester],
         ["7ADB8B7E8F60E767"] = [Badge.BetaTester],

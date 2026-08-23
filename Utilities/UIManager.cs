@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using BepInEx;
 using BingusNametagsPlusPlus.Attributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -422,7 +421,13 @@ https://discord.gg/SYCpaKjyU6
 
 		foreach (var nametagMeta in CurrentlyInspectedNametag.Nametags.Keys)
 		{
-			GUILayout.Label($"- {nametagMeta.Name} (Offset: {nametagMeta.Offset})");
+			float currentOffset = Config.GetNametagOffset(CurrentlyInspectedNametag, nametagMeta);
+
+            GUILayout.Label($"- {nametagMeta.Name} ({LocalizationManager.GetString("t46")}: {currentOffset})");
+            float newOffset = GUILayout.HorizontalSlider(currentOffset, -5f, 5f);
+
+			if (currentOffset != newOffset)
+				Config.SaveNametagOffset(CurrentlyInspectedNametag, nametagMeta, MathF.Round(newOffset, 2));
 		}
 
 		GUILayout.EndScrollView();
