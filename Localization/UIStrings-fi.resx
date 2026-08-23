@@ -118,156 +118,156 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="OK" xml:space="preserve">
-    <value>D'accord</value>
+    <value>OK</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Oui</value>
+    <value>Kyllä</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>Non</value>
+    <value>Ei</value>
   </data>
   <data name="t1" xml:space="preserve">
-    <value>Des erreurs ont été commises lors du chargement de certains nametags.</value>
+    <value>Joidenkin nimikylttien lataamisessa tapahtui virheitä</value>
   </data>
   <data name="t2" xml:space="preserve">
-    <value>Si vous êtes un utilisateur, veuillez signaler ces messages au développeur du nametag.</value>
+    <value>Jos olet käyttäjä, ilmoitathan näistä viesteistä nimikyltin kehittäjälle</value>
   </data>
   <data name="t3" xml:space="preserve">
-    <value>Beta Testeur</value>
+    <value>Beetatestaajat</value>
   </data>
   <data name="t4" xml:space="preserve">
-    <value>Traducteurs</value>
+    <value>Kääntäjät</value>
   </data>
   <data name="t5" xml:space="preserve">
-    <value>Rejoignez le Discord!</value>
+    <value>Liity Discordiin</value>
   </data>
   <data name="t6" xml:space="preserve">
-    <value>Nametag</value>
+    <value>Nimikyltti</value>
   </data>
   <data name="t7" xml:space="preserve">
-    <value>Icônes</value>
+    <value>Kuvakkeet</value>
   </data>
   <data name="t8" xml:space="preserve">
-    <value>Réseau</value>
+    <value>Verkko</value>
   </data>
   <data name="t9" xml:space="preserve">
-    <value>Plugins</value>
+    <value>Lisäosat</value>
   </data>
   <data name="t10" xml:space="preserve">
-    <value>À propos</value>
+    <value>Tietoa</value>
   </data>
   <data name="t11" xml:space="preserve">
-    <value>Paramètres de comportement des nametags</value>
+    <value>Nimikylttien käyttäytymisasetukset</value>
   </data>
   <data name="t12" xml:space="preserve">
-    <value>Modifie la façon dont les icônes sont présentées</value>
+    <value>Muuta, miten kuvakkeet näytetään</value>
   </data>
   <data name="t13" xml:space="preserve">
-    <value>Changez la façon dont votre nametag apparaît pour les autres</value>
+    <value>Muuta, miten nimikylttisi näkyy muille</value>
   </data>
   <data name="t14" xml:space="preserve">
-    <value>Activer/Désactiver tous les nametags</value>
+    <value>Ota käyttöön / poista käytöstä kaikki nimikyltit</value>
   </data>
   <data name="t15" xml:space="preserve">
-    <value>À propos de BingusNametags++</value>
+    <value>Tietoa BingusNametags++</value>
   </data>
   <data name="t16" xml:space="preserve">
-    <value>Nametags - Montrer les nametags</value>
+    <value>Nimikyltit - Näytä nimikyltit</value>
   </data>
   <data name="t17" xml:space="preserve">
-    <value>Première personne - Montrer les nametags en VR (première personne)</value>
+    <value>Ensimmäinen persoona - Näytä nimikyltti VR-tilassa (ensimmäinen persoona)</value>
   </data>
   <data name="t18" xml:space="preserve">
-    <value>Troisième personne - Montrer les nametags sur votre pc (troisième personne)</value>
+    <value>Kolmas persoona - Näytä nimikyltti PC-ruudulla (kolmas persoona)</value>
   </data>
   <data name="t19" xml:space="preserve">
-    <value>Affichage - Changer la façon dont les nametags sont affichés</value>
+    <value>Esitystapa - Muuta nimikylttien esitystapaa</value>
   </data>
   <data name="t20" xml:space="preserve">
-    <value>Nettoyer les pseudos</value>
+    <value>Puhdista nimimerkit</value>
   </data>
   <data name="t21" xml:space="preserve">
-    <value>Assortir la couleur du nametag</value>
+    <value>Sovita nimikyltin väri</value>
   </data>
   <data name="t22" xml:space="preserve">
-    <value>Taile - Changer la largeur des nametags</value>
+    <value>Koko - Muuta nimikylttitekstin kokoa</value>
   </data>
   <data name="t23" xml:space="preserve">
-    <value>Décalage - Changer l'axe Y du décalage des nametags</value>
+    <value>Siirto - Muuta nimikyltin Y-akselin siirtymää</value>
   </data>
   <data name="t24" xml:space="preserve">
-    <value>Empêche les pseudos invalides d'être affichés sur les nametags (ex. espaces, insultes, etc.). C'est le pseudo affiché sur le torse du gorille.</value>
+    <value>Estää virheellisten käyttäjänimien näkymisen nimikylteissä (esim. välilyönnit, kirosanat, jne.) Tämä on apinan rinnassa näkyvä käyttäjänimi.</value>
   </data>
   <data name="t25" xml:space="preserve">
-    <value>Fait en sorte que la couleur du nametag soit la même que celle sur le torse du gorille, autorisant le support pour GorillaFriends et pour le V.I.M.</value>
+    <value>Tekee nimikyltin väristä samanlaisen kuin heidän rinnassaan näkyvän nimikyltin väri, mikä mahdollistaa tuen GorillaFriends- ja Very Important Monke -tilaajille.</value>
   </data>
   <data name="t26" xml:space="preserve">
-    <value>Icônes - Active les icônes sur les nametags</value>
+    <value>Kuvakkeet - Ota kuvakkeet käyttöön nimikyltissä</value>
   </data>
   <data name="t27" xml:space="preserve">
-    <value>Icônes d'utilisateurs spéciaux - Affiche des icônes personnalisées pour les personnes connues comme les développeurs, bêta-testeurs et traducteurs</value>
+    <value>Erityiset käyttäjäkuvakkeet - Näytä mukautettuja kuvakkeita tunnetuille henkilöille kuten kehittäjät, beetatestaajat ja kääntäjät</value>
   </data>
   <data name="t28" xml:space="preserve">
-    <value>Icônes de plateforme - Affiche des icônes représentant la plateforme du joueur</value>
+    <value>Alustakuvakkeet - Näytä kuvakkeet, jotka kuvaavat henkilön alustaa</value>
   </data>
   <data name="t29" xml:space="preserve">
-    <value>Nametag personnalisé - Changer l'apparence de votre nametag pour les autres utilisateurs</value>
+    <value>Mukautetut nimikyltit - Muokkaa, miltä nimikyltit näyttävät muille </value>
   </data>
   <data name="t30" xml:space="preserve">
-    <value>En activant cette option, votre nametag personnalisé va être partagé sur le réseau avec les Custom Properties. Les Custom Properties sont souvent utilisées dans les mod checkers pour détecter les mods que vous avez installés. Des petits enfants relous pourrait vous ennuyer a propos de vos Custom Properties.Êtes-vous sûr d'activer le nametag personnalisé?</value>
+    <value>Ottamalla tämän ominaisuuden käyttöön nimikylttisi tyyli välitetään verkkoon propertyjen avulla. Propertyjä käytetään yleisesti moditarkistimissa selvittämään, mitä modeja sinulla on asennettuna. Pienet, hyvin lapselliset lapset saattavat häiritä sinua propertyjesi takia. Haluatko varmasti ottaa käyttöön mukautetut nimikyltit?</value>
   </data>
   <data name="t31" xml:space="preserve">
-    <value>Code Hex - Code Hex personnalisé pour votre nametag</value>
+    <value>Hex-koodi - Mukautettu hex-koodi nimikyltillesi</value>
   </data>
   <data name="t32" xml:space="preserve">
-    <value>Gras</value>
+    <value>Lihavoitu</value>
   </data>
   <data name="t33" xml:space="preserve">
-    <value>Italique </value>
+    <value>Kursivoitu</value>
   </data>
   <data name="t34" xml:space="preserve">
-    <value>Souligné</value>
+    <value>Alleviivattu</value>
   </data>
   <data name="t35" xml:space="preserve">
-    <value>Voir les nametags personnalisés des autres - Permet de voir les nametags personnalisés des autres joueurs. Ceci n'active pas votre nametag personnalisé.</value>
+    <value>Näytä muiden nimikylttityylit - Näytä muiden käyttäjien mukautetut nimikylttityylit. Tämä ei ota käyttöön mukautettuja nimikylttejä sinulle itsellesi.</value>
   </data>
   <data name="t36" xml:space="preserve">
-    <value>Modes de mise à jour automatique </value>
+    <value>Automaattinen päivitystila</value>
   </data>
   <data name="t37" xml:space="preserve">
-    <value>Complètement automatique - Si une mise à jour est trouvée, elle est automatiquement installée</value>
+    <value>Täysi - Jos päivitys löytyy, asenna se automaattisesti</value>
   </data>
   <data name="t38" xml:space="preserve">
-    <value>Demander - Si une mise a jour est trouvée, elle vous sera proposée</value>
+    <value>Kysy - Jos päivitys löytyy, kysy, haluatko asentaa sen</value>
   </data>
   <data name="t39" xml:space="preserve">
-    <value>Éteint - Ne pas installer de mise à jour automatiquement</value>
+    <value>Pois päältä - Älä päivitä automaattisesti</value>
   </data>
   <data name="t40" xml:space="preserve">
-    <value>Ouvrir le fichier contenant les nametags - Ici vous pouvez placer des fichiers .dll contenant des nametags qui seront chargés manuellement par BingusNametags++.</value>
+    <value>Avaa nimikylttikansio - Voit sijoittaa nimikylttitiedostojen .dll-tiedostoja tänne, jotta BingusNametags++ lataa ne automaattisesti.</value>
   </data>
   <data name="t41" xml:space="preserve">
-    <value>Inspection - Voir les informations à propos de ce nametag</value>
+    <value>Tarkasta - Näytä tietoja tästä nimikyltistä</value>
   </data>
   <data name="t42" xml:space="preserve">
-    <value>Dossier des données - Ouvrir le dossier contenant les données de BingusNametags++.</value>
+    <value>Datakansio - Avaa BingusNametags++ datakansion sijainnin</value>
   </data>
   <data name="t43" xml:space="preserve">
-    <value>Actualiser - Rafraîchit les configurations actuelles des nametags. Tous les changements non sauvegardés seront perdus !</value>
+    <value>Palauta - Lataa kaikki asetukset uudelleen. Tallentamattomat muutokset menetetään!</value>
   </data>
   <data name="t44" xml:space="preserve">
-    <value>Appliquer - Sauvegarde la configuration actuelle des nametags. Sauvegarde automatique !</value>
+    <value>Käytä - Tallenna nykyinen nimikylttiasetusten kokoonpano. Tallentuu automaattisesti!</value>
   </data>
   <data name="t45" xml:space="preserve">
-    <value>Ce plugin contient les nametags suivants</value>
+    <value>Tämä lisäosa sisältää seuraavat nimikyltit</value>
   </data>
   <data name="t46" xml:space="preserve">
-    <value>Décalage</value>
+    <value>Siirto</value>
   </data>
   <data name="t47" xml:space="preserve">
-    <value>Retourner à l'onglet des plugins</value>
+    <value>Palaa lisäosat-välilehteen</value>
   </data>
   <data name="t48" xml:space="preserve">
-    <value>Fermé</value>
+    <value>Sulje</value>
   </data>
 </root>
