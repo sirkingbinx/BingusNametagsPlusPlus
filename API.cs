@@ -57,7 +57,7 @@ public static class API
         PluginManager.Plugins.Add(nametag);
 
         if (Config.Current.EnabledPlugins.Split(";").Contains(nametag.Metadata.Name))
-            PluginManager.EnablePlugin(nametag);
+            PluginManager.EnablePlugin(nametag, true);
 
         return new ManagedNametag()
         {

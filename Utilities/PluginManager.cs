@@ -7,7 +7,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using BingusNametagsPlusPlus.Attributes;
-using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Nametags;
 
 namespace BingusNametagsPlusPlus.Utilities;
@@ -71,6 +70,8 @@ public static class PluginManager
 
         if (!isManagedNametagCalling)
             Config.Current.EnabledPlugins = string.Join(";", EnabledPlugins.Select(s => s.Metadata.Name));
+
+        LogManager.LogLine(Config.Current.EnabledPlugins);
     }
 
     /// <summary>
