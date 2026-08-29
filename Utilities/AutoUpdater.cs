@@ -10,6 +10,8 @@ namespace BingusNametagsPlusPlus.Utilities;
 public static class AutoUpdater
 {
     private static readonly HttpClient httpClient = new();
+
+    // src: https://github.com/sirkingbinx/updatemgmt
     private const string updateUrl = "https://updmgmt.sirkingbinx.dev/BingusNametagsPlusPlus";
     private static string? downloadUrl;
 
