@@ -10,7 +10,7 @@ namespace BingusNametagsPlusPlus.Utilities;
 public static class AutoUpdater
 {
     private static readonly HttpClient httpClient = new();
-    private const string updateUrl = "https://updates.sirkingbinx.dev/version/nametags";
+    private const string updateUrl = "https://updmgmt.sirkingbinx.dev/BingusNametagsPlusPlus";
     private static string? downloadUrl;
 
     public static void Invoke()
@@ -28,7 +28,7 @@ public static class AutoUpdater
 #pragma warning disable CS8600
 #pragma warning disable CS8602
             var latestVersion = new Version((string)versionData["version"]);
-            downloadUrl = (string)versionData["download"];
+            downloadUrl = (string)versionData["url"];
 #pragma warning restore CS8602
 #pragma warning restore CS8600
 
