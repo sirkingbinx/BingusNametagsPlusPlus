@@ -9,3 +9,4 @@ BingusNametagsPlusPlus
 Builds/
 *.dll
 !/Build/Dependencies/
+.DS_Store

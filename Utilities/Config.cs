@@ -53,6 +53,7 @@ public class Config
 
 	public static void SavePrefs()
     {
+        Current.EnabledPlugins = string.Join(';', PluginManager.EnabledPlugins.Select(p => p.Metadata.Name));
         string configText = JsonConvert.SerializeObject(Current, Formatting.Indented);
         File.WriteAllText(ConfigFilePath, configText);
 	}

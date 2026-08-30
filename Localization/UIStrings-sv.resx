@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+    <comment/>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ja</value>
+    <comment/>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Inga</value>
+    <comment/>
+  </data>
+  <data name="t1" xml:space="preserve">
+    <value>Det uppstod fel när vissa namnetiketter lästes in.</value>
+    <comment/>
+  </data>
+  <data name="t2" xml:space="preserve">
+    <value>Om du är en användare, vänligen rapportera dessa meddelanden till utvecklaren av namntaggen.</value>
+    <comment/>
+  </data>
+  <data name="t3" xml:space="preserve">
+    <value>Betatestare</value>
+    <comment/>
+  </data>
+  <data name="t4" xml:space="preserve">
+    <value>Översättare</value>
+    <comment/>
+  </data>
+  <data name="t5" xml:space="preserve">
+    <value>Gå med i Discord</value>
+    <comment/>
+  </data>
+  <data name="t6" xml:space="preserve">
+    <value>Namnskylt</value>
+    <comment/>
+  </data>
+  <data name="t7" xml:space="preserve">
+    <value>Ikoner</value>
+    <comment/>
+  </data>
+  <data name="t8" xml:space="preserve">
+    <value>Nätverk</value>
+    <comment/>
+  </data>
+  <data name="t9" xml:space="preserve">
+    <value>Plugins</value>
+    <comment/>
+  </data>
+  <data name="t10" xml:space="preserve">
+    <value>Om</value>
+    <comment/>
+  </data>
+  <data name="t11" xml:space="preserve">
+    <value>Inställningar för namntaggbeteende</value>
+    <comment/>
+  </data>
+  <data name="t12" xml:space="preserve">
+    <value>Ändra hur ikoner presenteras</value>
+    <comment/>
+  </data>
+  <data name="t13" xml:space="preserve">
+    <value>Ändra hur din namnbricka ser ut för andra</value>
+    <comment/>
+  </data>
+  <data name="t14" xml:space="preserve">
+    <value>Aktivera/inaktivera alla namnetiketter</value>
+    <comment/>
+  </data>
+  <data name="t15" xml:space="preserve">
+    <value>Om BingusNametags++</value>
+    <comment/>
+  </data>
+  <data name="t16" xml:space="preserve">
+    <value>Namnskyltar - Visa namnskyltar</value>
+    <comment/>
+  </data>
+  <data name="t17" xml:space="preserve">
+    <value>Förstaperson - Visa namnskylten i VR (förstaperson)</value>
+    <comment/>
+  </data>
+  <data name="t18" xml:space="preserve">
+    <value>Tredje person - Visa namnskylten på din dator (tredje person)</value>
+    <comment/>
+  </data>
+  <data name="t19" xml:space="preserve">
+    <value>Visa - Ändra hur namnetiketter visas</value>
+    <comment/>
+  </data>
+  <data name="t20" xml:space="preserve">
+    <value>Sanera smeknamn</value>
+    <comment/>
+  </data>
+  <data name="t21" xml:space="preserve">
+    <value>Matcha namnskyltens färg</value>
+    <comment/>
+  </data>
+  <data name="t22" xml:space="preserve">
+    <value>Storlek - Ändra hur stor namnskyltens text är</value>
+    <comment/>
+  </data>
+  <data name="t23" xml:space="preserve">
+    <value>Offset - Ändra namnskyltens Y-axelförskjutning</value>
+    <comment/>
+  </data>
+  <data name="t24" xml:space="preserve">
+    <value>Förhindrar att ogiltiga användarnamn visas på namnskyltar (t.ex. mellanslag, svordomar etc.). Detta är användarnamnet som visas på gorillans bröstkorg.</value>
+    <comment/>
+  </data>
+  <data name="t25" xml:space="preserve">
+    <value>Gör namnbrickans färg i samma färg som namnbrickan på bröstet, vilket möjliggör stöd för GorillaFriends och Very Important Monke-prenumeranter.</value>
+    <comment/>
+  </data>
+  <data name="t26" xml:space="preserve">
+    <value>Ikoner – Aktivera ikoner i namnetiketten</value>
+    <comment/>
+  </data>
+  <data name="t27" xml:space="preserve">
+    <value>Särskilda användarikoner – Visa anpassade ikoner för kända personer som utvecklare, betatestare och översättare</value>
+    <comment/>
+  </data>
+  <data name="t28" xml:space="preserve">
+    <value>Plattformsikoner – Visar ikoner som representerar en användares ikon</value>
+    <comment/>
+  </data>
+  <data name="t29" xml:space="preserve">
+    <value>Anpassade namnskyltar – Anpassa hur namnskyltar ser ut för andra</value>
+    <comment/>
+  </data>
+  <data name="t30" xml:space="preserve">
+    <value>Genom att aktivera den här funktionen kommer din namntaggsstil att nätverkas med egenskaper. Egenskaper används ofta i mod-checkers för att upptäcka vilka mods du har installerade. Små, mycket omogna barn kan trakassera dig på grund av dina fastigheter. Är du säker på att du vill aktivera anpassade namnetiketter?</value>
+    <comment/>
+  </data>
+  <data name="t31" xml:space="preserve">
+    <value>Hexkod - Anpassad hexkod för din namnbricka</value>
+    <comment/>
+  </data>
+  <data name="t32" xml:space="preserve">
+    <value>Djärv</value>
+    <comment/>
+  </data>
+  <data name="t33" xml:space="preserve">
+    <value>Kursiv</value>
+    <comment/>
+  </data>
+  <data name="t34" xml:space="preserve">
+    <value>Understruken</value>
+    <comment/>
+  </data>
+  <data name="t35" xml:space="preserve">
+    <value>Visa andra namntaggstilar – Visa anpassade namntaggstilar för andra användare. Detta aktiverar inte anpassade namntaggar för dig själv.</value>
+    <comment/>
+  </data>
+  <data name="t36" xml:space="preserve">
+    <value>Läge för automatisk uppdatering</value>
+    <comment/>
+  </data>
+  <data name="t37" xml:space="preserve">
+    <value>Fullständig - Om en uppdatering hittas installeras den automatiskt</value>
+    <comment/>
+  </data>
+  <data name="t38" xml:space="preserve">
+    <value>Fråga – Om en uppdatering hittas, fråga om du vill uppdatera</value>
+    <comment/>
+  </data>
+  <data name="t39" xml:space="preserve">
+    <value>Av – Uppdatera inte automatiskt</value>
+    <comment/>
+  </data>
+  <data name="t40" xml:space="preserve">
+    <value>Öppna mappen Namnetiketter - Du kan placera .dll-filer av namnetikettfiler här för att få dem laddade manuellt av BingusNametags++.</value>
+    <comment/>
+  </data>
+  <data name="t41" xml:space="preserve">
+    <value>Inspektera - Visa information om den här namnbricka</value>
+    <comment/>
+  </data>
+  <data name="t42" xml:space="preserve">
+    <value>Datamapp - Öppnar platsen för BingusNametags++-datamappen</value>
+    <comment/>
+  </data>
+  <data name="t43" xml:space="preserve">
+    <value>Uppdatera - Ladda om all konfiguration. Alla osparade ändringar kommer att gå förlorade!</value>
+    <comment/>
+  </data>
+  <data name="t44" xml:space="preserve">
+    <value>Verkställ - Spara den aktuella konfigurationen för namnetiketter. Sparar automatiskt!</value>
+    <comment/>
+  </data>
+  <data name="t45" xml:space="preserve">
+    <value>Detta plugin innehåller följande namntaggar</value>
+    <comment/>
+  </data>
+  <data name="t46" xml:space="preserve">
+    <value>Offset</value>
+    <comment/>
+  </data>
+  <data name="t47" xml:space="preserve">
+    <value>Återgå till fliken Plugins</value>
+    <comment/>
+  </data>
+  <data name="t48" xml:space="preserve">
+    <value>Nära</value>
+    <comment/>
+  </data>
+</root>

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+    <comment/>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sim</value>
+    <comment/>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Não</value>
+    <comment/>
+  </data>
+  <data name="t1" xml:space="preserve">
+    <value>Ocorreram erros ao carregar algumas etiquetas de nome.</value>
+    <comment/>
+  </data>
+  <data name="t2" xml:space="preserve">
+    <value>Se você for um usuário, por favor, reporte essas mensagens ao desenvolvedor da etiqueta de nome.</value>
+    <comment/>
+  </data>
+  <data name="t3" xml:space="preserve">
+    <value>Testadores Beta</value>
+    <comment/>
+  </data>
+  <data name="t4" xml:space="preserve">
+    <value>Tradutores</value>
+    <comment/>
+  </data>
+  <data name="t5" xml:space="preserve">
+    <value>Entre no Discord</value>
+    <comment/>
+  </data>
+  <data name="t6" xml:space="preserve">
+    <value>Etiqueta de identificação</value>
+    <comment/>
+  </data>
+  <data name="t7" xml:space="preserve">
+    <value>Ícones</value>
+    <comment/>
+  </data>
+  <data name="t8" xml:space="preserve">
+    <value>Rede</value>
+    <comment/>
+  </data>
+  <data name="t9" xml:space="preserve">
+    <value>Plugins</value>
+    <comment/>
+  </data>
+  <data name="t10" xml:space="preserve">
+    <value>Sobre</value>
+    <comment/>
+  </data>
+  <data name="t11" xml:space="preserve">
+    <value>Configurações de comportamento da etiqueta de identificação</value>
+    <comment/>
+  </data>
+  <data name="t12" xml:space="preserve">
+    <value>Alterar a forma como os ícones são apresentados.</value>
+    <comment/>
+  </data>
+  <data name="t13" xml:space="preserve">
+    <value>Altere a forma como seu crachá aparece para outras pessoas.</value>
+    <comment/>
+  </data>
+  <data name="t14" xml:space="preserve">
+    <value>Ativar/desativar todas as etiquetas de nome</value>
+    <comment/>
+  </data>
+  <data name="t15" xml:space="preserve">
+    <value>Sobre o BingusNametags++</value>
+    <comment/>
+  </data>
+  <data name="t16" xml:space="preserve">
+    <value>Etiquetas de identificação - Exibir etiquetas de identificação</value>
+    <comment/>
+  </data>
+  <data name="t17" xml:space="preserve">
+    <value>Primeira Pessoa - Exibir a etiqueta de identificação em realidade virtual (primeira pessoa)</value>
+    <comment/>
+  </data>
+  <data name="t18" xml:space="preserve">
+    <value>Terceira Pessoa - Exibir a etiqueta de identificação no seu PC (terceira pessoa)</value>
+    <comment/>
+  </data>
+  <data name="t19" xml:space="preserve">
+    <value>Exibir - Alterar a forma como os crachás são exibidos</value>
+    <comment/>
+  </data>
+  <data name="t20" xml:space="preserve">
+    <value>Higienizar apelidos</value>
+    <comment/>
+  </data>
+  <data name="t21" xml:space="preserve">
+    <value>Combine a cor da etiqueta de identificação.</value>
+    <comment/>
+  </data>
+  <data name="t22" xml:space="preserve">
+    <value>Tamanho - Altere o tamanho do texto da etiqueta de identificação.</value>
+    <comment/>
+  </data>
+  <data name="t23" xml:space="preserve">
+    <value>Deslocamento - Altera o deslocamento do eixo Y da etiqueta de identificação.</value>
+    <comment/>
+  </data>
+  <data name="t24" xml:space="preserve">
+    <value>Impede que nomes de usuário inválidos sejam exibidos nas etiquetas de identificação (por exemplo, espaços, palavrões, etc.). Este é o nome de usuário exibido no peito do gorila.</value>
+    <comment/>
+  </data>
+  <data name="t25" xml:space="preserve">
+    <value>Faça com que a cor da etiqueta de identificação seja a mesma da etiqueta de identificação no peito deles, permitindo o suporte para assinantes GorillaFriends e Very Important Monke.</value>
+    <comment/>
+  </data>
+  <data name="t26" xml:space="preserve">
+    <value>Ícones - Ative os ícones na etiqueta de nome.</value>
+    <comment/>
+  </data>
+  <data name="t27" xml:space="preserve">
+    <value>Ícones de usuário especiais - Exiba ícones personalizados para pessoas conhecidas, como desenvolvedores, testadores beta e tradutores.</value>
+    <comment/>
+  </data>
+  <data name="t28" xml:space="preserve">
+    <value>Ícones da plataforma - Exibe ícones que representam o ícone de um usuário.</value>
+    <comment/>
+  </data>
+  <data name="t29" xml:space="preserve">
+    <value>Etiquetas de identificação personalizadas - Personalize a aparência das etiquetas de identificação para outras pessoas.</value>
+    <comment/>
+  </data>
+  <data name="t30" xml:space="preserve">
+    <value>Ao ativar este recurso, o estilo da sua etiqueta de nome será vinculado às propriedades. As propriedades são comumente usadas em verificadores de mods para detectar quais mods você tem instalados. Crianças pequenas e muito imaturas podem importuná-lo(a) em relação às suas propriedades. Tem certeza de que deseja ativar as etiquetas de nome personalizadas?</value>
+    <comment/>
+  </data>
+  <data name="t31" xml:space="preserve">
+    <value>Código Hexadecimal - Código hexadecimal personalizado para sua etiqueta de identificação.</value>
+    <comment/>
+  </data>
+  <data name="t32" xml:space="preserve">
+    <value>Audacioso</value>
+    <comment/>
+  </data>
+  <data name="t33" xml:space="preserve">
+    <value>Itálico</value>
+    <comment/>
+  </data>
+  <data name="t34" xml:space="preserve">
+    <value>Sublinhado</value>
+    <comment/>
+  </data>
+  <data name="t35" xml:space="preserve">
+    <value>Ver outros estilos de crachás - Veja estilos de crachás personalizados para outros usuários. Isso não habilita crachás personalizados para você.</value>
+    <comment/>
+  </data>
+  <data name="t36" xml:space="preserve">
+    <value>Modo de atualização automática</value>
+    <comment/>
+  </data>
+  <data name="t37" xml:space="preserve">
+    <value>Completo - Se uma atualização for encontrada, ela será instalada automaticamente.</value>
+    <comment/>
+  </data>
+  <data name="t38" xml:space="preserve">
+    <value>Aviso - Se uma atualização for encontrada, pergunte se você deseja atualizar.</value>
+    <comment/>
+  </data>
+  <data name="t39" xml:space="preserve">
+    <value>Desativado - Não atualizar automaticamente</value>
+    <comment/>
+  </data>
+  <data name="t40" xml:space="preserve">
+    <value>Abra a pasta de etiquetas de nome - Você pode colocar aqui os arquivos .dll das etiquetas de nome para que sejam carregados manualmente pelo BingusNametags++.</value>
+    <comment/>
+  </data>
+  <data name="t41" xml:space="preserve">
+    <value>Inspecionar - Veja informações sobre esta etiqueta de identificação.</value>
+    <comment/>
+  </data>
+  <data name="t42" xml:space="preserve">
+    <value>Pasta de dados - Abre a pasta de dados do BingusNametags++.</value>
+    <comment/>
+  </data>
+  <data name="t43" xml:space="preserve">
+    <value>Atualizar - Recarregar todas as configurações. Quaisquer alterações não salvas serão perdidas!</value>
+    <comment/>
+  </data>
+  <data name="t44" xml:space="preserve">
+    <value>Aplicar - Salvar a configuração atual das etiquetas de identificação. Salvamento automático!</value>
+    <comment/>
+  </data>
+  <data name="t45" xml:space="preserve">
+    <value>Este plugin contém as seguintes etiquetas de nome:</value>
+    <comment/>
+  </data>
+  <data name="t46" xml:space="preserve">
+    <value>Desvio</value>
+    <comment/>
+  </data>
+  <data name="t47" xml:space="preserve">
+    <value>Voltar à aba Plugins</value>
+    <comment/>
+  </data>
+  <data name="t48" xml:space="preserve">
+    <value>Fechar</value>
+    <comment/>
+  </data>
+</root>

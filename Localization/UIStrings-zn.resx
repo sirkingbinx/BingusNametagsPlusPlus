@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="OK" xml:space="preserve">
+    <value>好的</value>
+    <comment/>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>是的</value>
+    <comment/>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>不</value>
+    <comment/>
+  </data>
+  <data name="t1" xml:space="preserve">
+    <value>加载部分名称标签时出错。</value>
+    <comment/>
+  </data>
+  <data name="t2" xml:space="preserve">
+    <value>如果您是用户，请将这些信息报告给名牌开发者。</value>
+    <comment/>
+  </data>
+  <data name="t3" xml:space="preserve">
+    <value>Beta 测试人员</value>
+    <comment/>
+  </data>
+  <data name="t4" xml:space="preserve">
+    <value>译者</value>
+    <comment/>
+  </data>
+  <data name="t5" xml:space="preserve">
+    <value>加入 Discord</value>
+    <comment/>
+  </data>
+  <data name="t6" xml:space="preserve">
+    <value>姓名牌</value>
+    <comment/>
+  </data>
+  <data name="t7" xml:space="preserve">
+    <value>图标</value>
+    <comment/>
+  </data>
+  <data name="t8" xml:space="preserve">
+    <value>网络</value>
+    <comment/>
+  </data>
+  <data name="t9" xml:space="preserve">
+    <value>插件</value>
+    <comment/>
+  </data>
+  <data name="t10" xml:space="preserve">
+    <value>关于</value>
+    <comment/>
+  </data>
+  <data name="t11" xml:space="preserve">
+    <value>姓名标签行为设置</value>
+    <comment/>
+  </data>
+  <data name="t12" xml:space="preserve">
+    <value>更改图标的显示方式</value>
+    <comment/>
+  </data>
+  <data name="t13" xml:space="preserve">
+    <value>改变你的名牌在其他人眼中的样子</value>
+    <comment/>
+  </data>
+  <data name="t14" xml:space="preserve">
+    <value>启用/禁用所有名称标签</value>
+    <comment/>
+  </data>
+  <data name="t15" xml:space="preserve">
+    <value>关于 BingusNametags++</value>
+    <comment/>
+  </data>
+  <data name="t16" xml:space="preserve">
+    <value>姓名牌 - 显示姓名牌</value>
+    <comment/>
+  </data>
+  <data name="t17" xml:space="preserve">
+    <value>第一人称视角 - 在虚拟现实（第一人称视角）中显示姓名标签</value>
+    <comment/>
+  </data>
+  <data name="t18" xml:space="preserve">
+    <value>第三人称视角 - 在您的电脑上显示名称标签（第三人称视角）</value>
+    <comment/>
+  </data>
+  <data name="t19" xml:space="preserve">
+    <value>显示 - 更改姓名标签的显示方式</value>
+    <comment/>
+  </data>
+  <data name="t20" xml:space="preserve">
+    <value>对昵称进行清理</value>
+    <comment/>
+  </data>
+  <data name="t21" xml:space="preserve">
+    <value>匹配姓名牌颜色</value>
+    <comment/>
+  </data>
+  <data name="t22" xml:space="preserve">
+    <value>尺寸 - 更改姓名标签文字的大小</value>
+    <comment/>
+  </data>
+  <data name="t23" xml:space="preserve">
+    <value>偏移量 - 更改铭牌的 Y 轴偏移量</value>
+    <comment/>
+  </data>
+  <data name="t24" xml:space="preserve">
+    <value>防止无效用户名（例如空格、脏话等）显示在名牌上。这是显示在猩猩胸前的用户名。</value>
+    <comment/>
+  </data>
+  <data name="t25" xml:space="preserve">
+    <value>将名牌的颜色与他们胸前的名牌颜色相同，以便支持 GorillaFriends 和 Very Important Monke 的订阅者。</value>
+    <comment/>
+  </data>
+  <data name="t26" xml:space="preserve">
+    <value>图标 - 在名称标签中启用图标</value>
+    <comment/>
+  </data>
+  <data name="t27" xml:space="preserve">
+    <value>特殊用户图标 - 显示开发者、测试人员和翻译人员等特定用户的自定义图标</value>
+    <comment/>
+  </data>
+  <data name="t28" xml:space="preserve">
+    <value>平台图标 - 显示代表用户头像的图标</value>
+    <comment/>
+  </data>
+  <data name="t29" xml:space="preserve">
+    <value>自定义姓名牌 - 自定义姓名牌对其他人的显示方式</value>
+    <comment/>
+  </data>
+  <data name="t30" xml:space="preserve">
+    <value>启用此功能后，您的名称标签样式将与属性关联。属性通常用于模组检测器，以检测您已安装的模组。 年幼且心智不成熟的儿童可能会骚扰您，侵犯您的财产。您确定要启用自定义名称标签吗？</value>
+    <comment/>
+  </data>
+  <data name="t31" xml:space="preserve">
+    <value>十六进制代码 - 自定义姓名牌的十六进制代码</value>
+    <comment/>
+  </data>
+  <data name="t32" xml:space="preserve">
+    <value>大胆的</value>
+    <comment/>
+  </data>
+  <data name="t33" xml:space="preserve">
+    <value>斜体</value>
+    <comment/>
+  </data>
+  <data name="t34" xml:space="preserve">
+    <value>下划线</value>
+    <comment/>
+  </data>
+  <data name="t35" xml:space="preserve">
+    <value>查看其他名牌样式 - 查看其他用户的自定义名牌样式。此功能不会启用您自己的自定义名牌。</value>
+    <comment/>
+  </data>
+  <data name="t36" xml:space="preserve">
+    <value>自动更新模式</value>
+    <comment/>
+  </data>
+  <data name="t37" xml:space="preserve">
+    <value>完整版 - 如果发现更新，则自动安装。</value>
+    <comment/>
+  </data>
+  <data name="t38" xml:space="preserve">
+    <value>提示 - 如果发现更新，询问您是否要更新。</value>
+    <comment/>
+  </data>
+  <data name="t39" xml:space="preserve">
+    <value>关闭 - 不自动更新</value>
+    <comment/>
+  </data>
+  <data name="t40" xml:space="preserve">
+    <value>打开 Nametags 文件夹 - 您可以将 nametag 文件的 .dll 文件放在这里，以便 BingusNametags++ 手动加载它们。</value>
+    <comment/>
+  </data>
+  <data name="t41" xml:space="preserve">
+    <value>查看 - 查看有关此名牌的信息</value>
+    <comment/>
+  </data>
+  <data name="t42" xml:space="preserve">
+    <value>数据文件夹 - 打开 BingusNametags++ 数据文件夹的位置</value>
+    <comment/>
+  </data>
+  <data name="t43" xml:space="preserve">
+    <value>刷新 - 重新加载所有配置。任何未保存的更改都将丢失！</value>
+    <comment/>
+  </data>
+  <data name="t44" xml:space="preserve">
+    <value>应用 - 保存当前名称标签配置。自动保存！</value>
+    <comment/>
+  </data>
+  <data name="t45" xml:space="preserve">
+    <value>此插件包含以下名称标签</value>
+    <comment/>
+  </data>
+  <data name="t46" xml:space="preserve">
+    <value>抵消</value>
+    <comment/>
+  </data>
+  <data name="t47" xml:space="preserve">
+    <value>返回“插件”选项卡</value>
+    <comment/>
+  </data>
+  <data name="t48" xml:space="preserve">
+    <value>关闭</value>
+    <comment/>
+  </data>
+</root>
