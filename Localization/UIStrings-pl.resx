@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--
-    Microsoft ResX Schema
-
+  <!-- 
+    Microsoft ResX Schema 
+    
     Version 2.0
-
-    The primary goals of this format is to allow a simple XML format
-    that is mostly human readable. The generation and parsing of the
-    various data types are done through the TypeConverter classes
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
     associated with the data types.
-
+    
     Example:
-
+    
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,79 +26,79 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-
-    There are any number of "resheader" rows that contain simple
+                
+    There are any number of "resheader" rows that contain simple 
     name/value pairs.
-
-    Each data row contains a name, and value. The row also contains a
-    type or mimetype. Type corresponds to a .NET class that support
-    text/value conversion through the TypeConverter architecture.
-    Classes that don't support this are serialized and stored with the
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
     mimetype set.
-
-    The mimetype is used for serialized objects, and tells the
-    ResXResourceReader how to depersist the object. This is currently not
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
     extensible. For a given mimetype the value must be set accordingly:
-
-    Note - application/x-microsoft.net.object.binary.base64 is the format
-    that the ResXResourceWriter will generate, however the reader can
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
     read any of the formats listed below.
-
+    
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-
+    
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
+    value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
+    value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -119,206 +119,155 @@
   </resheader>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
-    <comment/>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Tak</value>
-    <comment/>
   </data>
   <data name="No" xml:space="preserve">
     <value>Nie</value>
-    <comment/>
   </data>
   <data name="t1" xml:space="preserve">
     <value>Były błedy podczas ładowania nietkórych nametagów</value>
-    <comment/>
   </data>
   <data name="t2" xml:space="preserve">
     <value>Jeśli jesteś użytkownikiem, zgłos tą wiadomość do developera nametaga</value>
-    <comment/>
   </data>
   <data name="t3" xml:space="preserve">
     <value>Beta Testerzy</value>
-    <comment/>
   </data>
   <data name="t4" xml:space="preserve">
     <value>Tłumacze</value>
-    <comment/>
   </data>
   <data name="t5" xml:space="preserve">
     <value>Dołacz do Discorda</value>
-    <comment/>
   </data>
   <data name="t6" xml:space="preserve">
     <value>Nametag</value>
-    <comment/>
   </data>
   <data name="t7" xml:space="preserve">
     <value>Ikony</value>
-    <comment/>
   </data>
   <data name="t8" xml:space="preserve">
     <value>Śiec</value>
-    <comment/>
   </data>
   <data name="t9" xml:space="preserve">
     <value>Pluginy</value>
-    <comment/>
   </data>
   <data name="t10" xml:space="preserve">
     <value>Informacje</value>
-    <comment/>
   </data>
   <data name="t11" xml:space="preserve">
     <value>Zachowanie nametagów</value>
-    <comment/>
   </data>
   <data name="t12" xml:space="preserve">
     <value>Zmien jak ikony sie wyświetlaja</value>
-    <comment/>
   </data>
   <data name="t13" xml:space="preserve">
     <value>Zmien jak twoj nametag wyglada dla innych</value>
-    <comment/>
   </data>
   <data name="t14" xml:space="preserve">
     <value>Włacz/Wyłacz wszytkie nametagi</value>
-    <comment/>
   </data>
   <data name="t15" xml:space="preserve">
     <value>O BingusNametags++</value>
-    <comment/>
   </data>
   <data name="t16" xml:space="preserve">
     <value>Nametagi - Pokazuj Nametagi</value>
-    <comment/>
   </data>
   <data name="t17" xml:space="preserve">
     <value>Pierwszo osobowy - Wyświetl nametagi w VR (W goglach)</value>
-    <comment/>
   </data>
   <data name="t18" xml:space="preserve">
     <value>Trzecio osobowy - Wyswietl nametagi na PC (Monitorze)</value>
-    <comment/>
   </data>
   <data name="t19" xml:space="preserve">
-    <value>Zmien jak nametagi sie wyswietlaja</value>
-    <comment/>
+    <value>Wyświetlanie - Zmien jak nametagi sie wyswietlaja</value>
   </data>
   <data name="t20" xml:space="preserve">
     <value>Oczyszczaj nametagi</value>
-    <comment/>
   </data>
   <data name="t21" xml:space="preserve">
     <value>Dopasuj kolor nametagów</value>
-    <comment/>
   </data>
   <data name="t22" xml:space="preserve">
     <value>Wielkosc - zmien jak wielkie jest text nametaga</value>
-    <comment/>
   </data>
   <data name="t23" xml:space="preserve">
     <value>Odstep - Zmien pozycje Y odstepu nametaga</value>
-    <comment/>
   </data>
   <data name="t24" xml:space="preserve">
     <value>Zapobiegaj wyświetlaniu niedozwolonych nazw na nametagu (np. spacje, przeklenstwa, itp.) Ta nazwa jest wyswietlana na graczu.</value>
-    <comment/>
   </data>
   <data name="t25" xml:space="preserve">
     <value>Kolor nametaga ten sam jak na graczu, pozwala na wyswietlenie koloru GorillaFriends i Very Important Monek (VIM)</value>
-    <comment/>
   </data>
   <data name="t26" xml:space="preserve">
     <value>Ikony - Włacz ikony na nametagu</value>
-    <comment/>
   </data>
   <data name="t27" xml:space="preserve">
     <value>Specialne Ikony Użytkowników - Wyświetlaj ikony uzytkownikow takich jak developerow, beta testerow i tłumaczy</value>
-    <comment/>
   </data>
   <data name="t28" xml:space="preserve">
     <value>Ikony platformy - Wyświetlaj ikone użytkownika (steam, meta, oculus)</value>
-    <comment/>
   </data>
   <data name="t29" xml:space="preserve">
     <value>Własne Nametagi - Zmien jak wygladaja twoje nametagi dla innych</value>
-    <comment/>
   </data>
   <data name="t30" xml:space="preserve">
     <value>Po właczeniu tej funkcji, twoj styl nametaga bedzie udostepniony z własciwosciami, Własciwosci czesto sa uzywane w mod checkerach zeby wykryc jakie mody masz zainstalowane. Małe, bardzo nie dojrzałe dzieci moga cie nękac przez twoje własciwosci, Czy napewno chcesz właczyc własne nametagi?</value>
-    <comment/>
   </data>
   <data name="t31" xml:space="preserve">
     <value>Hex Code - Własny hex code dla twoich nametagow</value>
-    <comment/>
   </data>
   <data name="t32" xml:space="preserve">
     <value>Pogrubienie</value>
-    <comment/>
   </data>
   <data name="t33" xml:space="preserve">
     <value>Pochylenie</value>
-    <comment/>
   </data>
   <data name="t34" xml:space="preserve">
     <value>Podkreślenie</value>
-    <comment/>
   </data>
   <data name="t35" xml:space="preserve">
     <value>Wyświetlaj inne style nametagów - Wyświetlaj własne nametagi innych graczy. To nie włacza własnych nametagow dla siebie.</value>
-    <comment/>
   </data>
   <data name="t36" xml:space="preserve">
     <value>Tryb automatycznych aktualizacji</value>
-    <comment/>
   </data>
   <data name="t37" xml:space="preserve">
     <value>Wszystkie - jesli aktualizacja zostanie znaleziona, automatycznie zostanie zainstalowana</value>
-    <comment/>
   </data>
   <data name="t38" xml:space="preserve">
     <value>Pytaj - jesli aktualizacja zostanie znaleziona, zapytaj czy chcesz zaktualizowac</value>
-    <comment/>
   </data>
   <data name="t39" xml:space="preserve">
     <value>Wyłaczone - Nie pobieraj aktualizacji automatycznie</value>
-    <comment/>
   </data>
   <data name="t40" xml:space="preserve">
     <value>Otwóz folder z nametagami - Mozesz dac tam pliki .dll nametagow zeby zostaly automatycznie zaladowane przez BingusNametags++</value>
-    <comment/>
   </data>
   <data name="t41" xml:space="preserve">
     <value>Inspect - Zobacz informacje na temat tego nametaga</value>
-    <comment/>
   </data>
   <data name="t42" xml:space="preserve">
     <value>Data Folder - Otwiera folder BingusNametags++</value>
-    <comment/>
   </data>
   <data name="t43" xml:space="preserve">
     <value>Odświez - Przeładuj wszystkie konfiguracje. Jakiekolwiek nie zapisane zmiany zostana utracone!</value>
-    <comment/>
   </data>
   <data name="t44" xml:space="preserve">
     <value>Zastosuj - Zapisz konfiguracje nametagow - Automatycznie zapisuje!</value>
-    <comment/>
   </data>
   <data name="t45" xml:space="preserve">
     <value>Ten Plugin zawiera nastepujace nametagi</value>
-    <comment/>
   </data>
   <data name="t46" xml:space="preserve">
     <value>Odstęp</value>
-    <comment/>
   </data>
   <data name="t47" xml:space="preserve">
     <value>Wróc do zakladki z Pluginami</value>
-    <comment/>
   </data>
   <data name="t48" xml:space="preserve">
     <value>Zamkni</value>
-    <comment/>
   </data>
 </root>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!--
-    Microsoft ResX Schema
-
+  <!-- 
+    Microsoft ResX Schema 
+    
     Version 2.0
-
-    The primary goals of this format is to allow a simple XML format
-    that is mostly human readable. The generation and parsing of the
-    various data types are done through the TypeConverter classes
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
     associated with the data types.
-
+    
     Example:
-
+    
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,79 +26,79 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-
-    There are any number of "resheader" rows that contain simple
+                
+    There are any number of "resheader" rows that contain simple 
     name/value pairs.
-
-    Each data row contains a name, and value. The row also contains a
-    type or mimetype. Type corresponds to a .NET class that support
-    text/value conversion through the TypeConverter architecture.
-    Classes that don't support this are serialized and stored with the
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
     mimetype set.
-
-    The mimetype is used for serialized objects, and tells the
-    ResXResourceReader how to depersist the object. This is currently not
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
     extensible. For a given mimetype the value must be set accordingly:
-
-    Note - application/x-microsoft.net.object.binary.base64 is the format
-    that the ResXResourceWriter will generate, however the reader can
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
     read any of the formats listed below.
+    
+    mimetype - application/x-microsoft.net.object.binary.base64
+    value    - The object must be serialized with 
+             - System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+             - and then encoded with base64 encoding.
+    
+    mimetype - application/x-microsoft.net.object.soap.base64
+    value    - The object must be serialized with 
+             - System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+             - and then encoded with base64 encoding.
 
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
+    mimetype - application/x-microsoft.net.object.bytearray.base64
+    value    - The object must be serialized into a byte array 
+             - using a System.ComponentModel.TypeConverter
+             - and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -119,206 +119,155 @@
   </resheader>
   <data name="OK" xml:space="preserve">
     <value>DE ACUERDO</value>
-    <comment/>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Sí</value>
-    <comment/>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
-    <comment/>
   </data>
   <data name="t1" xml:space="preserve">
     <value>Se produjeron errores al cargar algunas etiquetas de nombre.</value>
-    <comment/>
   </data>
   <data name="t2" xml:space="preserve">
     <value>Si eres usuario, por favor, informa de estos mensajes al desarrollador de la etiqueta de nombre.</value>
-    <comment/>
   </data>
   <data name="t3" xml:space="preserve">
     <value>Probadores beta</value>
-    <comment/>
   </data>
   <data name="t4" xml:space="preserve">
     <value>Traductores</value>
-    <comment/>
   </data>
   <data name="t5" xml:space="preserve">
     <value>Únete a Discord</value>
-    <comment/>
   </data>
   <data name="t6" xml:space="preserve">
     <value>Etiqueta de identificación</value>
-    <comment/>
   </data>
   <data name="t7" xml:space="preserve">
     <value>Iconos</value>
-    <comment/>
   </data>
   <data name="t8" xml:space="preserve">
     <value>Red</value>
-    <comment/>
   </data>
   <data name="t9" xml:space="preserve">
     <value>Plugins</value>
-    <comment/>
   </data>
   <data name="t10" xml:space="preserve">
     <value>Acerca de</value>
-    <comment/>
   </data>
   <data name="t11" xml:space="preserve">
     <value>Configuración del comportamiento de la etiqueta de nombre</value>
-    <comment/>
   </data>
   <data name="t12" xml:space="preserve">
     <value>Cambia la forma en que se presentan los iconos.</value>
-    <comment/>
   </data>
   <data name="t13" xml:space="preserve">
     <value>Cambia el aspecto de tu gafete para que lo vean los demás.</value>
-    <comment/>
   </data>
   <data name="t14" xml:space="preserve">
     <value>Habilitar/deshabilitar todas las etiquetas de nombre</value>
-    <comment/>
   </data>
   <data name="t15" xml:space="preserve">
     <value>Acerca de BingusNametags++</value>
-    <comment/>
   </data>
   <data name="t16" xml:space="preserve">
     <value>Etiquetas de identificación - Mostrar etiquetas de identificación</value>
-    <comment/>
   </data>
   <data name="t17" xml:space="preserve">
-    <value>Primera persona: muestra la etiqueta con el nombre en realidad virtual (primera persona).</value>
-    <comment/>
+    <value>Primera persona - muestra la etiqueta con el nombre en realidad virtual (primera persona).</value>
   </data>
   <data name="t18" xml:space="preserve">
-    <value>Tercera persona: muestra la etiqueta con el nombre en tu PC (tercera persona).</value>
-    <comment/>
+    <value>Tercera persona - muestra la etiqueta con el nombre en tu PC (tercera persona).</value>
   </data>
   <data name="t19" xml:space="preserve">
-    <value>Visualización: cambia la forma en que se muestran las etiquetas de identificación.</value>
-    <comment/>
+    <value>Visualización - cambia la forma en que se muestran las etiquetas de identificación.</value>
   </data>
   <data name="t20" xml:space="preserve">
     <value>Desinfectar apodos</value>
-    <comment/>
   </data>
   <data name="t21" xml:space="preserve">
     <value>El color de la etiqueta de identificación debe coincidir.</value>
-    <comment/>
   </data>
   <data name="t22" xml:space="preserve">
-    <value>Tamaño: cambia el tamaño del texto de la etiqueta de identificación.</value>
-    <comment/>
+    <value>Tamaño - cambia el tamaño del texto de la etiqueta de identificación.</value>
   </data>
   <data name="t23" xml:space="preserve">
-    <value>Desplazamiento: cambia el desplazamiento del eje Y de la etiqueta de identificación.</value>
-    <comment/>
+    <value>Desplazamiento - cambia el desplazamiento del eje Y de la etiqueta de identificación.</value>
   </data>
   <data name="t24" xml:space="preserve">
     <value>Impide que se muestren nombres de usuario no válidos en las etiquetas de identificación (por ejemplo, espacios, palabrotas, etc.). Este es el nombre de usuario que se muestra en el pecho del gorila.</value>
-    <comment/>
   </data>
   <data name="t25" xml:space="preserve">
     <value>Que el color de la etiqueta con el nombre sea el mismo que el de la etiqueta en su pecho, lo que permitirá brindar soporte a los suscriptores de GorillaFriends y Very Important Monke.</value>
-    <comment/>
   </data>
   <data name="t26" xml:space="preserve">
-    <value>Iconos: Habilitar iconos en la etiqueta de nombre</value>
-    <comment/>
+    <value>Iconos - Habilitar iconos en la etiqueta de nombre</value>
   </data>
   <data name="t27" xml:space="preserve">
-    <value>Iconos de usuario especiales: muestra iconos personalizados para personas conocidas, como desarrolladores, probadores beta y traductores.</value>
-    <comment/>
+    <value>Iconos de usuario especiales - muestra iconos personalizados para personas conocidas, como desarrolladores, probadores beta y traductores.</value>
   </data>
   <data name="t28" xml:space="preserve">
-    <value>Iconos de la plataforma: muestra iconos que representan el icono de un usuario.</value>
-    <comment/>
+    <value>Iconos de la plataforma - muestra iconos que representan el icono de un usuario.</value>
   </data>
   <data name="t29" xml:space="preserve">
-    <value>Etiquetas de identificación personalizadas: personaliza el aspecto de las etiquetas de identificación para los demás.</value>
-    <comment/>
+    <value>Etiquetas de identificación personalizadas - personaliza el aspecto de las etiquetas de identificación para los demás.</value>
   </data>
   <data name="t30" xml:space="preserve">
     <value>Al activar esta función, el estilo de tu etiqueta de nombre se vinculará con las propiedades. Las propiedades se utilizan habitualmente en los verificadores de mods para detectar qué mods tienes instalados. Los niños pequeños e inmaduros podrían molestarte por tus propiedades. ¿Estás seguro de que quieres habilitar las etiquetas de nombre personalizadas?</value>
-    <comment/>
   </data>
   <data name="t31" xml:space="preserve">
-    <value>Código hexadecimal: código hexadecimal personalizado para tu etiqueta de identificación.</value>
-    <comment/>
+    <value>Código hexadecimal - código hexadecimal personalizado para tu etiqueta de identificación.</value>
   </data>
   <data name="t32" xml:space="preserve">
     <value>Atrevido</value>
-    <comment/>
   </data>
   <data name="t33" xml:space="preserve">
     <value>Cursiva</value>
-    <comment/>
   </data>
   <data name="t34" xml:space="preserve">
     <value>Testado</value>
-    <comment/>
   </data>
   <data name="t35" xml:space="preserve">
-    <value>Ver otros estilos de etiquetas de nombre: vea los estilos de etiquetas de nombre personalizados de otros usuarios. Esto no habilita las etiquetas de nombre personalizadas para usted.</value>
-    <comment/>
+    <value>Ver otros estilos de etiquetas de nombre - vea los estilos de etiquetas de nombre personalizados de otros usuarios. Esto no habilita las etiquetas de nombre personalizadas para usted.</value>
   </data>
   <data name="t36" xml:space="preserve">
     <value>Modo de actualización automática</value>
-    <comment/>
   </data>
   <data name="t37" xml:space="preserve">
-    <value>Completo: si se encuentra una actualización, se instalará automáticamente.</value>
-    <comment/>
+    <value>Completo - si se encuentra una actualización, se instalará automáticamente.</value>
   </data>
   <data name="t38" xml:space="preserve">
-    <value>Aviso: si se encuentra una actualización, pregunte si desea actualizar.</value>
-    <comment/>
+    <value>Aviso - si se encuentra una actualización, pregunte si desea actualizar.</value>
   </data>
   <data name="t39" xml:space="preserve">
     <value>Desactivado - No actualizar automáticamente</value>
-    <comment/>
   </data>
   <data name="t40" xml:space="preserve">
-    <value>Abrir la carpeta Nametags: aquí puede colocar los archivos .dll de las etiquetas de nombre para que BingusNametags++ los cargue manualmente.</value>
-    <comment/>
+    <value>Abrir la carpeta Nametags - aquí puede colocar los archivos .dll de las etiquetas de nombre para que BingusNametags++ los cargue manualmente.</value>
   </data>
   <data name="t41" xml:space="preserve">
     <value>Inspeccionar - Ver información sobre esta etiqueta de identificación</value>
-    <comment/>
   </data>
   <data name="t42" xml:space="preserve">
-    <value>Carpeta de datos: abre la ubicación de la carpeta de datos de BingusNametags++.</value>
-    <comment/>
+    <value>Carpeta de datos - abre la ubicación de la carpeta de datos de BingusNametags++.</value>
   </data>
   <data name="t43" xml:space="preserve">
-    <value>Actualizar: Recargar toda la configuración. ¡Se perderán todos los cambios no guardados!</value>
-    <comment/>
+    <value>Actualizar - Recargar toda la configuración. ¡Se perderán todos los cambios no guardados!</value>
   </data>
   <data name="t44" xml:space="preserve">
-    <value>Aplicar: guarda la configuración actual de las etiquetas de nombre. ¡Guardado automático!</value>
-    <comment/>
+    <value>Aplicar - guarda la configuración actual de las etiquetas de nombre. ¡Guardado automático!</value>
   </data>
   <data name="t45" xml:space="preserve">
     <value>Este complemento contiene las siguientes etiquetas de nombre</value>
-    <comment/>
   </data>
   <data name="t46" xml:space="preserve">
     <value>Compensar</value>
-    <comment/>
   </data>
   <data name="t47" xml:space="preserve">
     <value>Volver a la pestaña Complementos</value>
-    <comment/>
   </data>
   <data name="t48" xml:space="preserve">
     <value>Cerca</value>
-    <comment/>
   </data>
 </root>

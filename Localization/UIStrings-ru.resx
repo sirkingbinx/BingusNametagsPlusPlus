@@ -44,20 +44,20 @@
     that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
 
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
+    mimetype - application/x-microsoft.net.object.binary.base64
+    value    - The object must be serialized with
+             - System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+             - and then encoded with base64 encoding.
 
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
+    mimetype - application/x-microsoft.net.object.soap.base64
+    value    - The object must be serialized with
+             - System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+             - and then encoded with base64 encoding.
 
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
+    mimetype - application/x-microsoft.net.object.bytearray.base64
+    value    - The object must be serialized into a byte array
+             - using a System.ComponentModel.TypeConverter
+             - and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
@@ -194,15 +194,15 @@
     <comment/>
   </data>
   <data name="t17" xml:space="preserve">
-    <value>Вид от первого лица — отображение именной таблички в VR (от первого лица)</value>
+    <value>Вид от первого лица - отображение именной таблички в VR (от первого лица)</value>
     <comment/>
   </data>
   <data name="t18" xml:space="preserve">
-    <value>Вид от третьего лица — Отображение именной таблички на вашем ПК (вид от третьего лица)</value>
+    <value>Вид от третьего лица - Отображение именной таблички на вашем ПК (вид от третьего лица)</value>
     <comment/>
   </data>
   <data name="t19" xml:space="preserve">
-    <value>Отображение — Изменение способа отображения именных табличек</value>
+    <value>Отображение - Изменение способа отображения именных табличек</value>
     <comment/>
   </data>
   <data name="t20" xml:space="preserve">
@@ -218,7 +218,7 @@
     <comment/>
   </data>
   <data name="t23" xml:space="preserve">
-    <value>Смещение — изменение смещения по оси Y для именной таблички.</value>
+    <value>Смещение - изменение смещения по оси Y для именной таблички.</value>
     <comment/>
   </data>
   <data name="t24" xml:space="preserve">
@@ -230,19 +230,19 @@
     <comment/>
   </data>
   <data name="t26" xml:space="preserve">
-    <value>Значки — Включить значки в бейдже</value>
+    <value>Значки - Включить значки в бейдже</value>
     <comment/>
   </data>
   <data name="t27" xml:space="preserve">
-    <value>Специальные значки пользователей — отображение пользовательских значков для известных пользователей, таких как разработчики, бета-тестеры и переводчики.</value>
+    <value>Специальные значки пользователей - отображение пользовательских значков для известных пользователей, таких как разработчики, бета-тестеры и переводчики.</value>
     <comment/>
   </data>
   <data name="t28" xml:space="preserve">
-    <value>Значки платформы — отображение значков, представляющих значок пользователя.</value>
+    <value>Значки платформы - отображение значков, представляющих значок пользователя.</value>
     <comment/>
   </data>
   <data name="t29" xml:space="preserve">
-    <value>Пользовательские бейджи — настройте внешний вид бейджиков для других людей.</value>
+    <value>Пользовательские бейджи - настройте внешний вид бейджиков для других людей.</value>
     <comment/>
   </data>
   <data name="t30" xml:space="preserve">
@@ -250,7 +250,7 @@
     <comment/>
   </data>
   <data name="t31" xml:space="preserve">
-    <value>Шестнадцатеричный код — пользовательский шестнадцатеричный код для вашей именной таблички.</value>
+    <value>Шестнадцатеричный код - пользовательский шестнадцатеричный код для вашей именной таблички.</value>
     <comment/>
   </data>
   <data name="t32" xml:space="preserve">
@@ -266,7 +266,7 @@
     <comment/>
   </data>
   <data name="t35" xml:space="preserve">
-    <value>Просмотр других стилей бейджей — просмотр пользовательских стилей бейджей для других пользователей. Это не активирует создание пользовательских бейджей для вас лично.</value>
+    <value>Просмотр других стилей бейджей - просмотр пользовательских стилей бейджей для других пользователей. Это не активирует создание пользовательских бейджей для вас лично.</value>
     <comment/>
   </data>
   <data name="t36" xml:space="preserve">
@@ -274,11 +274,11 @@
     <comment/>
   </data>
   <data name="t37" xml:space="preserve">
-    <value>Полная установка — если будет найдено обновление, установить его автоматически.</value>
+    <value>Полная установка - если будет найдено обновление, установить его автоматически.</value>
     <comment/>
   </data>
   <data name="t38" xml:space="preserve">
-    <value>Подсказка — Если будет найдено обновление, спросите, хотите ли вы его обновить.</value>
+    <value>Подсказка - Если будет найдено обновление, спросите, хотите ли вы его обновить.</value>
     <comment/>
   </data>
   <data name="t39" xml:space="preserve">
@@ -286,7 +286,7 @@
     <comment/>
   </data>
   <data name="t40" xml:space="preserve">
-    <value>Откройте папку с именными бирками — вы можете поместить сюда файлы .dll с именными бирками, чтобы BingusNametags++ загрузил их вручную.</value>
+    <value>Откройте папку с именными бирками - вы можете поместить сюда файлы .dll с именными бирками, чтобы BingusNametags++ загрузил их вручную.</value>
     <comment/>
   </data>
   <data name="t41" xml:space="preserve">
@@ -294,11 +294,11 @@
     <comment/>
   </data>
   <data name="t42" xml:space="preserve">
-    <value>Папка данных — открывает расположение папки данных BingusNametags++.</value>
+    <value>Папка данных - открывает расположение папки данных BingusNametags++.</value>
     <comment/>
   </data>
   <data name="t43" xml:space="preserve">
-    <value>Обновить — перезагрузить все настройки. Все несохраненные изменения будут потеряны!</value>
+    <value>Обновить - перезагрузить все настройки. Все несохраненные изменения будут потеряны!</value>
     <comment/>
   </data>
   <data name="t44" xml:space="preserve">

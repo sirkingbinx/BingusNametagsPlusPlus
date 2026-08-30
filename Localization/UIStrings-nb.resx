@@ -44,20 +44,20 @@
     that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
 
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
+    mimetype - application/x-microsoft.net.object.binary.base64
+    value    - The object must be serialized with
+             - System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+             - and then encoded with base64 encoding.
 
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
+    mimetype - application/x-microsoft.net.object.soap.base64
+    value    - The object must be serialized with
+             - System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+             - and then encoded with base64 encoding.
 
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
+    mimetype - application/x-microsoft.net.object.bytearray.base64
+    value    - The object must be serialized into a byte array
+             - using a System.ComponentModel.TypeConverter
+             - and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
@@ -190,19 +190,19 @@
     <comment/>
   </data>
   <data name="t16" xml:space="preserve">
-    <value>Navneskilt – Vis navneskilt</value>
+    <value>Navneskilt - Vis navneskilt</value>
     <comment/>
   </data>
   <data name="t17" xml:space="preserve">
-    <value>Førsteperson – Vis navneskiltet i VR (førsteperson)</value>
+    <value>Førsteperson - Vis navneskiltet i VR (førsteperson)</value>
     <comment/>
   </data>
   <data name="t18" xml:space="preserve">
-    <value>Tredjeperson – Vis navneskiltet på PC-en din (tredjeperson)</value>
+    <value>Tredjeperson - Vis navneskiltet på PC-en din (tredjeperson)</value>
     <comment/>
   </data>
   <data name="t19" xml:space="preserve">
-    <value>Visning – Endre hvordan navneskilt vises</value>
+    <value>Visning - Endre hvordan navneskilt vises</value>
     <comment/>
   </data>
   <data name="t20" xml:space="preserve">
@@ -214,11 +214,11 @@
     <comment/>
   </data>
   <data name="t22" xml:space="preserve">
-    <value>Størrelse – Endre størrelsen på navneskiltteksten</value>
+    <value>Størrelse - Endre størrelsen på navneskiltteksten</value>
     <comment/>
   </data>
   <data name="t23" xml:space="preserve">
-    <value>Offset – Endre Y-aksens offset på navneskiltet</value>
+    <value>Offset - Endre Y-aksens offset på navneskiltet</value>
     <comment/>
   </data>
   <data name="t24" xml:space="preserve">
@@ -230,19 +230,19 @@
     <comment/>
   </data>
   <data name="t26" xml:space="preserve">
-    <value>Ikoner – Aktiver ikoner i navneskiltet</value>
+    <value>Ikoner - Aktiver ikoner i navneskiltet</value>
     <comment/>
   </data>
   <data name="t27" xml:space="preserve">
-    <value>Spesielle brukerikoner – Vis tilpassede ikoner for kjente personer som utviklere, betatestere og oversettere</value>
+    <value>Spesielle brukerikoner - Vis tilpassede ikoner for kjente personer som utviklere, betatestere og oversettere</value>
     <comment/>
   </data>
   <data name="t28" xml:space="preserve">
-    <value>Plattformikoner – Viser ikoner som representerer ikonet til en bruker</value>
+    <value>Plattformikoner - Viser ikoner som representerer ikonet til en bruker</value>
     <comment/>
   </data>
   <data name="t29" xml:space="preserve">
-    <value>Tilpassede navneskilt – Tilpass hvordan navneskilt ser ut for andre</value>
+    <value>Tilpassede navneskilt - Tilpass hvordan navneskilt ser ut for andre</value>
     <comment/>
   </data>
   <data name="t30" xml:space="preserve">
@@ -250,7 +250,7 @@
     <comment/>
   </data>
   <data name="t31" xml:space="preserve">
-    <value>Heksadesimal kode – Tilpasset heksadesimal kode for navneskiltet ditt</value>
+    <value>Heksadesimal kode - Tilpasset heksadesimal kode for navneskiltet ditt</value>
     <comment/>
   </data>
   <data name="t32" xml:space="preserve">
@@ -266,7 +266,7 @@
     <comment/>
   </data>
   <data name="t35" xml:space="preserve">
-    <value>Vis andre navneskiltstiler – Vis tilpassede navneskiltstiler for andre brukere. Dette aktiverer ikke tilpassede navneskilt for deg selv.</value>
+    <value>Vis andre navneskiltstiler - Vis tilpassede navneskiltstiler for andre brukere. Dette aktiverer ikke tilpassede navneskilt for deg selv.</value>
     <comment/>
   </data>
   <data name="t36" xml:space="preserve">
@@ -274,35 +274,35 @@
     <comment/>
   </data>
   <data name="t37" xml:space="preserve">
-    <value>Full – Installer automatisk hvis en oppdatering blir funnet</value>
+    <value>Full - Installer automatisk hvis en oppdatering blir funnet</value>
     <comment/>
   </data>
   <data name="t38" xml:space="preserve">
-    <value>Spør – Hvis en oppdatering blir funnet, spør om du vil oppdatere</value>
+    <value>Spør - Hvis en oppdatering blir funnet, spør om du vil oppdatere</value>
     <comment/>
   </data>
   <data name="t39" xml:space="preserve">
-    <value>Av – Ikke oppdater automatisk</value>
+    <value>Av - Ikke oppdater automatisk</value>
     <comment/>
   </data>
   <data name="t40" xml:space="preserve">
-    <value>Åpne navneskiltmappen – Du kan plassere .dll-filer med navneskiltfiler her, slik at BingusNametags++ kan laste dem inn manuelt.</value>
+    <value>Åpne navneskiltmappen - Du kan plassere .dll-filer med navneskiltfiler her, slik at BingusNametags++ kan laste dem inn manuelt.</value>
     <comment/>
   </data>
   <data name="t41" xml:space="preserve">
-    <value>Inspiser – Vis informasjon om dette navneskiltet</value>
+    <value>Inspiser - Vis informasjon om dette navneskiltet</value>
     <comment/>
   </data>
   <data name="t42" xml:space="preserve">
-    <value>Datamappe – Åpner plasseringen til BingusNametags++-datamappen</value>
+    <value>Datamappe - Åpner plasseringen til BingusNametags++-datamappen</value>
     <comment/>
   </data>
   <data name="t43" xml:space="preserve">
-    <value>Oppdater – Last inn all konfigurasjon på nytt. Eventuelle ulagrede endringer vil gå tapt!</value>
+    <value>Oppdater - Last inn all konfigurasjon på nytt. Eventuelle ulagrede endringer vil gå tapt!</value>
     <comment/>
   </data>
   <data name="t44" xml:space="preserve">
-    <value>Bruk – Lagre gjeldende navneskiltkonfigurasjon. Lagrer automatisk!</value>
+    <value>Bruk - Lagre gjeldende navneskiltkonfigurasjon. Lagrer automatisk!</value>
     <comment/>
   </data>
   <data name="t45" xml:space="preserve">

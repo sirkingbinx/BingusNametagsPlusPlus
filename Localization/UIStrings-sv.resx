@@ -44,20 +44,20 @@
     that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
 
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
+    mimetype - application/x-microsoft.net.object.binary.base64
+    value    - The object must be serialized with
+             - System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+             - and then encoded with base64 encoding.
 
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
+    mimetype - application/x-microsoft.net.object.soap.base64
+    value    - The object must be serialized with
+             - System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+             - and then encoded with base64 encoding.
 
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
+    mimetype - application/x-microsoft.net.object.bytearray.base64
+    value    - The object must be serialized into a byte array
+             - using a System.ComponentModel.TypeConverter
+             - and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
@@ -230,19 +230,19 @@
     <comment/>
   </data>
   <data name="t26" xml:space="preserve">
-    <value>Ikoner – Aktivera ikoner i namnetiketten</value>
+    <value>Ikoner - Aktivera ikoner i namnetiketten</value>
     <comment/>
   </data>
   <data name="t27" xml:space="preserve">
-    <value>Särskilda användarikoner – Visa anpassade ikoner för kända personer som utvecklare, betatestare och översättare</value>
+    <value>Särskilda användarikoner - Visa anpassade ikoner för kända personer som utvecklare, betatestare och översättare</value>
     <comment/>
   </data>
   <data name="t28" xml:space="preserve">
-    <value>Plattformsikoner – Visar ikoner som representerar en användares ikon</value>
+    <value>Plattformsikoner - Visar ikoner som representerar en användares ikon</value>
     <comment/>
   </data>
   <data name="t29" xml:space="preserve">
-    <value>Anpassade namnskyltar – Anpassa hur namnskyltar ser ut för andra</value>
+    <value>Anpassade namnskyltar - Anpassa hur namnskyltar ser ut för andra</value>
     <comment/>
   </data>
   <data name="t30" xml:space="preserve">
@@ -266,7 +266,7 @@
     <comment/>
   </data>
   <data name="t35" xml:space="preserve">
-    <value>Visa andra namntaggstilar – Visa anpassade namntaggstilar för andra användare. Detta aktiverar inte anpassade namntaggar för dig själv.</value>
+    <value>Visa andra namntaggstilar - Visa anpassade namntaggstilar för andra användare. Detta aktiverar inte anpassade namntaggar för dig själv.</value>
     <comment/>
   </data>
   <data name="t36" xml:space="preserve">
@@ -278,11 +278,11 @@
     <comment/>
   </data>
   <data name="t38" xml:space="preserve">
-    <value>Fråga – Om en uppdatering hittas, fråga om du vill uppdatera</value>
+    <value>Fråga - Om en uppdatering hittas, fråga om du vill uppdatera</value>
     <comment/>
   </data>
   <data name="t39" xml:space="preserve">
-    <value>Av – Uppdatera inte automatiskt</value>
+    <value>Av - Uppdatera inte automatiskt</value>
     <comment/>
   </data>
   <data name="t40" xml:space="preserve">
