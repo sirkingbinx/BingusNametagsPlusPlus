@@ -20,8 +20,9 @@ namespace BingusNametagsPlusPlus.Interfaces
         {
             var allowedToShowNametags = Config.Current.Nametags && Main.PluginEnabled;
 
-            foreach (var pair in Metadata.Nametags)
+            for (int i = 0; i < Metadata.Nametags.Count; i++)
             {
+                var pair = Metadata.Nametags.ElementAt(i);
                 var nametags = pair.Key.Nametags;
 
                 if (!allowedToShowNametags && nametags.Count != 0)
@@ -57,7 +58,6 @@ namespace BingusNametagsPlusPlus.Interfaces
                     }
                 }
             }
-
         }
     }
 }
