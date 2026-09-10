@@ -75,7 +75,6 @@ public static class API
     /// <returns>The Platform enum of rig.</returns>
     public static Platform GetPlatform(VRRig rig)
     {
-        var cosmetics = rig._playerOwnedCosmetics.Select(n => n.ToLower()).ToList();
         var platform = Platform.Unknown;
         
         if (!rig.InitializedCosmetics)
@@ -87,9 +86,26 @@ public static class API
         if (_cachedPlatforms.TryGetValue(rig.Creator.UserId, out var cachedPlatform))
             return cachedPlatform;
 
-        var properties = rig.Creator.GetPlayerRef().CustomProperties.Count;
+        var properties = rig.Creator.GetPlayerRef().CustomProperties;
+        var cosmetics = rig._playerOwnedCosmetics.Select(n => n.ToLower()).ToList();
 
-        if (rig.currentRankedSubTierPC > 0 || properties > 1)
+        // Why did Gorilla Tag network this? No clue.
+        // Yes, it's real. Check player properties
+        if (properties["platform"] is string platformString)
+        {
+            if (platformString.ToLower() == "steam")
+                platform = Platform.SteamVR;
+            else if (platformString.ToLower() == "pc")
+                platform = Platform.OculusRift;
+            else if (platformString.ToLower() == "quest")
+                platform = Platform.Quest;
+            else
+                platform = Platform.PCBasedPlatform;
+            
+            goto end;
+        }
+
+        if (rig.currentRankedSubTierPC > 0 || properties.Count > 1)
             platform = Platform.PCBasedPlatform;
 
         if (rig.currentRankedSubTierQuest > 0)
