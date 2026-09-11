@@ -90,9 +90,10 @@ public static class API
         var cosmetics = rig._playerOwnedCosmetics.Select(n => n.ToLower()).ToList();
 
         // Why did Gorilla Tag network this? No clue.
-        // Yes, it's real. Check player properties
+        // Yes, it's real. Check player properties.
         if (properties["platform"] is string platformString)
         {
+            // 99% of games will use this code. Look at this part first
             if (platformString.ToLower() == "steam")
                 platform = Platform.SteamVR;
             else if (platformString.ToLower() == "pc")
@@ -105,6 +106,7 @@ public static class API
             goto end;
         }
 
+        // We still leave the old system here for a fallback
         if (rig.currentRankedSubTierPC > 0 || properties.Count > 1)
             platform = Platform.PCBasedPlatform;
 
