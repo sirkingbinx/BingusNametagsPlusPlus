@@ -13,7 +13,6 @@ public class DefaultNametag : IBaseNametag
     [BingusNametagsNametag("Default", 0f)]
     public static void UpdateDefaultNametag(PlayerNametag nametag)
     {
-
         if (Config.Current.GFriendsIntegration && nametag.Owner.playerText1.color != Color.white)
         {
             // this is just smarter way to add GFriends integration
