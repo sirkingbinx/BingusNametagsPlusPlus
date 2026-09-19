@@ -19,7 +19,7 @@ jobs:
         uses: NuGet/setup-nuget@v1
 
       - name: Setup Gorilla Tag
-        uses: sirkingbinx/setup-gorilla-tag@v1.0.0
+        uses: sirkingbinx/setup-gorilla-tag@1.0.0
 
       - name: Build Solution
         run: |
