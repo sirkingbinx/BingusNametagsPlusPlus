@@ -22,6 +22,4 @@ jobs:
         uses: sirkingbinx/setup-gorilla-tag@1.0.0
 
       - name: Build Solution
-        run: |
-          dotnet build -c Debug
-          dotnet build -c Release
+        run: dotnet build -c Debug
