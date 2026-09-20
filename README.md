@@ -3,7 +3,7 @@
 >
 > Please only file bug reports on GitHub if they are existing on the master branch.
 
-# BingusNametags++ [![](https://dcbadge.limes.pink/api/server/https://discord.gg/TYvMnt9KtC)](https://discord.gg/TYvMnt9KtC)
+# BingusNametags++ [![](https://dcbadge.limes.pink/api/server/https://discord.gg/qnrZE97kcj)](https://discord.gg/qnrZE97kcj)
 
 BingusNametags++ is a simple, clean, but customizable nametag mod for Gorilla Tag. You can customize it to your needs with a very cool featureset:
 
