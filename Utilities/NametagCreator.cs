@@ -9,28 +9,25 @@ namespace BingusNametagsPlusPlus.Utilities;
 
 public static class NametagCreator
 {
-	private static GameObject CreateNametag(VRRig owner, string layer)
-	{
-		var parent = owner.transform.Find("Body") ?? owner.transform;
-		var tagObject = Object.Instantiate(Main.NametagDefault, parent, false);
+    private static GameObject CreateNametag(VRRig owner)
+    {
+        var parent = owner.transform.Find("Body") ?? owner.transform;
+        var tagObject = Object.Instantiate(Main.NametagDefault, parent, false);
 
-		tagObject?.transform.localPosition = new Vector3(0f, Config.Current.Offset, 0f);
-		tagObject?.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+        tagObject?.transform.localPosition = new Vector3(0f, Config.Current.Offset, 0f);
+        tagObject?.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
-		tagObject?.layer = LayerMask.NameToLayer(layer);
-
-        var cf = tagObject?.AddComponent<CameraFollower>();
-		cf?.lookingAtThirdPerson = (layer == "MirrorOnly");
+        tagObject?.AddComponent<CameraFollower>();
 
         var tmPro = tagObject?.GetComponent<TextMeshPro>();
-		tmPro?.text = "...";
+        tmPro?.text = "...";
 
-		if (Config.Current.CustomFont is TMP_FontAsset f)
-			tmPro?.font = f;
+        if (Config.Current.CustomFont is TMP_FontAsset f)
+            tmPro?.font = f;
 
         return tagObject ?? throw new Exception("Missing AB");
-	}
+    }
 
-	public static PlayerNametag CreateNametagObject(VRRig owner) =>
-		new PlayerNametag(owner, CreateNametag(owner, "FirstPersonOnly"), CreateNametag(owner, "MirrorOnly"));
+    public static PlayerNametag CreateNametagObject(VRRig owner) =>
+        new PlayerNametag(owner, CreateNametag(owner));
 }

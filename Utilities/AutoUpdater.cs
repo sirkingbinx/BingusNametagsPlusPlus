@@ -5,6 +5,9 @@ using System.Reflection;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
+#pragma warning disable CS8600
+#pragma warning disable CS8602
+
 namespace BingusNametagsPlusPlus.Utilities;
 
 public static class AutoUpdater
@@ -15,28 +18,43 @@ public static class AutoUpdater
     private const string updateUrl = "https://updmgmt.sirkingbinx.dev/BingusNametagsPlusPlus";
     private static string? downloadUrl;
 
+    public static (string, string) GetVersionData()
+    {
+        httpClient.DefaultRequestHeaders.Add("User-Agent", $"BingusNametags++/{Constants.Version} (.NET CLR {Environment.Version})");
+
+        try
+        {
+            var versionData = JObject.Parse(httpClient.GetStringAsync(updateUrl).Result);
+
+            var latestVersion = (string)versionData["version"];
+            downloadUrl = (string)versionData["url"];
+
+            LogManager.LogLine("[AutoUpdater] Latest version: " + latestVersion + ", available at \"" + downloadUrl + "\".");
+
+            return (latestVersion.ToString() ?? "0.0.0", downloadUrl ?? "");
+        }
+        catch (Exception ex)
+        {
+            LogManager.Log($"Auto-update failed ({ex.GetType().Name}): {ex.Message}");
+            LogManager.LogException(ex);
+        }
+
+        return ("", "");
+    }
+
     public static void Invoke()
     {
-        httpClient.DefaultRequestHeaders.Add("User-Agent", $"BingusNametags++/{Constants.Version} (.NET CLR {Environment.Version})"); 
-        
         if (Config.Current.AutoUpdateMode == 2)
             return;
 
         try
         {
+            var (latestVersion, downloadUrl) = GetVersionData();
             var currentVersion = new Version(Constants.Version);
-            var versionData = JObject.Parse(httpClient.GetStringAsync(updateUrl).Result);
-
-#pragma warning disable CS8600
-#pragma warning disable CS8602
-            var latestVersion = new Version((string)versionData["version"]);
-            downloadUrl = (string)versionData["url"];
-#pragma warning restore CS8602
-#pragma warning restore CS8600
 
             LogManager.LogLine("[AutoUpdater] Latest version: " + latestVersion + ", available at \"" + downloadUrl + "\".");
  
-            if (currentVersion < latestVersion)
+            if (currentVersion < new Version(latestVersion))
             {
                 if (Config.Current.AutoUpdateMode == 0)
                     Update("Update");

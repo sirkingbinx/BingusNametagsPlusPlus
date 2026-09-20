@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using BingusNametagsPlusPlus.Attributes;
+﻿using BingusNametagsPlusPlus.Attributes;
 using BingusNametagsPlusPlus.Utilities;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -9,9 +9,9 @@ namespace BingusNametagsPlusPlus.Classes;
 /// <summary>
 /// PlayerNametag represents the nametag of a single player.
 /// </summary>
-public class PlayerNametag(VRRig player, GameObject nametag, GameObject tpNametag)
+public class PlayerNametag(VRRig player, GameObject nametag)
 {
-#region api
+    #region api
     private readonly List<string> _styles = [];
     private readonly Dictionary<string, string> _valueStyles = [];
 
@@ -36,7 +36,7 @@ public class PlayerNametag(VRRig player, GameObject nametag, GameObject tpNameta
     /// <param name="tag">The rich text tag to add.</param>
     /// /// <param name="value">The value of the tag.</param>
     public void AddStyle(string tag, string value)
-    { 
+    {
         if (_valueStyles.TryGetValue(tag, out var v) && (v == value))
             return;
 
@@ -56,9 +56,6 @@ public class PlayerNametag(VRRig player, GameObject nametag, GameObject tpNameta
 
     private string _text = "";
 
-    private TextMeshPro? fpTmp;
-    private TextMeshPro? tpTmp;
-
     /// <summary>
     /// The text of the nametag.
     /// </summary>
@@ -67,8 +64,7 @@ public class PlayerNametag(VRRig player, GameObject nametag, GameObject tpNameta
         get => _text;
         set
         {
-            fpTmp ??= nametag.GetComponent<TextMeshPro>();
-            tpTmp ??= tpNametag.GetComponent<TextMeshPro>();
+            var tmp = nametag.GetComponent<TextMeshPro>();
 
             var start = "";
             var end = "";
@@ -85,10 +81,7 @@ public class PlayerNametag(VRRig player, GameObject nametag, GameObject tpNameta
                 end += $"</{vstyle.Key}>";
             }
 
-            string text = $"{start}{value}{end}";
-
-            fpTmp.text = text;
-            tpTmp.text = text;
+            tmp.text = $"{start}{value}{end}";
 
             _text = value;
         }
@@ -115,26 +108,19 @@ public class PlayerNametag(VRRig player, GameObject nametag, GameObject tpNameta
     public TMP_SpriteAsset SpriteSheet
     {
         get => nametag.GetComponent<TextMeshPro>().spriteAsset;
-        set
-        {
-            nametag.GetComponent<TextMeshPro>().spriteAsset = value;
-            tpNametag.GetComponent<TextMeshPro>().spriteAsset = value;
-        }
+        set => nametag.GetComponent<TextMeshPro>().spriteAsset = value;
     }
-#endregion
+    #endregion
 
-#region not api
+    #region not api
     internal float PluginScale = 1f;
 
     internal void UpdateSettings(BingusNametagsPlugin plugin, BingusNametagsNametag pNametag)
     {
         if (nametag.activeSelf != Config.Current.Nametags)
-        {
             nametag.SetActive(Config.Current.Nametags);
-            tpNametag.SetActive(Config.Current.Nametags);
-        }
-        
-        if (!(nametag.activeSelf || tpNametag.activeSelf))
+
+        if (!nametag.activeSelf)
             return;
 
         float offset = Config.GetNametagOffset(plugin, pNametag);
@@ -142,19 +128,17 @@ public class PlayerNametag(VRRig player, GameObject nametag, GameObject tpNameta
         nametag.GetComponent<TextMeshPro>().fontSize = Config.Current.Scale * PluginScale;
         nametag.transform.localPosition = new Vector3(0f, Config.Current.Offset + offset, 0f);
 
-        tpNametag.GetComponent<TextMeshPro>().fontSize = Config.Current.Scale * PluginScale;
-        tpNametag.transform.localPosition = new Vector3(0f, Config.Current.Offset + offset, 0f);
-
-        if (nametag.activeSelf != Config.Current.FirstPersonEnabled)
-            nametag.SetActive(Config.Current.FirstPersonEnabled);
-        if (tpNametag.activeSelf != Config.Current.ThirdPersonEnabled)
-            tpNametag.SetActive(Config.Current.ThirdPersonEnabled);
+        if (Config.Current.FirstPersonEnabled && Config.Current.ThirdPersonEnabled)
+            nametag.layer = 0;
+        else if (Config.Current.FirstPersonEnabled && !Config.Current.ThirdPersonEnabled)
+            nametag.layer = LayerMask.NameToLayer("FirstPersonOnly");
+        else if (!Config.Current.FirstPersonEnabled && Config.Current.ThirdPersonEnabled)
+            nametag.layer = LayerMask.NameToLayer("MirrorOnly");
     }
 
     internal void Destroy()
     {
         nametag.Destroy();
-        tpNametag.Destroy();
     }
-#endregion
+    #endregion
 }
