@@ -1,0 +1,38 @@
+# To-do list
+- [ ] Rework networking
+    - [ ] Bold, italics, & underlining
+    - [ ] Custom icons (png/jpeg, resize to 32x32 and send over an event)
+- [ ] New UI
+    - [ ] Draggable window
+    - [ ] General tab
+        - [ ] Offset
+        - [ ] Scale
+        - [ ] View (FP/TP)
+    - [ ] Style
+        - [ ] Bold
+        - [ ] Italic
+        - [ ] Underline
+        - [ ] Custom color
+        - [ ] Display style on networking
+    - [ ] Plugins
+        - [ ] Plugins list
+        - [ ] Plugin editor
+            - [ ] Change offset
+            - [ ] Change scale
+        - [ ] Marketplace
+            - [ ] Backend (with endpoints)
+                - [ ] `/api/gallery`
+                - [ ] `/api/info` \<id\>
+                - [ ] `/api/download` \<id\>
+                - [ ] `/api/checksum` \<id\>
+            - [ ] Browser
+            - [ ] Install button
+            - [ ] Remove button
+            - [ ] Validity checking (SHA256)
+    - [ ] Help
+        - [ ] Language switcher (dropdown/something like that)
+        - [ ] About BingusNametags++ (display a message box with version and copyright)
+- [ ] Redo plugin system
+    - [ ] `BingusPlugin(string id, string author, string version)`
+    - [ ] `BingusNametag(float offset, float scale)`
+- [ ] Migrate a lot of code to Cardboard

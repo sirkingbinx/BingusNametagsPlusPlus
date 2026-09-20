@@ -1,4 +1,9 @@
-# BingusNametags++ [![Static Badge](https://img.shields.io/badge/chat-discord-%235865f2)](https://discord.gg/TYvMnt9KtC)
+> [!NOTE]
+> This is the development branch for BingusNametags++ 2.0.0, and many features will either be incomplete, buggy, or missing entirely.
+>
+> Please only file bug reports on GitHub if they are existing on the master branch.
+
+# BingusNametags++ [![](https://dcbadge.limes.pink/api/server/https://discord.gg/TYvMnt9KtC)](https://discord.gg/TYvMnt9KtC)
 
 BingusNametags++ is a simple, clean, but customizable nametag mod for Gorilla Tag. You can customize it to your needs with a very cool featureset:
 
