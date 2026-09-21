@@ -8,15 +8,6 @@
 		<DebugType Condition="'$(Configuration)' == 'Debug'">embedded</DebugType>
     </PropertyGroup>
 
-	<PropertyGroup>
-	    <SignAssembly>false</SignAssembly>
-	</PropertyGroup>
-	
-	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
-	    <SignAssembly>true</SignAssembly>
-	    <AssemblyOriginatorKeyFile>..\..\sirkingbinx.snk</AssemblyOriginatorKeyFile>
-	</PropertyGroup>
-
     <ItemGroup>
       <EmbeddedResource Include="Resources\nametags" />
     </ItemGroup>
@@ -82,4 +73,13 @@
             <HintPath>$(GameAssemblyPath)\UnityEngine.UI.dll</HintPath>
         </Reference>
     </ItemGroup>
+
+	<PropertyGroup>
+	    <SignAssembly>false</SignAssembly>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+	    <SignAssembly>true</SignAssembly>
+	    <AssemblyOriginatorKeyFile>..\..\sirkingbinx.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
 </Project>
