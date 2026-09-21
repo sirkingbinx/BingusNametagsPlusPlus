@@ -5,12 +5,16 @@
         <Nullable>enable</Nullable>
 
 		<!-- add debugging symbols to debug builds (build in Release config to auto-disable this) -->
-		<DebugType Condition="'$(Configuration)'=='Debug'">embedded</DebugType>
+		<DebugType Condition="'$(Configuration)' == 'Debug'">embedded</DebugType>
     </PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)'=='Release'">
-		<SignAssembly>true</SignAssembly>
-		<AssemblyOriginatorKeyFile>..\..\sirkingbinx.snk</AssemblyOriginatorKeyFile>
+	<PropertyGroup>
+	    <SignAssembly>false</SignAssembly>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+	    <SignAssembly>true</SignAssembly>
+	    <AssemblyOriginatorKeyFile>..\..\sirkingbinx.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 
     <ItemGroup>
