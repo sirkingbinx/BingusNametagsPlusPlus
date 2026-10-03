@@ -80,6 +80,6 @@
 	
 	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
 	    <SignAssembly>true</SignAssembly>
-	    <AssemblyOriginatorKeyFile>..\..\sirkingbinx.snk</AssemblyOriginatorKeyFile>
+	    <AssemblyOriginatorKeyFile>..\..\..\..\key.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 </Project>
