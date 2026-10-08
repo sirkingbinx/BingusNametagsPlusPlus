@@ -14,8 +14,7 @@ public static class AutoUpdater
 {
     private static readonly HttpClient httpClient = new();
 
-    // src: https://github.com/sirkingbinx/updatemgmt
-    private const string updateUrl = "https://updmgmt.sirkingbinx.dev/BingusNametagsPlusPlus";
+    private const string updateUrl = "https://monkeforge.org/api/v1/mods/dev.sirkingbinx.bingusnametagsplusplus/releases";
     private static string? downloadUrl;
 
     public static (string, string) GetVersionData()
@@ -26,8 +25,8 @@ public static class AutoUpdater
         {
             var versionData = JObject.Parse(httpClient.GetStringAsync(updateUrl).Result);
 
-            var latestVersion = (string)versionData["version"];
-            downloadUrl = (string)versionData["url"];
+            var latestVersion = (string)(versionData["items"][0]["version"]);
+            downloadUrl = (string)(versionData["items"][0]["downloads"][0]["url"]);
 
             LogManager.LogLine("[AutoUpdater] Latest version: " + latestVersion + ", available at \"" + downloadUrl + "\".");
 
@@ -52,8 +51,6 @@ public static class AutoUpdater
             var (latestVersion, downloadUrl) = GetVersionData();
             var currentVersion = new Version(Constants.Version);
 
-            LogManager.LogLine("[AutoUpdater] Latest version: " + latestVersion + ", available at \"" + downloadUrl + "\".");
- 
             if (currentVersion < new Version(latestVersion))
             {
                 if (Config.Current.AutoUpdateMode == 0)
