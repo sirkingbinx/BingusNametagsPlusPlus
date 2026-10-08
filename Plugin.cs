@@ -11,15 +11,6 @@ public class Plugin : BaseUnityPlugin
 {
     private void Awake()
     {
-#if RELEASE
-        if (!IntegrityCheck.TestIntegrityStrongName("0d26e2837731d963").Result)
-        {
-            ShowMessageDialog("SN integrity test failed", "Your release version of BingusNametags++ has been modified and game startup has stopped to prevent damage to your system. Please run a virus check or reinstall all mods.");
-            Environment.Exit(0);
-            return;
-        }
-#endif
-
         GameObject bingusNametagsGameObject = new GameObject("BingusNametagsPlusPlus");
         bingusNametagsGameObject.AddComponent<Main>();
         DontDestroyOnLoad(bingusNametagsGameObject);

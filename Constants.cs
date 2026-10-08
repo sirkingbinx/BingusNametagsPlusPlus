@@ -6,7 +6,7 @@ namespace BingusNametagsPlusPlus;
 public static class Constants
 {
 	public const string Name = "BingusNametags++";
-	public const string Guid = "bingus.nametagsplusplus";
+	public const string Guid = "dev.sirkingbinx.nametags";
     public const string Version = "1.7.5";
 
     public const ReleaseChannel Channel = ReleaseChannel.Stable;
