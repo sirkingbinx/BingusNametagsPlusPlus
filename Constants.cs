@@ -7,7 +7,7 @@ public static class Constants
 {
 	public const string Name = "BingusNametags++";
 	public const string Guid = "dev.sirkingbinx.nametags";
-    public const string Version = "1.7.5";
+    public const string Version = "1.7.6";
 
     public const ReleaseChannel Channel = ReleaseChannel.Stable;
 

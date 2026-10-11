@@ -51,9 +51,11 @@ public class Config
     // Misc
     public TMP_FontAsset? CustomFont;
 
-	public static void SavePrefs()
+	public static void SavePrefs(bool firstTime = false)
     {
-        Current.EnabledPlugins = string.Join(';', PluginManager.EnabledPlugins.Select(p => p.Metadata.Name));
+        if (!firstTime) 
+            Current.EnabledPlugins = string.Join(';', PluginManager.EnabledPlugins.Select(p => p.Metadata.Name));
+
         string configText = JsonConvert.SerializeObject(Current, Formatting.Indented);
         File.WriteAllText(ConfigFilePath, configText);
 	}
@@ -63,7 +65,7 @@ public class Config
         try
         {
             if (!File.Exists(ConfigFilePath))
-                SavePrefs();
+                SavePrefs(true);
 
             if (JsonConvert.DeserializeObject<Config>(File.ReadAllText(ConfigFilePath)) is Config now)
                 Current = now;
