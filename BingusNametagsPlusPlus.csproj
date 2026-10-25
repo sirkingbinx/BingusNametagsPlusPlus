@@ -8,7 +8,19 @@
 		<DebugType Condition="'$(Configuration)' == 'Debug'">embedded</DebugType>
     </PropertyGroup>
 
-    <ItemGroup>
+	<PropertyGroup Condition="'$(LoaderTarget)' == 'BepInEx5'">
+		<DefineConstants>BEPINEX5</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(LoaderTarget)' == 'BepInEx6'">
+		<DefineConstants>BEPINEX6_MONO</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(LoaderTarget)' == 'MelonLoader'">
+		<DefineConstants>MELONLOADER</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
       <EmbeddedResource Include="Resources\nametags" />
     </ItemGroup>
 
@@ -21,8 +33,14 @@
     </ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="BepInEx">
-			<HintPath>$(BepInExAssembliesPath)\BepInEx.dll</HintPath>
+		<Reference Include="BepInEx" Condition="'$(LoaderTarget)' == 'BepInEx5'">
+			<HintPath>$(DependenciesPath)\BepInEx5\BepInEx.dll</HintPath>
+		</Reference>
+		<Reference Include="BepInEx" Condition="'$(LoaderTarget)' == 'BepInEx6'">
+			<HintPath>$(DependenciesPath)\BepInEx6\BepInEx.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="MelonLoader" Condition="'$(LoaderTarget)' == 'MelonLoader'">
+			<HintPath>$(DependenciesPath)\MelonLoader\MelonLoader.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 
@@ -73,6 +91,12 @@
             <HintPath>$(GameAssemblyPath)\UnityEngine.UI.dll</HintPath>
         </Reference>
     </ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Build\Dependencies\BepInEx5\" />
+	  <Folder Include="Build\Dependencies\BepInEx6\" />
+	  <Folder Include="Build\Dependencies\MelonLoader\" />
+	</ItemGroup>
 
 	<PropertyGroup>
 	    <SignAssembly>false</SignAssembly>

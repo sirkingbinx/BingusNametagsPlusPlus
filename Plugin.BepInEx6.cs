@@ -1,7 +1,6 @@
-﻿using BepInEx;
-using SirKingBinx;
-using System;
-using System.Runtime.InteropServices;
+﻿#if BEPINEX6_MONO
+
+using BepInEx;
 using UnityEngine;
 
 namespace BingusNametagsPlusPlus;
@@ -16,3 +15,5 @@ public class Plugin : BaseUnityPlugin
         DontDestroyOnLoad(bingusNametagsGameObject);
     }
 }
+
+#endif

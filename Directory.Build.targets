@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Project>
+	<ItemGroup>
+		<TargetLoader Include="BepInEx5" />
+		<TargetLoader Include="BepInEx6" />
+		<TargetLoader Include="MelonLoader" />
+	</ItemGroup>
+
+	<Target Name="BuildAllLoaders">
+		<!-- Rebuild sequentially because the loader variants share intermediate files. -->
+		<MSBuild Projects="$(MSBuildProjectFullPath)"
+				 Targets="Rebuild"
+				 Properties="Configuration=$(Configuration);LoaderTarget=%(TargetLoader.Identity);InstallToGame=false"
+				 BuildInParallel="false"
+				 StopOnFirstFailure="true" />
+	</Target>
+	
 	<Target Name="CopyToBuild" AfterTargets="Build">
-		<Copy SourceFiles="$(TargetPath)" DestinationFiles="Build\$(MSBuildProjectName).dll"/>
-		<Message Text="$(MSBuildProjectName).dll -> Build\$(MSBuildProjectName).dll" Importance="high"/>
+		<Copy SourceFiles="$(TargetPath)" DestinationFiles="Build\$(MSBuildProjectName).$(LoaderTarget).dll"/>
+		<Message Text="$(MSBuildProjectName).dll -> Build\$(MSBuildProjectName).$(LoaderTarget).dll" Importance="high"/>
 	</Target>
 
-	<Target Name="InstallToBepInEx" AfterTargets="Build" Condition="'$(CI)' == '' And Exists('$(GamePath)\BepInEx\plugins')">
+	<Target Name="InstallToBepInEx" AfterTargets="Build" Condition="'$(InstallToGame)' != 'false' And '$(CI)' == '' And Exists('$(GamePath)\BepInEx\plugins')">
 		<Copy SourceFiles="$(TargetPath)" DestinationFiles="$(GamePath)\BepInEx\plugins\$(SolutionName)\$(MSBuildProjectName).dll"/>
 		<Message Text="$(MSBuildProjectName).dll -> BepInEx\plugins\$(SolutionName)\$(MSBuildProjectName).dll" Importance="high"/>
 	</Target>

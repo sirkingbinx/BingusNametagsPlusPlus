@@ -3,12 +3,11 @@
     <PropertyGroup>
         <!-- Path to your Gorilla Tag install dir -->
         <GamePath>C:\Program Files (x86)\Steam\steamapps\common\Gorilla Tag</GamePath>
-        <BepInExAssembliesPath>$(GamePath)\BepInEx\core</BepInExAssembliesPath>
+        <DependenciesPath>Libs\Dependencies</DependenciesPath>
         <GameAssemblyPath>$(GamePath)\Gorilla Tag_Data\Managed</GameAssemblyPath>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(CI)'=='TRUE'">
 		<GameAssemblyPath>.\Libs</GameAssemblyPath>
-		<BepInExAssemblyPath>.\Libs</BepInExAssemblyPath>
 	</PropertyGroup>
 </Project>

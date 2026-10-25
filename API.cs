@@ -145,6 +145,7 @@ public static class API
     private static readonly Dictionary<string, Badge[]> _specialBadgeIds = new()
     {
         // bingus
+        ["DEFC9810769F1F55"] = [Badge.Developer, Badge.BetaTester],
         ["844D4E0CE629D3BA"] = [Badge.Developer, Badge.BetaTester],
         // contest winners
         ["54E4FF50DA51FA1"] = [Badge.BetaTester],

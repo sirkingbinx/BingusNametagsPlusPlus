@@ -21,3 +21,9 @@ Configuration Guide: https://github.com/sirkingbinx/BingusNametagsPlusPlus/wiki/
 Hovering over config options will show a tooltip (description) so you should be able to figure out what most items do yourself.
 
 ###### This product is not affiliated with Gorilla Tag or Another Axiom LLC and is not endorsed or otherwise sponsored by Another Axiom LLC. Portions of the materials contained herein are property of Another Axiom LLC. © 2021 Another Axiom LLC.
+
+## Building
+
+Run `dotnet build BingusNametagsPlusPlus.csproj -t:BuildAllLoaders` to build BepInEx 5, BepInEx 6, and MelonLoader sequentially. Each build sets `LoaderTarget` to the corresponding loader and writes `Build/BingusNametagsPlusPlus.<LoaderTarget>.dll`.
+
+To build one loader, run `dotnet build BingusNametagsPlusPlus.csproj -p:LoaderTarget=BepInEx5` (or `BepInEx6` / `MelonLoader`). Game and loader assembly paths are configured in `Directory.Build.props`.
