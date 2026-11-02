@@ -17,3 +17,22 @@ Once you're done, you can save it to the `Localization/` folder with a name foll
 A **pull request** is a change request sent to project maintainers where the changes you want have been made and they are ready to be added to the project. Think of it as a contribution, like "hey i just did this thing, you can use it if you want."
 
 Pull requests are submitted via GitHub. Account registration is free and only requires an email.
+
+## Panel and preview strings
+New panel strings use descriptive keys (`UI.*` and `Preview.*`) in the English resource.
+Add the same keys to any language resource to translate them; missing keys fall back to
+English. Preserve format placeholders such as `{0}` in `UI.Author`. New keys are not
+split on hyphens. Legacy `t*` keys use `label - tooltip` (including spaces) where needed.
+The canvas uses a compact, draggable window starting at the top left, scrollable
+settings, and wrapping labels. The transparent nametag preview sits outside the
+window to its right and follows when the window moves; it has no surrounding labels.
+`Canvas.*` keys describe the new Nametag Studio interface. The original IMGUI
+implementation has been replaced with Unity UI objects and mouse/keyboard input.
+
+The live preview runs every enabled plugin's nametag callbacks against the local
+player in isolated TextMeshPro objects. It uses the actual font and sprite assets,
+plugin sizes, global and per-plugin offsets, and live player data. Custom default
+nametag styles are applied immediately from the editor. Plugins that require a
+remote player can fail independently; their preview shows an error while the rest
+of the stack remains available. The view expands to fit large stacks. Camera
+visibility settings apply in game, so they do not hide the editor preview.

@@ -234,7 +234,7 @@
     <comment/>
   </data>
   <data name="t27" xml:space="preserve">
-    <value>Special User Icons - Display custom icons for known people like developers, beta testers, and translators</value>
+    <value>Custom User Icons - Display icons assigned to players by the custom icon server</value>
     <comment/>
   </data>
   <data name="t28" xml:space="preserve">
@@ -320,5 +320,74 @@
   <data name="t48" xml:space="preserve">
     <value>Close</value>
     <comment/>
+  </data>
+  <data name="Preview.Title" xml:space="preserve">
+    <value>Live preview</value>
+  </data>
+  <data name="Preview.Description" xml:space="preserve">
+    <value>Your player. Every enabled nametag, rendered together.</value>
+  </data>
+  <data name="Preview.SampleName" xml:space="preserve">
+    <value>BINGUS</value>
+  </data>
+  <data name="Preview.Disabled" xml:space="preserve">
+    <value>Nametags are hidden.</value>
+  </data>
+  <data name="Preview.InvalidColor" xml:space="preserve">
+    <value>Enter a 3 or 6 digit hex color. Invalid colors preview as white.</value>
+  </data>
+  <data name="Preview.Limitations" xml:space="preserve">
+    <value>Live local player data. The view expands to fit the stack; camera visibility settings apply in game.</value>
+  </data>
+  <data name="UI.Community" xml:space="preserve">
+    <value>Join the Discord community</value>
+  </data>
+  <data name="UI.SaveHint" xml:space="preserve">
+    <value>Changes preview immediately. Apply saves your settings.</value>
+  </data>
+  <data name="UI.Author" xml:space="preserve">
+    <value>By {0}</value>
+  </data>
+  <data name="Preview.Count" xml:space="preserve">
+    <value>{0} nametags</value>
+  </data>
+  <data name="Preview.Waiting" xml:space="preserve">
+    <value>Your preview will appear when your player has loaded.</value>
+  </data>
+  <data name="Preview.Empty" xml:space="preserve">
+    <value>Enable a nametag in Plugins to start your preview.</value>
+  </data>
+  <data name="Preview.PluginError" xml:space="preserve">
+    <value>A plugin could not preview your local player. Other nametags are still shown.</value>
+  </data>
+  <data name="UI.Subtitle" xml:space="preserve">
+    <value>Make every name your own</value>
+  </data>
+  <data name="Canvas.Studio" xml:space="preserve">
+    <value>NAMETAG STUDIO</value>
+  </data>
+  <data name="Canvas.Eyebrow" xml:space="preserve">
+    <value>YOUR LOOK, DOWN TO THE DETAILS</value>
+  </data>
+  <data name="Canvas.Unsaved" xml:space="preserve">
+    <value>Unsaved changes</value>
+  </data>
+  <data name="Canvas.Saved" xml:space="preserve">
+    <value>Settings saved</value>
+  </data>
+  <data name="Canvas.Back" xml:space="preserve">
+    <value>Back to plugins</value>
+  </data>
+  <data name="Canvas.Visibility" xml:space="preserve">
+    <value>Where names appear</value>
+  </data>
+  <data name="Canvas.Placement" xml:space="preserve">
+    <value>Size &amp; placement</value>
+  </data>
+  <data name="Canvas.Details" xml:space="preserve">
+    <value>The little details</value>
+  </data>
+  <data name="Canvas.PersonalStyle" xml:space="preserve">
+    <value>Your signature style</value>
   </data>
 </root>

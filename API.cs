@@ -139,52 +139,12 @@ public static class API
     }
 
 
-    private static Dictionary<string, Badge[]> _badgeDataCache = new();
+    /// <summary>Legacy API retained for plugin compatibility. User icons are now assigned by the icon server.</summary>
+    public static Badge[] GetBadgeData(VRRig rig) => [];
 
-    //!/BADGES
-    private static readonly Dictionary<string, Badge[]> _specialBadgeIds = new()
-    {
-        // bingus
-        ["8F0787325363C9A6"] = [Badge.Developer, Badge.BetaTester],
-        // contest winners
-        ["54E4FF50DA51FA1"] = [Badge.BetaTester],
-        ["DC87370B150525E7"] = [Badge.BetaTester],
-        ["342F4ADC70815AA3"] = [Badge.BetaTester],
-        // beta testers
-        ["E678D10ECA536D58"] = [Badge.BetaTester],
-        ["846E7DD5ACEAC0D4"] = [Badge.BetaTester],
-        ["68CCDDC115FDC9FB"] = [Badge.BetaTester],
-        ["706572060708C655"] = [Badge.BetaTester],
-        ["7ADB8B7E8F60E767"] = [Badge.BetaTester],
-        ["21F6D8F675C9234"]  = [Badge.BetaTester],
-    };
+    /// <summary>Legacy compatibility hook. Server icons refresh automatically.</summary>
+    public static void ClearBadgeCache() { }
 
-    /// <summary>
-    /// Gets the badges associated with the specified userId. UserId is not case-sensitive.
-    /// </summary>
-    /// <param name="rig">The rig to get the platform of.</param>
-    public static Badge[] GetBadgeData(VRRig rig)
-    {
-        Badge[] badges = [];
-
-        if (_badgeDataCache.TryGetValue(rig.Creator.UserId, out var cachedBadges))
-            return cachedBadges;
-        
-        if (_specialBadgeIds.TryGetValue(rig.Creator.UserId, out var listBadges))
-            badges = listBadges;
-        
-        _badgeDataCache.Add(rig.Creator.UserId, badges);
-        return badges;
-    }
-
-    /// <summary>
-    /// Clears the badge cache, forcing every new badge fetch to refresh.
-    /// </summary>
-    public static void ClearBadgeCache()
-    {
-        _badgeDataCache.Clear();
-    }
-    
     /// <summary>
     /// Represents a platform of a player.
     /// </summary>

@@ -1,4 +1,4 @@
-﻿using BingusNametagsPlusPlus.Attributes;
+using BingusNametagsPlusPlus.Attributes;
 using BingusNametagsPlusPlus.Utilities;
 using System.Collections.Generic;
 using TMPro;
@@ -113,7 +113,10 @@ public class PlayerNametag(VRRig player, GameObject nametag)
     #endregion
 
     #region not api
+    internal GameObject GameObject => nametag;
+
     internal float PluginScale = 1f;
+    internal int CustomIconRevision = -1;
 
     internal void UpdateSettings(BingusNametagsPlugin plugin, BingusNametagsNametag pNametag)
     {

@@ -1,4 +1,4 @@
-﻿using BingusNametagsPlusPlus.Attributes;
+using BingusNametagsPlusPlus.Attributes;
 using BingusNametagsPlusPlus.Classes;
 using BingusNametagsPlusPlus.Interfaces;
 using BingusNametagsPlusPlus.Utilities;
@@ -30,8 +30,8 @@ public class DefaultNametag : IBaseNametag
             var italic = (bool)data["isItalic"];
             var underlined = (bool)data["isUnderlined"];
 
-            if (Config.ValidHexCode(color))
-                nametag.AddStyle("color", $"#{color}");
+            if (NametagAppearance.TryParseColor(color, out var parsedColor))
+                nametag.AddStyle("color", $"#{ColorUtility.ToHtmlStringRGB(parsedColor)}");
 
             if (bold)
                 nametag.AddStyle("b");
@@ -49,6 +49,6 @@ public class DefaultNametag : IBaseNametag
                 nametag.RemoveStyle("u");
         }
 
-        nametag.Text = API.GetDefaultNametagText(nametag.Owner);
+        nametag.Text = CustomIconService.Prefix(nametag) + API.GetDefaultNametagText(nametag.Owner);
     }
 }

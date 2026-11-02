@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -95,9 +95,10 @@ public class Main : MonoBehaviour
 
     public void Update()
     {
-        if (Keyboard.current.rightShiftKey.wasPressedThisFrame)
+        if (Keyboard.current != null && Keyboard.current.rightShiftKey.wasPressedThisFrame)
             UIManager.ShowingUI = !UIManager.ShowingUI;
 
+        CustomIconService.Tick(this);
         UpdateNametags?.Invoke();
     }
 
@@ -109,18 +110,16 @@ public class Main : MonoBehaviour
     public void OnDisable()
     {
         PluginEnabled = false;
+        UIManager.Release();
         UpdateNametags?.Invoke(); // turn yourselves off
+        CustomIconService.Release(this);
         Config.SavePrefs();
-    }
-
-    public void OnGUI()
-    {
-        UIManager.OnGUI();
     }
 
     public void LateUpdate()
     {
         NetworkingManager.SetNetworkedProperties();
+        UIManager.Tick();
     }
 
     private static T? Load<T>(string path, string name) where T : Object

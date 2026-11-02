@@ -3,508 +3,607 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using BingusNametagsPlusPlus.Attributes;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
+using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace BingusNametagsPlusPlus.Utilities;
 
-/*
- * Dear contributor:
- * I would rather kill myself then clean this code up. Please do it for me.
- * - Bingus
- */
 public static class UIManager
 {
-	private static float WindowX = 10;
-	private static float WindowY = 10;
+    public static bool ShowingUI;
+    private static GameObject? canvasObject;
+    private static GameObject? ownedEvents;
+    private static RectTransform window = null!;
+    private static RectTransform body = null!;
+    private static RawImage liveImage = null!;
+    private static Text saveStatus = null!;
+    private static readonly Vector2 WindowSize = new(552, 460);
+    private static Vector2 windowPosition = new(16, -16);
+    private const float PreviewWidth = 360;
+    private static Font font = null!;
+    private static EventSystem? previousEvents;
+    private static bool inputCaptured;
+    private static bool previousEventsEnabled;
+    private static float nextPreviewErrorLog;
+    private static Sprite? rounded;
+    private static int page;
+    private static bool rebuild;
+    private static BingusNametagsPlugin? inspected;
+    private static string? question;
+    private static List<string> answers = [];
+    private static Action<string> callback = delegate { };
+    private static readonly Color Ink = UITheme.Text;
+    private static readonly Color Quiet = UITheme.Muted;
+    private static readonly Color Blue = UITheme.Accent;
+    private static readonly Color Panel = UITheme.Panel;
 
-	private const int WindowSizeX = 420;
-	private const int WindowSizeY = 400;
+    private static string T(string key) => LocalizationManager.GetString(key);
 
-	private const float WindowPadding = 10;
-
-	public static bool ShowingUI = false;
-
-	private static int _pageSelected;
-
-	private static float _lastWavingFrameSwitch;
-	private static bool _waving = true;
-
-	private static float WindowStartX => WindowX + WindowPadding;
-	private static float WindowStartY => WindowY + WindowPadding + 50f;
-
-	private static BGWindowState WindowState = BGWindowState.Normal;
-
-	private static BingusNametagsPlugin? CurrentlyInspectedNametag;
-
-	public static void DrawNormal()
-	{
-		GUIContent[] pages =
-		[
-			new(LocalizationManager.GetString("t6"), LocalizationManager.GetString("t11")),
-			new(LocalizationManager.GetString("t7"), LocalizationManager.GetString("t12")),
-			new(LocalizationManager.GetString("t8"), LocalizationManager.GetString("t13")),
-			new(LocalizationManager.GetString("t9"), LocalizationManager.GetString("t14")),
-			new(LocalizationManager.GetString("t10"), LocalizationManager.GetString("t15"))
-		];
-
-		_pageSelected = GUI.Toolbar(new Rect(WindowX + 5, WindowY + 30, WindowSizeX - WindowPadding, 20), _pageSelected, pages.AsArray());
-
-		switch (_pageSelected)
-		{
-			case 0:
-				Config.Current.Nametags = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY, 150, 20),
-					Config.Current.Nametags,
-					new GUIContent(LocalizationManager.GetString("t16"), LocalizationManager.GetString("t16", 1))
-				);
-
-				if (Config.Current.Nametags)
-				{
-					Config.Current.FirstPersonEnabled = GUI.Toggle(
-						new Rect(WindowStartX + 70, WindowStartY + 25, 100, 20),
-						Config.Current.FirstPersonEnabled,
-						new GUIContent(LocalizationManager.GetString("t17"), LocalizationManager.GetString("t17", 1))
-					 );
-
-					Config.Current.ThirdPersonEnabled = GUI.Toggle(
-						new Rect(WindowStartX + 175, WindowStartY + 25, 100, 20),
-						Config.Current.ThirdPersonEnabled,
-						new GUIContent(LocalizationManager.GetString("t18"), LocalizationManager.GetString("t18", 1))
-					);
-
-					GUI.Label(
-						new Rect(WindowStartX, WindowStartY + 25, 70, 20),
-						new GUIContent(LocalizationManager.GetString("t19"), LocalizationManager.GetString("t19", 1))
-					);
-
-					Config.Current.Scale = GUI.HorizontalSlider(new Rect(WindowStartX + 90, WindowStartY + 50, WindowSizeX - 140, 20),
-						Config.Current.Scale, 2f, 12f);
-
-					Config.Current.Offset =
-						GUI.HorizontalSlider(new Rect(WindowStartX + 90, WindowStartY + 75, WindowSizeX - 140, 20),
-							Config.Current.Offset, 0f, 3.5f);
-
-					Config.Current.SanitizeNicknames = GUI.Toggle(
-						new Rect(WindowStartX, WindowStartY + 100, 250, 20),
-						Config.Current.SanitizeNicknames,
-						new GUIContent(LocalizationManager.GetString("t20"), LocalizationManager.GetString("t24"))
-					);
-
-					Config.Current.GFriendsIntegration = GUI.Toggle(
-						new Rect(WindowStartX, WindowStartY + 125, 300, 20),
-						Config.Current.GFriendsIntegration,
-						new GUIContent(LocalizationManager.GetString("t21"), LocalizationManager.GetString("t25"))
-					);
-
-					// Labels
-					GUI.Label(
-						new Rect(WindowStartX, WindowStartY + 45, 80, 20),
-						new GUIContent(LocalizationManager.GetString("t22"), LocalizationManager.GetString("t22", 1))
-					);
-
-					GUI.Label(new Rect(WindowStartX + WindowSizeX - 50, WindowStartY + 45, 30, 20), $"{Config.Current.Scale}");
-
-					GUI.Label(
-						new Rect(WindowStartX, WindowStartY + 70, 80, 20),
-						new GUIContent(LocalizationManager.GetString("t23"), LocalizationManager.GetString("t23", 1))
-					);
-
-					GUI.Label(new Rect(WindowStartX + WindowSizeX - 50, WindowStartY + 70, 30, 20), $"{Config.Current.Offset}");
-				}
-
-				break;
-			case 1:
-				Config.Current.Icons = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY, 250, 20),
-					Config.Current.Icons,
-					new GUIContent(LocalizationManager.GetString("t26"), LocalizationManager.GetString("t26", 1))
-				);
-
-				if (Config.Current.Icons)
-				{
-					Config.Current.UserIcons = GUI.Toggle(
-						new Rect(WindowStartX + 10, WindowStartY + 25, 250, 20),
-						Config.Current.UserIcons,
-						new GUIContent(LocalizationManager.GetString("t27"), LocalizationManager.GetString("t27", 1))
-					);
-
-					Config.Current.PlatformIcons = GUI.Toggle(
-						new Rect(WindowStartX + 10, WindowStartY + 50, 250, 20),
-						Config.Current.PlatformIcons,
-						new GUIContent(LocalizationManager.GetString("t28"), LocalizationManager.GetString("t28", 1))
-					);
-				}
-
-				break;
-			case 2:
-				var propsToggle = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY, 175, 20),
-					Config.Current.CustomNametags,
-					new GUIContent(LocalizationManager.GetString("t29"), LocalizationManager.GetString("t29", 1))
-				);
-
-				if (propsToggle != Config.Current.CustomNametags && !Config.Current.CustomNametags)
-				{
-					Ask(LocalizationManager.GetString("t30"),
-						[LocalizationManager.GetString("Yes"), LocalizationManager.GetString("No")],
-						result => Config.Current.CustomNametags = (result == LocalizationManager.GetString("Yes"))
-					);
-				} else if (propsToggle != Config.Current.CustomNametags)
-				{
-					Config.Current.CustomNametags = false;
-				}
-
-				if (Config.Current.CustomNametags)
-				{
-					Config.Current.NetworkColor = GUI.TextArea(
-						new Rect(WindowStartX + 75, WindowStartY + 25, 200, 20),
-						Config.Current.NetworkColor
-					);
-
-					GUI.Label(new Rect(WindowStartX, WindowStartY + 25, 75, 20),
-						new GUIContent(LocalizationManager.GetString("t31"), LocalizationManager.GetString("t31", 1)));
-
-					Config.Current.NetworkBold = GUI.Toggle(
-						new Rect(WindowStartX, WindowStartY + 50, 175, 20),
-						Config.Current.NetworkBold,
-						LocalizationManager.GetString("t32")
-					);
-
-					Config.Current.NetworkItalic = GUI.Toggle(
-						new Rect(WindowStartX, WindowStartY + 75, 175, 20),
-						Config.Current.NetworkItalic,
-						LocalizationManager.GetString("t33")
-					);
-
-					Config.Current.NetworkUnderline = GUI.Toggle(
-						new Rect(WindowStartX, WindowStartY + 100, 175, 20),
-						Config.Current.NetworkUnderline,
-						LocalizationManager.GetString("t34")
-					);
-				}
-
-				Config.Current.ViewOtherCustomStyles = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY + 25 + (Config.Current.CustomNametags ? 100 : 0), 175, 20),
-					Config.Current.ViewOtherCustomStyles,
-					new GUIContent(LocalizationManager.GetString("t35"), LocalizationManager.GetString("t35", 1))
-				);
-
-				GUI.Label(new Rect(WindowStartX, WindowStartY + 50 + (Config.Current.CustomNametags ? 100 : 0), WindowSizeX - WindowPadding * 2, 20),
-					LocalizationManager.GetString("t36") + ':');
-				
-				var autoUpdFull = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY + 70 + (Config.Current.CustomNametags ? 100 : 0), WindowSizeX - WindowPadding * 2, 20),
-					Config.Current.AutoUpdateMode == 0,
-					new GUIContent(LocalizationManager.GetString("t37"), LocalizationManager.GetString("t37", 1))
-				);
-
-				var autoUpdPrompt = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY + 90 + (Config.Current.CustomNametags ? 100 : 0), WindowSizeX - WindowPadding * 2, 20),
-					Config.Current.AutoUpdateMode == 1,
-					new GUIContent(LocalizationManager.GetString("t38"), LocalizationManager.GetString("t38", 1))
-				);
-
-				var autoUpdOff = GUI.Toggle(
-					new Rect(WindowStartX, WindowStartY + 110 + (Config.Current.CustomNametags ? 100 : 0), WindowSizeX - WindowPadding * 2, 20),
-					Config.Current.AutoUpdateMode == 2,
-					new GUIContent(LocalizationManager.GetString("t39"), LocalizationManager.GetString("t39", 1))
-				);
-
-				if (autoUpdFull)
-					Config.Current.AutoUpdateMode = 0;
-				if (autoUpdPrompt)
-					Config.Current.AutoUpdateMode = 1;
-				if (autoUpdOff)
-					Config.Current.AutoUpdateMode = 2;
-
-				break;
-			case 3:
-				if (GUI.Button(
-					new Rect(WindowStartX, WindowStartY, WindowSizeX - 20, 20),
-					new GUIContent(LocalizationManager.GetString("t40"), LocalizationManager.GetString("t40", 1))
-				))
-				{
-					PluginManager.OpenNametagsFolder();
-				}
-
-				var startingIndex = WindowStartY + 30;
-
-				foreach (var plugin in PluginManager.Plugins)
-				{
-					var currently = GUI.Toggle(
-						new Rect(WindowStartX, startingIndex, WindowSizeX - 120, 20),
-						plugin.Metadata.Enabled,
-						new GUIContent($"{plugin.Metadata.Name}", plugin.Metadata.Description)
-					);
-
-					if (currently != plugin.Metadata.Enabled && plugin.Metadata.Enabled)
-						PluginManager.DisablePlugin(plugin);
-					else if (currently != plugin.Metadata.Enabled)
-						PluginManager.EnablePlugin(plugin);
-
-					var inspect = GUI.Button(
-						new Rect(WindowX + WindowSizeX - 110, startingIndex, 100, 20),
-						new GUIContent(LocalizationManager.GetString("t41"), LocalizationManager.GetString("t41", 1)));
-
-					if (inspect)
-					{
-						CurrentlyInspectedNametag = plugin.Metadata;
-						WindowState = BGWindowState.Inspector;
-					}
-
-					startingIndex += 25;
-				}
-
-				break;
-			case 4:
-				GUI.Label(new Rect(WindowStartX, WindowStartY, WindowSizeX - WindowPadding * 2, 20),
-					$"BingusNametags++");
-				GUI.Label(new Rect(WindowStartX, WindowStartY + 20, WindowSizeX - WindowPadding * 2, 20),
-					$"v{Constants.Version}-{(Constants.Channel == ReleaseChannel.Stable ? "stable" : "beta")}");
-				GUI.Label(new Rect(WindowStartX, WindowStartY + 40, WindowSizeX - WindowPadding * 2, 20),
-					"(C) Copyright 2025 - 2026 Bingus/SirKingBinx / MIT License");
-
-				if (Time.time > _lastWavingFrameSwitch + 1)
-				{
-					_lastWavingFrameSwitch = Time.time;
-					_waving = !_waving;
-				}
-
-				var waveText = _waving ? "|˶˙ᵕ˙ )ﾉﾞ" : "|˶˙ᵕ˙ )_.";
-
-				GUI.Label(new Rect(WindowStartX, WindowStartY + 70, 150, 20), waveText);
-
-				GUI.TextArea(
-					new Rect(
-						WindowStartX, WindowStartY + 110,
-						WindowSizeX - (WindowPadding + 5), WindowSizeY - (WindowStartY + 130)),
-					$"""
-{LocalizationManager.GetString("t3")}:
-- Medievalz
-- Monky
-- tfsdemon
-- salty
-- Linear
-- Golden
-- Josh
-- Ariel
-- Crazykid
-- nebwella
-
-{LocalizationManager.GetString("t4")}:
-- sirkingbinx
-	
-Join the Discord:
-https://discord.gg/SYCpaKjyU6
-"""
-				);
-
-				if (GUI.Button(new Rect(WindowStartX, WindowY + WindowSizeY - 25, 150, 20),
-				  	new GUIContent(LocalizationManager.GetString("t42"), LocalizationManager.GetString("t42", 1))))
-					Process.Start(new ProcessStartInfo
-					{
-						FileName = Constants.BingusNametagsData,
-						UseShellExecute = true,
-						Verb = "open"
-					});
-
-				break;
-			default:
-				_pageSelected = 0;
-				break;
-		}
-
-		if (GUI.Button(
-			new Rect(WindowX + 5, WindowY + 5, 100, 20),
-			new GUIContent(LocalizationManager.Languages[LocalizationManager.CurrentLanguageIndex]))
-		)
-		{
-			LocalizationManager.CurrentLanguageIndex = (LocalizationManager.CurrentLanguageIndex + 1) % LocalizationManager.Languages.Length;
-			LocalizationManager.SetLanguage(LocalizationManager.CurrentLanguageIndex);
-		}
-
-		if (GUI.Button(
-			new Rect(WindowX + WindowSizeX - 190, WindowY + WindowSizeY - 25, 100, 20),
-			new GUIContent(LocalizationManager.GetString("t43"), LocalizationManager.GetString("t43", 1)))
-		)
-			Config.LoadPrefs();
-
-		if (GUI.Button(new Rect(WindowX + WindowSizeX - 80, WindowY + WindowSizeY - 25, 75, 20),
-				new GUIContent(LocalizationManager.GetString("t44"), LocalizationManager.GetString("t44", 1))))
-			Config.SavePrefs();
-
-        #region Debug Stuff
-#pragma warning disable CS0162
-        if (Constants.Channel != ReleaseChannel.Stable)
-		{
-			GUI.Label(
-				new Rect(WindowStartX, WindowY + WindowSizeY + WindowPadding, WindowSizeX - WindowPadding * 2, 20),
-				$"Plugin updates polled: {Main.UpdateNametags?.GetInvocationList().Length}"
-			);
-
-			var fps = 1.0f / Time.deltaTime;
-
-			GUI.Label(
-				new Rect(WindowStartX, WindowY + WindowSizeY + WindowPadding + 20, WindowSizeX - WindowPadding * 2, 20),
-				$"FPS: {Mathf.Floor(fps)}"
-			);
-		}
-#pragma warning restore CS0162
-        #endregion
+    private static RectTransform Rect(Transform parent, string name, float x, float y, float w, float h)
+    {
+        var go = new GameObject(name, typeof(RectTransform));
+        var rect = (RectTransform)go.transform;
+        rect.SetParent(parent, false);
+        rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0, 1);
+        rect.anchoredPosition = new Vector2(x, -y);
+        rect.sizeDelta = new Vector2(w, h);
+        return rect;
     }
 
-    private static string promptQuestion = "";
-	private static List<string> promptButtons = [ ];
-	private static Action<string> promptCallback = delegate { };
+    private static Sprite Rounded()
+    {
+        if (rounded != null)
+            return rounded;
+        var texture = new Texture2D(32, 32)
+        {
+            hideFlags = HideFlags.HideAndDontSave,
+            wrapMode = TextureWrapMode.Clamp
+        };
+        for (int y = 0; y < 32; y++)
+            for (int x = 0; x < 32; x++)
+            {
+                float dx = Mathf.Max(4 - x, x - 27, 0), dy = Mathf.Max(4 - y, y - 27, 0);
+                texture.SetPixel(x, y, new Color(1, 1, 1, Mathf.Clamp01(4.5f - Mathf.Sqrt(dx * dx + dy * dy))));
+            }
 
-	private static void DrawPrompt()
-	{
-		GUI.Label(
-			new Rect(WindowX + 10, WindowY + 30, WindowSizeX - 20, WindowSizeY - 60),
-			promptQuestion
-		);
+        texture.Apply();
+        rounded = Sprite.Create(texture, new Rect(0, 0, 32, 32), Vector2.one * 0.5f, 100, 0, SpriteMeshType.FullRect, new Vector4(5, 5, 5, 5));
+        return rounded;
+    }
 
-		var buttonIndex = 0;
+    private static Image Surface(RectTransform rect, Color color, Color? border = null)
+    {
+        var image = rect.gameObject.AddComponent<Image>();
+        image.sprite = Rounded();
+        image.type = Image.Type.Sliced;
+        image.color = color;
+        if (border.HasValue)
+        {
+            var outline = rect.gameObject.AddComponent<Outline>();
+            outline.effectColor = border.Value;
+            outline.effectDistance = new Vector2(1, -1);
+        }
 
-		foreach (var answerOption in promptButtons)
-		{
-			if (GUI.Button(new Rect(WindowStartX + (buttonIndex * 155), WindowY + WindowSizeY - 25, 150, 20), answerOption))
-			{
-				promptCallback(answerOption);
-				WindowState = BGWindowState.Normal;
-			}
+        return image;
+    }
 
-			buttonIndex++;
-		}
-	}
+    private static Text Label(Transform parent, string text, float x, float y, float w, float h, int size = 15, Color? color = null)
+    {
+        var label = Rect(parent, "Text", x, y, w, h).gameObject.AddComponent<Text>();
+        label.font = font;
+        label.text = text;
+        label.fontSize = size;
+        label.color = color ?? Ink;
+        label.raycastTarget = false;
+        label.supportRichText = false;
+        label.horizontalOverflow = HorizontalWrapMode.Wrap;
+        label.verticalOverflow = VerticalWrapMode.Truncate;
+        return label;
+    }
 
-	public static void Ask(string question, List<string> answers, Action<string> callback)
-	{
-		promptQuestion = question;
-		promptButtons = answers;
-		promptCallback = callback;
-		WindowState = BGWindowState.Prompt;
-		ShowingUI = true;
-	}
+    private static Button Button(Transform parent, string text, float x, float y, float w, float h, Action action, bool primary = false, bool selected = false)
+    {
+        var rect = Rect(parent, text, x, y, w, h);
+        var image = Surface(rect, Color.white, UITheme.InputBorder);
+        var button = rect.gameObject.AddComponent<Button>();
+        button.targetGraphic = image;
+        var colors = button.colors;
+        colors.normalColor = primary ? UITheme.Primary : selected ? UITheme.Selected : UITheme.Input;
+        colors.highlightedColor = primary ? UITheme.Hover : UITheme.Selected;
+        colors.pressedColor = UITheme.Primary;
+        colors.selectedColor = colors.normalColor;
+        colors.disabledColor = UITheme.Panel;
+        colors.fadeDuration = 0.12f;
+        button.colors = colors;
+        // Set the initial tint before the canvas is shown.
+        image.CrossFadeColor(colors.normalColor, 0, true, true);
+        button.onClick.AddListener(() => action());
+        var label = Label(rect, text, 8, 0, w - 16, h, 13, primary ? Color.white : Ink);
+        label.alignment = TextAnchor.MiddleCenter;
+        return button;
+    }
 
-	private static Vector2 scrollPosition;
+    private static RectTransform Scroll(Transform parent, float x, float y, float w, float h)
+    {
+        var viewport = Rect(parent, "Scrollable settings", x, y, w, h);
+        Surface(viewport, Panel, UITheme.Border);
+        viewport.gameObject.AddComponent<RectMask2D>();
+        var content = Rect(viewport, "Content", 0, 0, w - 12, h);
+        var scroll = viewport.gameObject.AddComponent<ScrollRect>();
+        scroll.viewport = viewport;
+        scroll.content = content;
+        scroll.horizontal = false;
+        scroll.movementType = ScrollRect.MovementType.Clamped;
+        scroll.scrollSensitivity = 32;
+        var rail = Rect(viewport, "Scroll rail", w - 7, 4, 4, h - 8);
+        var railImage = Surface(rail, UITheme.Input);
+        var handle = Rect(rail, "Scroll handle", 0, 0, 4, 36);
+        var handleImage = Surface(handle, Quiet);
+        var scrollbar = rail.gameObject.AddComponent<Scrollbar>();
+        scrollbar.targetGraphic = handleImage;
+        scrollbar.handleRect = handle;
+        scrollbar.direction = Scrollbar.Direction.BottomToTop;
+        scroll.verticalScrollbar = scrollbar;
+        return content;
+    }
 
-	public static void DrawPluginInspector()
-	{
-		if (CurrentlyInspectedNametag == null)
-		{
-			LogManager.Log("No CurrentlyInspectedNametag (uhoh) - sincerely, the UIManager");
-			WindowState = BGWindowState.Normal;
-			return;
-		}
+    private static float row;
 
-		GUILayout.BeginArea(new Rect(WindowStartX, WindowY + WindowPadding, WindowSizeX - (WindowPadding * 2), WindowSizeY - (WindowPadding * 2)));
+    private static void Heading(string text)
+    {
+        Label(body, text, 10, row, 366, 24, 15);
+        row += 28;
+    }
 
-		scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(WindowSizeX - (WindowPadding * 2)), GUILayout.Height(250));
+    private static void Note(string text, float height = 44)
+    {
+        Label(body, text, 10, row, 366, height, 13, Quiet);
+        row += height + 4;
+    }
 
-		// Metadata
-		GUILayout.Label(
-			CurrentlyInspectedNametag.Name
-		);
+    private static void Switch(string key, bool value, Action<bool> changed, Action? inspect = null)
+    {
+        var track = Rect(body, key, 10, row, inspect == null ? 366 : 266, 40);
+        Surface(track, new Color(1, 1, 1, 0));
+        var toggle = track.gameObject.AddComponent<Toggle>();
+        var title = Label(track, T(key), 0, 2, inspect == null ? 300 : 208, 36, 13, UITheme.Label);
+        title.alignment = TextAnchor.MiddleLeft;
+        var pill = Rect(track, "Switch", inspect == null ? 320 : 220, 8, 42, 24);
+        var background = Surface(pill, value ? UITheme.Switch : UITheme.InputBorder);
+        var knob = Rect(pill, "Knob", value ? 22 : 4, 4, 16, 16);
+        var knobImage = Surface(knob, Ink);
+        knobImage.raycastTarget = false;
+        toggle.targetGraphic = background;
+        toggle.SetIsOnWithoutNotify(value);
+        toggle.onValueChanged.AddListener(on =>
+        {
+            background.color = on ? UITheme.Switch : UITheme.InputBorder;
+            knob.anchoredPosition = new Vector2(on ? 22 : 4, -4);
+            changed(on);
+            Dirty();
+        });
+        if (inspect != null)
+            Button(body, T("t41"), 286, row + 4, 86, 32, inspect);
+        row += 40;
+    }
 
-		GUILayout.Label(
-			$"by {CurrentlyInspectedNametag.Author}"
-		);
+    private static void Range(string key, float value, float min, float max, Action<float> changed)
+    {
+        Label(body, T(key), 10, row, 278, 24, 13);
+        var number = Label(body, value.ToString("0.00"), 304, row, 72, 24, 13, Blue);
+        number.alignment = TextAnchor.MiddleRight;
+        var rect = Rect(body, key, 10, row + 25, 362, 24);
+        var slider = rect.gameObject.AddComponent<Slider>();
+        var background = Rect(rect, "Track", 0, 9, 362, 5);
+        Surface(background, UITheme.Border);
+        var fillArea = Rect(rect, "Fill area", 0, 9, 362, 5);
+        var fill = Rect(fillArea, "Fill", 0, 0, 362, 5);
+        Surface(fill, Blue);
+        var handleArea = Rect(rect, "Handle area", 8, 0, 346, 24);
+        var handle = Rect(handleArea, "Handle", 0, 4, 16, 16);
+        var handleImage = Surface(handle, Ink);
+        slider.fillRect = fill;
+        slider.handleRect = handle;
+        slider.targetGraphic = handleImage;
+        slider.minValue = min;
+        slider.maxValue = max;
+        slider.SetValueWithoutNotify(value);
+        slider.onValueChanged.AddListener(v =>
+        {
+            v = (float)Math.Round(v, 2);
+            number.text = v.ToString("0.00");
+            changed(v);
+            Dirty();
+        });
+        row += 58;
+    }
 
-		GUILayout.Label(
-			CurrentlyInspectedNametag.Description
-		);
+    private static void ActionRow(string key, Action action)
+    {
+        Button(body, T(key), 10, row, 362, 32, action);
+        row += 38;
+    }
 
-		GUILayout.Label(
-			LocalizationManager.GetString("t45") + ":"
-		);
+    private static void Dirty()
+    {
+        if (saveStatus != null)
+            saveStatus.text = T("Canvas.Unsaved");
+    }
 
-		foreach (var nametagMeta in CurrentlyInspectedNametag.Nametags.Keys)
-		{
-			float currentOffset = Config.GetNametagOffset(CurrentlyInspectedNametag, nametagMeta);
+    private static void Build()
+    {
+        if (canvasObject != null)
+        {
+            canvasObject.SetActive(false);
+            Object.Destroy(canvasObject);
+        }
 
-            GUILayout.Label($"- {nametagMeta.Name} ({LocalizationManager.GetString("t46")}: {currentOffset})");
-            float newOffset = GUILayout.HorizontalSlider(currentOffset, -5f, 5f);
+        font = UITheme.Font;
+        canvasObject = new GameObject("BingusNametags++ UI", typeof(RectTransform));
+        canvasObject.SetActive(false);
+        canvasObject.AddComponent<Canvas>();
+        canvasObject.AddComponent<CanvasScaler>();
+        canvasObject.AddComponent<GraphicRaycaster>();
+        Object.DontDestroyOnLoad(canvasObject);
+        var canvas = canvasObject.GetComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.sortingOrder = 31000;
+        var scaler = canvasObject.GetComponent<CanvasScaler>();
+        scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+        scaler.scaleFactor = DisplayScale;
+        if (ownedEvents == null)
+        {
+            ownedEvents = new GameObject("BingusNametags UI input");
+            ownedEvents.SetActive(false);
+            ownedEvents.AddComponent<EventSystem>();
+            ownedEvents.AddComponent<InputSystemUIInputModule>().AssignDefaultActions();
+            Object.DontDestroyOnLoad(ownedEvents);
+        }
 
-			if (currentOffset != newOffset)
-				Config.SaveNametagOffset(CurrentlyInspectedNametag, nametagMeta, MathF.Round(newOffset, 2));
-		}
+        window = Rect(canvasObject.transform, "Settings window", 0, 0, WindowSize.x, WindowSize.y);
+        window.anchoredPosition = windowPosition;
+        Surface(window, UITheme.Background, UITheme.Border);
+        var dragBar = Rect(window, "Drag window", 0, 0, WindowSize.x - 40, 36);
+        Surface(dragBar, new Color(1, 1, 1, 0));
+        dragBar.gameObject.AddComponent<WindowDragHandle>().Initialize(window, position => windowPosition = position, PreviewWidth + 12);
+        Label(dragBar, "BingusNametags", 12, 7, 120, 24, 15);
+        Label(dragBar, "++", 132, 7, 28, 24, 15, Blue);
+        Button(window, "x", 516, 6, 28, 28, () => ShowingUI = false);
+        var nav = Rect(window, "Navigation", 8, 44, 124, 362);
+        Surface(nav, Panel, UITheme.Border);
+        for (int i = 0; i < 5; i++)
+        {
+            int selected = i;
+            Button(nav, T("t" + (6 + i)), 6, 6 + 38 * i, 112, 32, () =>
+            {
+                page = selected;
+                inspected = null;
+                rebuild = true;
+            }, selected: i == page);
+        }
 
-		GUILayout.EndScrollView();
-		GUILayout.EndArea();
+        Label(nav, "v" + Constants.Version, 10, 292, 104, 20, 11, Quiet);
+        LanguageDropdown(nav);
+        Label(window, inspected?.Name ?? T("t" + (6 + page)), 146, 44, 390, 26, 20);
+        body = Scroll(window, 140, 76, 404, 330);
+        row = 10;
+        BuildSettings();
+        body.sizeDelta = new Vector2(392, Mathf.Max(row + 10, 330));
+        BuildPreview();
+        saveStatus = Label(window, "", 12, 419, 280, 34, 11, Quiet);
+        Button(window, T("t43"), 302, 418, 112, 32, () =>
+        {
+            Config.LoadPrefs();
+            LocalizationManager.SetLanguage(Config.Current.SetLanguage);
+            rebuild = true;
+        });
+        Button(window, T("t44"), 422, 418, 122, 32, () =>
+        {
+            Config.SavePrefs();
+            saveStatus.text = T("Canvas.Saved");
+        }, true);
+        if (question != null)
+            BuildPrompt();
+        rebuild = false;
+    }
 
-		if (GUI.Button(new Rect(WindowX + (WindowSizeX - 105), WindowY + WindowSizeY - 25, 100, 20),
-				new GUIContent(LocalizationManager.GetString("t48"), LocalizationManager.GetString("t47"))))
-			WindowState = BGWindowState.Normal;
-	}
+    private static void LanguageDropdown(Transform parent)
+    {
+        var rect = Rect(parent, "Language", 6, 320, 112, 32);
+        var background = Surface(rect, UITheme.Input, UITheme.InputBorder);
+        var dropdown = rect.gameObject.AddComponent<Dropdown>();
+        dropdown.targetGraphic = background;
+        var colors = dropdown.colors;
+        colors.highlightedColor = new Color(0.85f, 0.92f, 1);
+        colors.pressedColor = colors.highlightedColor;
+        colors.selectedColor = Color.white;
+        dropdown.colors = colors;
+        var caption = Label(rect, "", 8, 0, 82, 32, 13);
+        caption.alignment = TextAnchor.MiddleLeft;
+        dropdown.captionText = caption;
+        Label(rect, "▾", 92, 0, 16, 32, 13, Quiet).alignment = TextAnchor.MiddleCenter;
+        // Open above the selector so the list stays inside the window.
+        const float listHeight = 224;
+        var template = Rect(rect, "Language list", 0, -listHeight - 4, 112, listHeight);
 
-	public static void SafeDraw(Action drawingThing)
-	{
-		try
-		{
-			drawingThing();
-		}
-		catch (Exception ex)
-		{
-			ex.Report();
-			GUI.Label(
-				new Rect(WindowStartX, WindowStartY, WindowSizeX - WindowPadding * 2, WindowSizeY - WindowPadding * 2),
-				$"An error occured while drawing UI.\n\n\tSource: {drawingThing.Method.Name}\n\tMessage: {ex.Message}\n\tTrace:\n\t{ex.StackTrace}\n\noops"
-			);
-		}
-	}
-	
-	public static void OnGUI()
-	{
-        if (Keyboard.current.rightShiftKey.wasPressedThisFrame)
-            ShowingUI = !ShowingUI;
+        // Unity's default dropdown canvas sorts below this window.
+        var windowCanvas = canvasObject!.GetComponent<Canvas>();
+        var listCanvas = template.gameObject.AddComponent<Canvas>();
+        listCanvas.overrideSorting = true;
+        listCanvas.sortingLayerID = windowCanvas.sortingLayerID;
+        listCanvas.sortingOrder = windowCanvas.sortingOrder + 1;
+        template.gameObject.AddComponent<GraphicRaycaster>();
 
+        Surface(template, Panel, UITheme.Border);
+        var content = Scroll(template, 0, 0, 112, listHeight);
+        // The template content starts with a single option.
+        content.sizeDelta = new Vector2(100, 28);
+        var item = Rect(content, "Language option", 0, 0, 100, 28);
+        var itemBackground = Surface(item, UITheme.Input);
+        var toggle = item.gameObject.AddComponent<Toggle>();
+        toggle.targetGraphic = itemBackground;
+        var itemColors = toggle.colors;
+        itemColors.highlightedColor = new Color(0.8f, 0.9f, 1);
+        itemColors.pressedColor = itemColors.highlightedColor;
+        toggle.colors = itemColors;
+        var marker = Rect(item, "Selected", 0, 4, 2, 20);
+        toggle.graphic = Surface(marker, Blue);
+        var itemLabel = Label(item, "", 8, 0, 88, 28, 13);
+        itemLabel.alignment = TextAnchor.MiddleLeft;
+        dropdown.itemText = itemLabel;
+        dropdown.template = template;
+        template.gameObject.SetActive(false);
+        dropdown.AddOptions(new List<string>(LocalizationManager.Languages));
+        dropdown.SetValueWithoutNotify(LocalizationManager.CurrentLanguageIndex);
+        dropdown.onValueChanged.AddListener(index =>
+        {
+            LocalizationManager.SetLanguage(index);
+            rebuild = true;
+        });
+    }
+
+    private static void BuildSettings()
+    {
+        var c = Config.Current;
+        if (inspected != null)
+        {
+            Note(string.Format(T("UI.Author"), inspected.Author));
+            Note(inspected.Description, 92);
+            Heading(T("t45"));
+            foreach (var tag in inspected.Nametags.Keys)
+            {
+                var captured = tag;
+                Range(tag.Name, Config.GetNametagOffset(inspected, tag), -5, 5, v => Config.SaveNametagOffset(inspected!, captured, v));
+            }
+
+            ActionRow("Canvas.Back", () =>
+            {
+                inspected = null;
+                rebuild = true;
+            });
+            return;
+        }
+
+        switch (page)
+        {
+            case 0:
+                Switch("t16", c.Nametags, v => c.Nametags = v);
+                Switch("t17", c.FirstPersonEnabled, v => c.FirstPersonEnabled = v);
+                Switch("t18", c.ThirdPersonEnabled, v => c.ThirdPersonEnabled = v);
+                row += 8;
+                Heading(T("Canvas.Placement"));
+                Range("t22", c.Scale, 2, 12, v => c.Scale = v);
+                Range("t23", c.Offset, 0, 3.5f, v => c.Offset = v);
+                Switch("t20", c.SanitizeNicknames, v => c.SanitizeNicknames = v);
+                Switch("t21", c.GFriendsIntegration, v => c.GFriendsIntegration = v);
+                break;
+            case 1:
+                Switch("t26", c.Icons, v => c.Icons = v);
+                Switch("t27", c.UserIcons, v => c.UserIcons = v);
+                Switch("t28", c.PlatformIcons, v => c.PlatformIcons = v);
+                break;
+            case 2:
+                Switch("t29", c.CustomNametags, v =>
+                {
+                    if (!v)
+                    {
+                        c.CustomNametags = false;
+                        rebuild = true;
+                        return;
+                    }
+
+                    string yes = T("Yes");
+                    Ask(T("t30"), [yes, T("No")], answer =>
+                    {
+                        c.CustomNametags = answer == yes;
+                        rebuild = true;
+                    });
+                });
+                if (c.CustomNametags)
+                {
+                    Label(body, T("t31"), 10, row, 362, 24, 13);
+                    row += 26;
+                    var inputRect = Rect(body, "Hex color", 10, row, 362, 32);
+                    Surface(inputRect, UITheme.Input, UITheme.InputBorder);
+                    var input = inputRect.gameObject.AddComponent<InputField>();
+                    input.selectionColor = new Color(UITheme.Accent.r, UITheme.Accent.g, UITheme.Accent.b, 0.35f);
+                    input.textComponent = Label(inputRect, "", 8, 3, 346, 26, 13);
+                    input.text = c.NetworkColor;
+                    input.characterLimit = 7;
+                    var validation = Label(body, "", 10, row + 36, 362, 32, 12, Quiet);
+                    input.onValueChanged.AddListener(v =>
+                    {
+                        c.NetworkColor = v;
+                        validation.text = Config.ValidHexCode(v) ? "" : T("Preview.InvalidColor");
+                        Dirty();
+                    });
+                    row += 70;
+                    Switch("t32", c.NetworkBold, v => c.NetworkBold = v);
+                    Switch("t33", c.NetworkItalic, v => c.NetworkItalic = v);
+                    Switch("t34", c.NetworkUnderline, v => c.NetworkUnderline = v);
+                }
+
+                Switch("t35", c.ViewOtherCustomStyles, v => c.ViewOtherCustomStyles = v);
+                row += 8;
+                Heading(T("t36"));
+                for (int i = 0; i < 3; i++)
+                {
+                    int mode = i;
+                    Button(body, T("t" + (37 + i)), 10, row, 362, 32, () =>
+                    {
+                        c.AutoUpdateMode = mode;
+                        rebuild = true;
+                    }, selected: c.AutoUpdateMode == i);
+                    row += 38;
+                }
+
+                break;
+            case 3:
+                ActionRow("t40", PluginManager.OpenNametagsFolder);
+                foreach (var plugin in PluginManager.Plugins)
+                {
+                    var p = plugin;
+                    Switch(p.Metadata.Name, p.Metadata.Enabled, on =>
+                    {
+                        if (on)
+                            PluginManager.EnablePlugin(p);
+                        else
+                            PluginManager.DisablePlugin(p);
+                    }, () =>
+                    {
+                        inspected = p.Metadata;
+                        rebuild = true;
+                    });
+                }
+
+                break;
+            case 4:
+                Heading("BingusNametags++");
+                Note("© 2025–2026 Bingus/SirKingBinx · MIT");
+                Heading(T("t3"));
+                Note("Medievalz, Monky, tfsdemon, salty, Linear, Golden, Josh, Ariel, Crazykid, nebwella", 100);
+                Heading(T("t4"));
+                Note("sirkingbinx");
+                ActionRow("UI.Community", () => Open("https://discord.gg/SYCpaKjyU6"));
+                ActionRow("t42", () => Open(Constants.BingusNametagsData));
+                break;
+        }
+    }
+
+    private static void Open(string path) => Process.Start(new ProcessStartInfo { FileName = path, UseShellExecute = true });
+
+    private static void BuildPreview()
+    {
+        // Keep the preview outside the window.
+        var stage = Rect(window, "Rendered nametags", WindowSize.x + 12, 44, PreviewWidth, PreviewWidth * 640 / 1080);
+        liveImage = stage.gameObject.AddComponent<RawImage>();
+        liveImage.raycastTarget = false;
+        liveImage.color = Color.clear;
+    }
+
+    private static void BuildPrompt()
+    {
+        var overlay = Rect(window, "Modal backdrop", 0, 36, 552, 424);
+        Surface(overlay, new Color(0.01f, 0.02f, 0.04f, 0.94f));
+        var modal = Rect(overlay, "Confirmation", 8, 8, 536, 408);
+        Surface(modal, Panel);
+        var content = Scroll(modal, 12, 12, 512, 320);
+        var text = Label(content, question!, 10, 10, 476, 600, 15);
+        text.rectTransform.sizeDelta = new Vector2(476, text.preferredHeight + 20);
+        content.sizeDelta = new Vector2(500, Mathf.Max(320, text.preferredHeight + 30));
+        float width = 512f / Math.Max(1, answers.Count);
+        for (int i = 0; i < answers.Count; i++)
+        {
+            string answer = answers[i];
+            Button(modal, answer, 12 + i * width, 348, width - 8, 36, () =>
+            {
+                var onAnswer = callback;
+                question = null;
+                rebuild = true;
+                onAnswer(answer);
+            }, i == 0);
+        }
+    }
+
+    public static void Ask(string text, List<string> options, Action<string> onAnswer)
+    {
+        question = text;
+        answers = options;
+        callback = onAnswer;
+        ShowingUI = true;
+        rebuild = true;
+    }
+
+    public static void Tick()
+    {
         if (!ShowingUI)
-			return;
+        {
+            if (canvasObject != null)
+                canvasObject.SetActive(false);
+            RestoreInput();
+            NametagPreview.Release();
+            return;
+        }
 
-		// Window
-		GUI.Box(new Rect(WindowX, WindowY, WindowSizeX, WindowSizeY), "");
-		GUI.Label(
-			new Rect(WindowX + ((WindowSizeX / 2 - (WindowSizeX % 2)) - 75), WindowY + 5, 150, 20),
-			"BingusNametags++"
-		);
+        if (canvasObject == null || rebuild)
+            Build();
+        canvasObject!.SetActive(true);
+        canvasObject.GetComponent<CanvasScaler>().scaleFactor = DisplayScale;
+        WindowDragHandle.Clamp(window, PreviewWidth + 12);
+        windowPosition = window.anchoredPosition;
+        if (!inputCaptured)
+        {
+            previousEvents = EventSystem.current;
+            previousEventsEnabled = previousEvents != null && previousEvents.enabled;
+            if (previousEvents != null)
+                previousEvents.enabled = false;
+            inputCaptured = true;
+            ownedEvents!.SetActive(true);
+        }
 
-		switch (WindowState)
-		{
-			default:
-			case BGWindowState.Normal:
-				SafeDraw(DrawNormal);
-				break;
-			case BGWindowState.Prompt:
-				SafeDraw(DrawPrompt);
-				break;
-			case BGWindowState.Inspector:
-				SafeDraw(DrawPluginInspector);
-				break;
-		}
+        try
+        {
+            var texture = NametagPreview.Render();
+            liveImage.texture = texture;
+            liveImage.color = texture == null ? Color.clear : Color.white;
+        }
+        catch (Exception ex)
+        {
+            liveImage.color = Color.clear;
+            if (Time.unscaledTime >= nextPreviewErrorLog)
+            {
+                UnityEngine.Debug.LogException(ex);
+                nextPreviewErrorLog = Time.unscaledTime + 10;
+            }
+        }
+    }
 
-        var mousePosition = Mouse.current.position.ReadValue();
+    private static float DisplayScale => Mathf.Min(1f, Screen.width / (WindowSize.x + PreviewWidth + 44), Screen.height / (WindowSize.y + 32));
 
-		// X button
-		if (GUI.Button(new Rect(WindowX + WindowSizeX - 25, WindowY + 5, 20, 20), new GUIContent("X", LocalizationManager.GetString("t48"))))
-			ShowingUI = false;
+    private static void RestoreInput()
+    {
+        if (!inputCaptured)
+            return;
 
-		// Tooltip display
-		if (!string.IsNullOrEmpty(GUI.tooltip))
-		{
-			var actualY = Math.Abs(mousePosition.y - Screen.height);
-			GUIStyle.none.CalcMinMaxWidth(new GUIContent(GUI.tooltip), out var min, out _);
-			GUI.Box(new Rect(mousePosition.x + 10, actualY, min + 20, 25), GUI.tooltip);
-		}
+        if (ownedEvents != null)
+            ownedEvents.SetActive(false);
+        if (previousEvents != null)
+            previousEvents.enabled = previousEventsEnabled;
+        previousEvents = null;
+        inputCaptured = false;
+    }
 
-		// Reset it so the tooltip is gone when your mouse leaves an element
-		GUI.tooltip = "";
-	}
-
-	enum BGWindowState
-	{
-		Normal,
-		Prompt,
-		Inspector
-	}
+    public static void Release()
+    {
+        RestoreInput();
+        NametagPreview.Release();
+        if (canvasObject != null)
+            Object.Destroy(canvasObject);
+        if (ownedEvents != null)
+            Object.Destroy(ownedEvents);
+        canvasObject = null;
+        ownedEvents = null;
+    }
 }

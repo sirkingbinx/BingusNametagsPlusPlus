@@ -20,8 +20,8 @@
 		<DefineConstants>MELONLOADER</DefineConstants>
 	</PropertyGroup>
 
-	<ItemGroup>
-      <EmbeddedResource Include="Resources\nametags" />
+    <ItemGroup>
+        <EmbeddedResource Include="Resources\nametags" />
     </ItemGroup>
 
     <ItemGroup>
@@ -84,8 +84,17 @@
         <Reference Include="UnityEngine.IMGUIModule">
             <HintPath>$(GameAssemblyPath)\UnityEngine.IMGUIModule.dll</HintPath>
         </Reference>
+        <Reference Include="UnityEngine.ImageConversionModule">
+            <HintPath>$(GameAssemblyPath)\UnityEngine.ImageConversionModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.TextCoreFontEngineModule">
+            <HintPath>$(GameAssemblyPath)\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine.TextRenderingModule">
             <HintPath>$(GameAssemblyPath)\UnityEngine.TextRenderingModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UIModule">
+            <HintPath>$(GameAssemblyPath)\UnityEngine.UIModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UI">
             <HintPath>$(GameAssemblyPath)\UnityEngine.UI.dll</HintPath>
@@ -97,13 +106,4 @@
 	  <Folder Include="Build\Dependencies\BepInEx6\" />
 	  <Folder Include="Build\Dependencies\MelonLoader\" />
 	</ItemGroup>
-
-	<PropertyGroup>
-	    <SignAssembly>false</SignAssembly>
-	</PropertyGroup>
-	
-	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
-	    <SignAssembly>true</SignAssembly>
-	    <AssemblyOriginatorKeyFile>..\..\..\..\key.snk</AssemblyOriginatorKeyFile>
-	</PropertyGroup>
 </Project>
